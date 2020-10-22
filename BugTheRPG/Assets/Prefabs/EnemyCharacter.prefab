@@ -137,9 +137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c501bc36fdd323949b2faa65cc64095e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Enemy Type Thing
-  unitLevel: 10
+  unitName: Satan
+  unitLevel: 5000
   regDamage: 10
-  specDamage: 15
-  maxHP: 30
-  currentHP: 27
+  specDamage: 30
+  maxHP: 100
+  currentHP: 100

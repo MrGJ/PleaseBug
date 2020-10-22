@@ -13,15 +13,23 @@ public class Unit : MonoBehaviour
 
     public int maxHP;
     public int currentHP;
+    public bool dead;
 
     public bool TakeDamage(int dmg)
     {
         currentHP -= dmg;
 
         if (currentHP <= 0)
+        {
+            dead = true;
             return true;
+        }
         else
+        {
+            dead = false;
             return false;
+        }
+            
     }
 
 }
