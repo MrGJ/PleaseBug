@@ -52,7 +52,7 @@ public class BattleSystem : MonoBehaviour
     bool twoDead;
     bool threeDead;
     bool fourDead;
-    int deadCheck = 0;
+    public int deadCheck = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -95,6 +95,7 @@ public class BattleSystem : MonoBehaviour
         PartyPhaseBegin();
     }
 
+    //Starts Action Choices
     void PartyPhaseBegin()
     {
         actionPanel.SetActive(true);
@@ -562,59 +563,210 @@ public class BattleSystem : MonoBehaviour
 
     void AttackTargetingBasic()
     {
-        if (deadCheck == 3)
+        if (deadCheck == 0)
         {
-            if (partyTwoUnit.dead && partyThreeUnit.dead && partyFourUnit.dead)
-            {
-                Debug.Log("All but Party One are dead");
-                StartCoroutine(EnemySpecial(partyOneUnit, pOneHUD));
-            }
-            else if (partyOneUnit.dead && partyFourUnit.dead && partyFourUnit.dead)
-            {
-                Debug.Log("All but Party Two are dead");
-                StartCoroutine(EnemySpecial(partyTwoUnit, pTwoHUD));
-            }
-            else if (partyOneUnit.dead && partyTwoUnit.dead && partyFourUnit.dead)
-            {
-                Debug.Log("All but Party Three are dead");
-                StartCoroutine(EnemySpecial(partyThreeUnit, pThreeHUD));
-            }
-            else if (partyOneUnit.dead && partyTwoUnit.dead && partyThreeUnit.dead)
-            {
-                Debug.Log("All but Party Four are dead");
-                StartCoroutine(EnemySpecial(partyFourUnit, pFourHUD));
-            }
+            AttackZeroDead();
+        }
+        else if (deadCheck == 1)
+        {
+            AttackOneDead();
         }
         else if (deadCheck == 2)
         {
-            if (partyTwoUnit.dead && partyThreeUnit.dead && partyFourUnit.dead)
-            {
-                if (partyOneUnit.currentHP == Mathf.Max(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
-                {
-                    
-                }
-            }
-            else if (partyOneUnit.dead && partyFourUnit.dead && partyFourUnit.dead)
-            {
-                Debug.Log("All but Party Two are dead");
-                StartCoroutine(EnemySpecial(partyTwoUnit, pTwoHUD));
-            }
-            else if (partyOneUnit.dead && partyTwoUnit.dead && partyFourUnit.dead)
-            {
-                Debug.Log("All but Party Three are dead");
-                StartCoroutine(EnemySpecial(partyThreeUnit, pThreeHUD));
-            }
-            else if (partyOneUnit.dead && partyTwoUnit.dead && partyThreeUnit.dead)
-            {
-                Debug.Log("All but Party Four are dead");
-                StartCoroutine(EnemySpecial(partyFourUnit, pFourHUD));
-            }
+            AttackTwoDead();
+        }
+        else if (deadCheck == 3)
+        {
+            AttackThreeDead();
         }
     }
 
-
+    void AttackZeroDead()
+    {
+        if (partyOneUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+        {
+            StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+        }
+        else if (partyTwoUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+        {
+            StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+        }
+        else if (partyThreeUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+        {
+            StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+        }
+        else if (partyFourUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+        {
+            StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+        }
+    }
+    void AttackOneDead()
+    {
+        if (partyOneUnit.dead)
+        {
+            Debug.Log("Party One is dead");
+            if (partyTwoUnit.currentHP == Mathf.Min(partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+            }
+            else if (partyThreeUnit.currentHP == Mathf.Min(partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+            }
+            else if (partyFourUnit.currentHP == Mathf.Min(partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+            }
+        }
+        else if (partyTwoUnit.dead)
+        {
+            Debug.Log("Party Two is dead");
+            if (partyOneUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+            }
+            else if (partyThreeUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+            }
+            else if (partyFourUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+            }
+        }
+        else if (partyThreeUnit.dead)
+        {
+            Debug.Log("Party Three is dead");
+            if (partyOneUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+            }
+            else if (partyTwoUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+            }
+            
+            else if (partyFourUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+            }
+        }
+        else if (partyFourUnit.dead)
+        {
+            Debug.Log("Party Four is dead");
+            if (partyOneUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+            }
+            else if (partyTwoUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+            }
+            else if (partyThreeUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+            }
+        }
+    }
+    void AttackTwoDead()
+    {
+        if (partyThreeUnit.dead && partyFourUnit.dead)
+        {
+            Debug.Log("Party Three and Four are dead");
+            if (partyOneUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+            }
+            else if (partyTwoUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+            }
+        }
+        else if (partyTwoUnit.dead && partyFourUnit.dead)
+        {
+            Debug.Log("Party Two and Four are dead");
+            if (partyOneUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyThreeUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+            }
+            else if (partyThreeUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyThreeUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+            }
+        }
+        else if (partyTwoUnit.dead && partyThreeUnit.dead)
+        {
+            Debug.Log("Party Two and Three are dead");
+            if (partyOneUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+            }
+            else if (partyFourUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+            }
+        }
+        else if (partyOneUnit.dead && partyFourUnit.dead)
+        {
+            Debug.Log("Party One and Four are dead");
+            if (partyTwoUnit.currentHP == Mathf.Min(partyTwoUnit.currentHP, partyThreeUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+            }
+            else if (partyThreeUnit.currentHP == Mathf.Min(partyTwoUnit.currentHP, partyThreeUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+            }
+        }
+        else if (partyOneUnit.dead && partyThreeUnit.dead)
+        {
+            Debug.Log("Party One and Three are dead");
+            if (partyTwoUnit.currentHP == Mathf.Min(partyTwoUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+            }
+            else if (partyFourUnit.currentHP == Mathf.Min(partyTwoUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+            }
+        }
+        else if (partyOneUnit.dead && partyTwoUnit.dead)
+        {
+            Debug.Log("Party One and Two are dead");
+            if (partyThreeUnit.currentHP == Mathf.Min(partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+            }
+            else if (partyFourUnit.currentHP == Mathf.Min(partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            {
+                StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+            }
+        }
+    }
+    void AttackThreeDead()
+    {
+        if (partyTwoUnit.dead && partyThreeUnit.dead && partyFourUnit.dead)
+        {
+            Debug.Log("All but Party One are dead");
+            StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+        }
+        else if (partyOneUnit.dead && partyFourUnit.dead && partyFourUnit.dead)
+        {
+            Debug.Log("All but Party Two are dead");
+            StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+        }
+        else if (partyOneUnit.dead && partyTwoUnit.dead && partyFourUnit.dead)
+        {
+            Debug.Log("All but Party Three are dead");
+            StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+        }
+        else if (partyOneUnit.dead && partyTwoUnit.dead && partyThreeUnit.dead)
+        {
+            Debug.Log("All but Party Four are dead");
+            StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+        }
+    }
     
-
     void AttackTargetingSpecial()
     {
         if (partyOneUnit.currentHP == Mathf.Max(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
