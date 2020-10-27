@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bloop
+  - BattleCamera
   layers:
   - Default
   - TransparentFX
