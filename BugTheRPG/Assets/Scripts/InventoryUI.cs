@@ -29,6 +29,7 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    //Updates Inventory UI to represent Items the player has
     void UpdateUI()
     {
         Debug.Log("INVFIDDLING");

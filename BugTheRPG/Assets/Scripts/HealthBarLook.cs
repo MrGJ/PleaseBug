@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
+//Makes UI LookAt battle camera
 
 public class HealthBarLook : MonoBehaviour
 {
@@ -21,9 +21,4 @@ public class HealthBarLook : MonoBehaviour
         partyFourHPBar.transform.LookAt(viewCam);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

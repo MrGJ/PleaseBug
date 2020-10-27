@@ -8,6 +8,7 @@ public class Unit : MonoBehaviour
     public string unitName;
     public int unitLevel;
 
+
     public int regDamage;
     public int specDamage;
 
@@ -15,6 +16,7 @@ public class Unit : MonoBehaviour
     public int currentHP;
     public bool dead;
 
+    //Damage take functionality and checks if dead
     public bool TakeDamage(int dmg)
     {
         currentHP -= dmg;
