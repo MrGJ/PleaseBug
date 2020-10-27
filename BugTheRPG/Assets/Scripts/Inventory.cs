@@ -29,6 +29,8 @@ public class Inventory : MonoBehaviour
 
     public List<Items> items = new List<Items>();
 
+
+    //Adds item to item list(needs id functionality)
     public bool Add(Items item)
     {
         if (!item.isDefault)
@@ -44,6 +46,7 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
+    //Deletes item from item list
     public void Delete(Items item)
     {
         items.Remove(item);

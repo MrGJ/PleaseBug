@@ -11,6 +11,7 @@ public class Items : ScriptableObject
     public bool isDefault = false;
     public ItemType type;
 
+    //Uses item
     public virtual void Use()
     {
         Debug.Log("I presume something may happen my fren");

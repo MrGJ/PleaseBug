@@ -8,7 +8,7 @@ public class InventorySlot : MonoBehaviour
     public Button tossButton;
     Items item;
 
-    //Is Called in a different script. Add functionality for inventory slots
+    //Takes information from picked up items to represent the item in inventory
     public void AddItem(Items newItem)
     {
         item = newItem;
@@ -18,6 +18,7 @@ public class InventorySlot : MonoBehaviour
         tossButton.interactable = true;
     }
 
+    //Deletes Item icon from inventory
     public void RemoveItem()
     {
         item = null;
@@ -26,11 +27,13 @@ public class InventorySlot : MonoBehaviour
         tossButton.interactable = false;
     }
 
+    //Calls Inventory Delete Method
     public void Spitooey()
     {
         Inventory.instance.Delete(item);
     }
 
+    //Uses Item based on what type of item it is
     public void UseItem()
     {
         if (item != null)

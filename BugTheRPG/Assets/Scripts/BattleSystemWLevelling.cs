@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public enum BattleState { START, PARTYONESEL, PARTYTWOSEL, PARTYTHREESEL, PARTYFOURSEL, ATTACKTURN, ENEMYTURN, WON, LOST, ESCAPE }
-public enum ActionChoice { ATTACKONE, ATTACKTWO, ITEM }
-public enum PartySelect { PARTYONE, PARTYTWO, PARTYTHREE, PARTYFOUR}
+public enum BattleStateWL { START, PARTYONESEL, PARTYTWOSEL, PARTYTHREESEL, PARTYFOURSEL, ATTACKTURN, ENEMYTURN, WON, LOST, ESCAPE }
+public enum ActionChoiceWL { ATTACKONE, ATTACKTWO, ITEM }
+public enum PartySelectWL { PARTYONE, PARTYTWO, PARTYTHREE, PARTYFOUR}
 
-public class BattleSystem : MonoBehaviour
+public class BattleSystemWLevelling : MonoBehaviour
 {
     public GameObject partyMemOne;
     public GameObject partyMemTwo;
@@ -24,28 +24,28 @@ public class BattleSystem : MonoBehaviour
     public Transform partyFourPlatform;
     public Transform enemyPlatform;
 
-    Unit partyOneUnit;
-    Unit partyTwoUnit;
-    Unit partyThreeUnit;
-    Unit partyFourUnit;
-    Unit enemyUnit;
+    UnitWLevelling partyOneUnit;
+    UnitWLevelling partyTwoUnit;
+    UnitWLevelling partyThreeUnit;
+    UnitWLevelling partyFourUnit;
+    UnitWLevelling enemyUnit;
 
     public GameObject dialogueObj;
     public TextMeshProUGUI dialogueText;
 
-    public BattleHUD pOneHUD;
-    public BattleHUD pTwoHUD;
-    public BattleHUD pThreeHUD;
-    public BattleHUD pFourHUD;
-    public BattleHUD enemyHUD;
+    public BattleHUDWLevelling pOneHUD;
+    public BattleHUDWLevelling pTwoHUD;
+    public BattleHUDWLevelling pThreeHUD;
+    public BattleHUDWLevelling pFourHUD;
+    public BattleHUDWLevelling enemyHUD;
 
     private int turnTick;
 
-    public BattleState state;
-    public ActionChoice choiceOne;
-    public ActionChoice choiceTwo;
-    public ActionChoice choiceThree;
-    public ActionChoice choiceFour;
+    public BattleStateWL state;
+    public ActionChoiceWL choiceOne;
+    public ActionChoiceWL choiceTwo;
+    public ActionChoiceWL choiceThree;
+    public ActionChoiceWL choiceFour;
 
     bool oneDead;
     bool twoDead;
@@ -57,7 +57,7 @@ public class BattleSystem : MonoBehaviour
     void Start()
     {
         dialogueText = dialogueObj.GetComponent<TextMeshProUGUI>();
-        state = BattleState.START;
+        state = BattleStateWL.START;
         StartCoroutine(BattleInit());
     }
 
@@ -66,15 +66,15 @@ public class BattleSystem : MonoBehaviour
     {
         turnTick = 0;
         GameObject partyOneGO = Instantiate(partyMemOne, partyOnePlatform);
-        partyOneUnit = partyOneGO.GetComponent<Unit>();
+        partyOneUnit = partyOneGO.GetComponent<UnitWLevelling>();
         GameObject partyTwoGO = Instantiate(partyMemTwo, partyTwoPlatform);
-        partyTwoUnit = partyTwoGO.GetComponent<Unit>();
+        partyTwoUnit = partyTwoGO.GetComponent<UnitWLevelling>();
         GameObject partyThreeGO = Instantiate(partyMemThree, partyThreePlatform);
-        partyThreeUnit = partyThreeGO.GetComponent<Unit>();
+        partyThreeUnit = partyThreeGO.GetComponent<UnitWLevelling>();
         GameObject partyFourGO = Instantiate(partyMemFour, partyFourPlatform);
-        partyFourUnit = partyFourGO.GetComponent<Unit>();
+        partyFourUnit = partyFourGO.GetComponent<UnitWLevelling>();
         GameObject enemyGO = Instantiate(enemyObj, enemyPlatform);
-        enemyUnit = enemyGO.GetComponent<Unit>();
+        enemyUnit = enemyGO.GetComponent<UnitWLevelling>();
 
         actionPanel.SetActive(false);
         attackPanel.SetActive(false);
@@ -90,7 +90,7 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        state = BattleState.PARTYONESEL;
+        state = BattleStateWL.PARTYONESEL;
         PartyPhaseBegin();
     }
 
@@ -104,16 +104,20 @@ public class BattleSystem : MonoBehaviour
     //Runs during attack phase if partyMemOne selected basic attack
     IEnumerator PartyOneBasicAtk()
     {
-        bool isDead = enemyUnit.TakeDamage(partyOneUnit.regDamage);
+        if(partyOneUnit.unitClass == ClassSelect.TANK)
+        {
+            
+        }
+        bool isDead = enemyUnit.TakeRegDamage(partyOneUnit.unitAttack);
 
-        enemyHUD.HPFiddling(enemyUnit.currentHP);
-        dialogueText.text = partyOneUnit.unitName + " attacks for " + partyOneUnit.regDamage + "!";
+        enemyHUD.HPFiddling(enemyUnit.unitCurrentHP);
+        dialogueText.text = partyOneUnit.unitName + " attacks for " + partyOneUnit.unitAttack + "!";
 
         yield return new WaitForSeconds(2f);
 
         if(isDead)
         {
-            state = BattleState.WON;
+            state = BattleStateWL.WON;
             BattleEnd();
         }
         Debug.Log("Unit 1 B-ATK COMP");
@@ -122,16 +126,16 @@ public class BattleSystem : MonoBehaviour
     //Runs during attack phase if partyMemOne selected special attack
     IEnumerator PartyOneSpecialAtk()
     {
-        bool isDead = enemyUnit.TakeDamage(partyOneUnit.specDamage);
+        bool isDead = enemyUnit.TakeRegDamage(partyOneUnit.unitAttack);
 
-        enemyHUD.HPFiddling(enemyUnit.currentHP);
-        dialogueText.text = partyOneUnit.unitName + " attacks for " + partyOneUnit.specDamage + "!";
+        enemyHUD.HPFiddling(enemyUnit.unitCurrentHP);
+        dialogueText.text = partyOneUnit.unitName + " attacks for " + partyOneUnit.unitAttack + "!";
 
         yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
-            state = BattleState.WON;
+            state = BattleStateWL.WON;
             BattleEnd();
         }
         Debug.Log("Unit 1 S-ATK COMP");
@@ -147,16 +151,16 @@ public class BattleSystem : MonoBehaviour
     //Runs during attack phase if partyMemTwo selected basic attack
     IEnumerator PartyTwoBasicAtk()
     {
-        bool isDead = enemyUnit.TakeDamage(partyTwoUnit.regDamage);
+        bool isDead = enemyUnit.TakeRegDamage(partyTwoUnit.unitAttack);
 
-        enemyHUD.HPFiddling(enemyUnit.currentHP);
-        dialogueText.text = partyTwoUnit.unitName + " attacks for " + partyTwoUnit.regDamage + "!";
+        enemyHUD.HPFiddling(enemyUnit.unitCurrentHP);
+        dialogueText.text = partyTwoUnit.unitName + " attacks for " + partyTwoUnit.unitAttack + "!";
 
         yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
-            state = BattleState.WON;
+            state = BattleStateWL.WON;
             BattleEnd();
         }
         Debug.Log("Unit 2 B-ATK COMP");
@@ -165,16 +169,16 @@ public class BattleSystem : MonoBehaviour
     //Runs during attack phase if partyMemOne selected special attack
     IEnumerator PartyTwoSpecialAtk()
     {
-        bool isDead = enemyUnit.TakeDamage(partyTwoUnit.specDamage);
+        bool isDead = enemyUnit.TakeRegDamage(partyTwoUnit.unitAttack);
 
-        enemyHUD.HPFiddling(enemyUnit.currentHP);
-        dialogueText.text = partyTwoUnit.unitName + " attacks for " + partyTwoUnit.specDamage + "!";
+        enemyHUD.HPFiddling(enemyUnit.unitCurrentHP);
+        dialogueText.text = partyTwoUnit.unitName + " attacks for " + partyTwoUnit.unitAttack + "!";
 
         yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
-            state = BattleState.WON;
+            state = BattleStateWL.WON;
             BattleEnd();
         }
         Debug.Log("Unit 2 S-ATK COMP");
@@ -191,16 +195,16 @@ public class BattleSystem : MonoBehaviour
     //Runs during attack phase if partyMemThree selected basic attack
     IEnumerator PartyThreeBasicAtk()
     {
-        bool isDead = enemyUnit.TakeDamage(partyThreeUnit.regDamage);
+        bool isDead = enemyUnit.TakeRegDamage(partyThreeUnit.unitAttack);
 
-        enemyHUD.HPFiddling(enemyUnit.currentHP);
-        dialogueText.text = partyThreeUnit.unitName + " attacks for " + partyThreeUnit.regDamage + "!";
+        enemyHUD.HPFiddling(enemyUnit.unitCurrentHP);
+        dialogueText.text = partyThreeUnit.unitName + " attacks for " + partyThreeUnit.unitAttack + "!";
 
         yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
-            state = BattleState.WON;
+            state = BattleStateWL.WON;
             BattleEnd();
         }
         Debug.Log("Unit 3 B-ATK COMP");
@@ -209,16 +213,16 @@ public class BattleSystem : MonoBehaviour
     //Runs during attack phase if partyMemThree selected special attack
     IEnumerator PartyThreeSpecialAtk()
     {
-        bool isDead = enemyUnit.TakeDamage(partyThreeUnit.specDamage);
+        bool isDead = enemyUnit.TakeRegDamage(partyThreeUnit.unitAttack);
 
-        enemyHUD.HPFiddling(enemyUnit.currentHP);
-        dialogueText.text = partyThreeUnit.unitName + " attacks for " + partyThreeUnit.specDamage + "!";
+        enemyHUD.HPFiddling(enemyUnit.unitCurrentHP);
+        dialogueText.text = partyThreeUnit.unitName + " attacks for " + partyThreeUnit.unitAttack + "!";
 
         yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
-            state = BattleState.WON;
+            state = BattleStateWL.WON;
             BattleEnd();
         }
         Debug.Log("Unit 3 S-ATK COMP");
@@ -235,16 +239,16 @@ public class BattleSystem : MonoBehaviour
     //Runs during attack phase if partyMemFour selected basic attack
     IEnumerator PartyFourBasicAtk()
     {
-        bool isDead = enemyUnit.TakeDamage(partyFourUnit.regDamage);
+        bool isDead = enemyUnit.TakeRegDamage(partyFourUnit.unitAttack);
 
-        enemyHUD.HPFiddling(enemyUnit.currentHP);
-        dialogueText.text = partyFourUnit.unitName + " attacks for " + partyFourUnit.regDamage + "!";
+        enemyHUD.HPFiddling(enemyUnit.unitCurrentHP);
+        dialogueText.text = partyFourUnit.unitName + " attacks for " + partyFourUnit.unitAttack + "!";
 
         yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
-            state = BattleState.WON;
+            state = BattleStateWL.WON;
             BattleEnd();
         }
         Debug.Log("Unit 4 B-ATK COMP");
@@ -253,16 +257,16 @@ public class BattleSystem : MonoBehaviour
     //Runs during attack phase if partyMemFour selected special attack
     IEnumerator PartyFourSpecialAtk()
     {
-        bool isDead = enemyUnit.TakeDamage(partyFourUnit.specDamage);
+        bool isDead = enemyUnit.TakeRegDamage(partyFourUnit.unitAttack);
 
-        enemyHUD.HPFiddling(enemyUnit.currentHP);
-        dialogueText.text = partyFourUnit.unitName + " attacks for " + partyFourUnit.specDamage + "!";
+        enemyHUD.HPFiddling(enemyUnit.unitCurrentHP);
+        dialogueText.text = partyFourUnit.unitName + " attacks for " + partyFourUnit.unitAttack + "!";
 
         yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
-            state = BattleState.WON;
+            state = BattleStateWL.WON;
             BattleEnd();
         }
         Debug.Log("Unit 4 S-ATK COMP");
@@ -277,12 +281,12 @@ public class BattleSystem : MonoBehaviour
     }
 
     //Enemy's Basic Attack Functionality
-    IEnumerator EnemyBasic(Unit unit, BattleHUD hud)
+    IEnumerator EnemyBasic(UnitWLevelling unit, BattleHUDWLevelling hud)
     {
-        bool isDead = unit.TakeDamage(enemyUnit.regDamage);
+        bool isDead = unit.TakeRegDamage(enemyUnit.unitAttack);
 
-            hud.HPFiddling(unit.currentHP);
-            dialogueText.text = enemyUnit.unitName + " attacks " + unit.unitName + " for " + enemyUnit.regDamage + "!";
+            hud.HPFiddling(unit.unitCurrentHP);
+            dialogueText.text = enemyUnit.unitName + " attacks " + unit.unitName + " for " + enemyUnit.unitAttack + "!";
         yield return new WaitForSeconds(2f);
 
         if (isDead)
@@ -292,12 +296,12 @@ public class BattleSystem : MonoBehaviour
     }
 
     //Enemy's Special Attack Functionality
-    IEnumerator EnemySpecial(Unit unit, BattleHUD hud)
+    IEnumerator EnemySpecial(UnitWLevelling unit, BattleHUDWLevelling hud)
     {
-        bool isDead = unit.TakeDamage(enemyUnit.specDamage);
+        bool isDead = unit.TakeRegDamage(enemyUnit.unitAttack);
 
-        hud.HPFiddling(unit.currentHP);
-        dialogueText.text = enemyUnit.unitName + " attacks " + unit.unitName + " for " + enemyUnit.specDamage + "!";
+        hud.HPFiddling(unit.unitCurrentHP);
+        dialogueText.text = enemyUnit.unitName + " attacks " + unit.unitName + " for " + enemyUnit.unitAttack + "!";
         yield return new WaitForSeconds(2f);
 
         if (isDead)
@@ -325,12 +329,12 @@ public class BattleSystem : MonoBehaviour
 
         if (deadCheck == 4)
         {
-            state = BattleState.LOST;
+            state = BattleStateWL.LOST;
             BattleEnd();
         }
         else
         {
-            state = BattleState.PARTYONESEL;
+            state = BattleStateWL.PARTYONESEL;
             turnTick += 1;
             PartyPhaseBegin();
         }
@@ -340,15 +344,15 @@ public class BattleSystem : MonoBehaviour
     //Runs when an attack ends, to check if either side won or lost
     void BattleEnd()
     {
-        if (state == BattleState.WON)
+        if (state == BattleStateWL.WON)
         {
             dialogueText.text = "You did a succeed.";
         }
-        else if (state == BattleState.LOST)
+        else if (state == BattleStateWL.LOST)
         {
             dialogueText.text = "You did a succeedn't";
         }
-        else if (state == BattleState.ESCAPE)
+        else if (state == BattleStateWL.ESCAPE)
         {
             dialogueText.text = "You did a scoot-the-boots";
         }
@@ -364,28 +368,28 @@ public class BattleSystem : MonoBehaviour
     //Lets the player select an item for the party member to use
     public void ButtonItemOption()
     {
-        if (state == BattleState.PARTYONESEL)
+        if (state == BattleStateWL.PARTYONESEL)
         {
-            choiceOne = ActionChoice.ITEM;
+            choiceOne = ActionChoiceWL.ITEM;
         }
-        else if (state == BattleState.PARTYTWOSEL)
+        else if (state == BattleStateWL.PARTYTWOSEL)
         {
-            choiceTwo = ActionChoice.ITEM;
+            choiceTwo = ActionChoiceWL.ITEM;
         }
-        else if (state == BattleState.PARTYTHREESEL)
+        else if (state == BattleStateWL.PARTYTHREESEL)
         {
-            choiceThree = ActionChoice.ITEM;
+            choiceThree = ActionChoiceWL.ITEM;
         }
-        else if (state == BattleState.PARTYFOURSEL)
+        else if (state == BattleStateWL.PARTYFOURSEL)
         {
-            choiceFour = ActionChoice.ITEM;
+            choiceFour = ActionChoiceWL.ITEM;
         }
     }
 
     //If clicked at any point in the action select phase, battle will end. (probably)
     public void ButtonRunOption()
     {
-        state = BattleState.ESCAPE;
+        state = BattleStateWL.ESCAPE;
         BattleEnd();
     }
 
@@ -413,17 +417,17 @@ public class BattleSystem : MonoBehaviour
     {
 
         //partyMemOne Action
-        if (choiceOne == ActionChoice.ATTACKONE)
+        if (choiceOne == ActionChoiceWL.ATTACKONE)
         {
             
             StartCoroutine(PartyOneBasicAtk());
         }
-        else if (choiceOne == ActionChoice.ATTACKTWO)
+        else if (choiceOne == ActionChoiceWL.ATTACKTWO)
         {
-            dialogueText.text = partyOneUnit.unitName + " attacks for " + partyOneUnit.specDamage + "!";
+            dialogueText.text = partyOneUnit.unitName + " attacks for " + partyOneUnit.unitAttack + "!";
             StartCoroutine(PartyOneSpecialAtk());
         }
-        else if (choiceOne == ActionChoice.ITEM)
+        else if (choiceOne == ActionChoiceWL.ITEM)
         {
             dialogueText.text = partyOneUnit.unitName + " uses an item!";
             StartCoroutine(PartyOneUseItem());
@@ -431,17 +435,17 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Debug.Log("Unit 1 COMP");
         //partyMemTwo Action
-        if (choiceTwo == ActionChoice.ATTACKONE)
+        if (choiceTwo == ActionChoiceWL.ATTACKONE)
         {
-            dialogueText.text = partyTwoUnit.unitName + " attacks for " + partyTwoUnit.regDamage + "!";
+            dialogueText.text = partyTwoUnit.unitName + " attacks for " + partyTwoUnit.unitAttack + "!";
             StartCoroutine(PartyTwoBasicAtk());
         }
-        else if (choiceTwo == ActionChoice.ATTACKTWO)
+        else if (choiceTwo == ActionChoiceWL.ATTACKTWO)
         {
-            dialogueText.text = partyTwoUnit.unitName + " attacks for " + partyTwoUnit.regDamage + "!";
+            dialogueText.text = partyTwoUnit.unitName + " attacks for " + partyTwoUnit.unitAttack + "!";
             StartCoroutine(PartyTwoSpecialAtk());
         }
-        else if (choiceTwo == ActionChoice.ITEM)
+        else if (choiceTwo == ActionChoiceWL.ITEM)
         {
             dialogueText.text = partyOneUnit.unitName + " uses an item!";
             StartCoroutine(PartyTwoUseItem());
@@ -449,17 +453,17 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Debug.Log("Unit 2 COMP");
         //partyMemThree Action
-        if (choiceThree == ActionChoice.ATTACKONE)
+        if (choiceThree == ActionChoiceWL.ATTACKONE)
         {
-            dialogueText.text = partyThreeUnit.unitName + " attacks for " + partyThreeUnit.regDamage + "!";
+            dialogueText.text = partyThreeUnit.unitName + " attacks for " + partyThreeUnit.unitAttack + "!";
             StartCoroutine(PartyThreeBasicAtk());
         }
-        else if (choiceThree == ActionChoice.ATTACKTWO)
+        else if (choiceThree == ActionChoiceWL.ATTACKTWO)
         {
-            dialogueText.text = partyThreeUnit.unitName + " attacks for " + partyThreeUnit.specDamage + "!";
+            dialogueText.text = partyThreeUnit.unitName + " attacks for " + partyThreeUnit.unitAttack + "!";
             StartCoroutine(PartyThreeSpecialAtk());
         }
-        else if (choiceThree == ActionChoice.ITEM)
+        else if (choiceThree == ActionChoiceWL.ITEM)
         {
             
             StartCoroutine(PartyThreeUseItem());
@@ -467,15 +471,15 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Debug.Log("Unit 3 COMP");
         //partyMemFour Action
-        if (choiceFour == ActionChoice.ATTACKONE)
+        if (choiceFour == ActionChoiceWL.ATTACKONE)
         {
             StartCoroutine(PartyFourBasicAtk());
         }
-        else if (choiceFour == ActionChoice.ATTACKTWO)
+        else if (choiceFour == ActionChoiceWL.ATTACKTWO)
         {
             StartCoroutine(PartyFourSpecialAtk());
         }
-        else if (choiceFour == ActionChoice.ITEM)
+        else if (choiceFour == ActionChoiceWL.ITEM)
         {
             StartCoroutine(PartyFourUseItem());
         }
@@ -487,34 +491,34 @@ public class BattleSystem : MonoBehaviour
     //Fills in action for Basic Button
     IEnumerator CorouAttackBasic()
     {
-        if (state == BattleState.PARTYONESEL)
+        if (state == BattleStateWL.PARTYONESEL)
         {
-            choiceOne = ActionChoice.ATTACKONE;
-            state = BattleState.PARTYTWOSEL;
+            choiceOne = ActionChoiceWL.ATTACKONE;
+            state = BattleStateWL.PARTYTWOSEL;
             yield return new WaitForSeconds(1f);
             ButtonAttackBack();
             dialogueText.text = partyTwoUnit.unitName + "'s Action";
         }
-        else if (state == BattleState.PARTYTWOSEL)
+        else if (state == BattleStateWL.PARTYTWOSEL)
         {
-            choiceTwo = ActionChoice.ATTACKONE;
-            state = BattleState.PARTYTHREESEL;
+            choiceTwo = ActionChoiceWL.ATTACKONE;
+            state = BattleStateWL.PARTYTHREESEL;
             yield return new WaitForSeconds(1f);
             ButtonAttackBack();
             dialogueText.text = partyThreeUnit.unitName + "'s Action";
         }
-        else if (state == BattleState.PARTYTHREESEL)
+        else if (state == BattleStateWL.PARTYTHREESEL)
         {
-            choiceThree = ActionChoice.ATTACKONE;
-            state = BattleState.PARTYFOURSEL;
+            choiceThree = ActionChoiceWL.ATTACKONE;
+            state = BattleStateWL.PARTYFOURSEL;
             yield return new WaitForSeconds(1f);
             ButtonAttackBack();
             dialogueText.text = partyFourUnit.unitName + "'s Action";
         }
-        else if (state == BattleState.PARTYFOURSEL)
+        else if (state == BattleStateWL.PARTYFOURSEL)
         {
-            choiceFour = ActionChoice.ATTACKONE;
-            state = BattleState.ATTACKTURN;
+            choiceFour = ActionChoiceWL.ATTACKONE;
+            state = BattleStateWL.ATTACKTURN;
             yield return new WaitForSeconds(1f);
             actionPanel.SetActive(false);
             attackPanel.SetActive(false);
@@ -526,34 +530,34 @@ public class BattleSystem : MonoBehaviour
     //Fills in action for Special Button
     IEnumerator CorouAttackSpecial()
     {
-        if (state == BattleState.PARTYONESEL)
+        if (state == BattleStateWL.PARTYONESEL)
         {
-            choiceOne = ActionChoice.ATTACKTWO;
-            state = BattleState.PARTYTWOSEL;
+            choiceOne = ActionChoiceWL.ATTACKTWO;
+            state = BattleStateWL.PARTYTWOSEL;
             yield return new WaitForSeconds(1f);
             ButtonAttackBack();
             dialogueText.text = partyTwoUnit.unitName + "'s Action";
         }
-        else if (state == BattleState.PARTYTWOSEL)
+        else if (state == BattleStateWL.PARTYTWOSEL)
         {
-            choiceTwo = ActionChoice.ATTACKTWO;
-            state = BattleState.PARTYTHREESEL;
+            choiceTwo = ActionChoiceWL.ATTACKTWO;
+            state = BattleStateWL.PARTYTHREESEL;
             yield return new WaitForSeconds(1f);
             ButtonAttackBack();
             dialogueText.text = partyThreeUnit.unitName + "'s Action";
         }
-        else if (state == BattleState.PARTYTHREESEL)
+        else if (state == BattleStateWL.PARTYTHREESEL)
         {
-            choiceThree = ActionChoice.ATTACKTWO;
-            state = BattleState.PARTYFOURSEL;
+            choiceThree = ActionChoiceWL.ATTACKTWO;
+            state = BattleStateWL.PARTYFOURSEL;
             yield return new WaitForSeconds(1f);
             ButtonAttackBack();
             dialogueText.text = partyFourUnit.unitName + "'s Action";
         }
-        else if (state == BattleState.PARTYFOURSEL)
+        else if (state == BattleStateWL.PARTYFOURSEL)
         {
-            choiceFour = ActionChoice.ATTACKTWO;
-            state = BattleState.ATTACKTURN;
+            choiceFour = ActionChoiceWL.ATTACKTWO;
+            state = BattleStateWL.ATTACKTURN;
             yield return new WaitForSeconds(1f);
             actionPanel.SetActive(false);
             attackPanel.SetActive(false);
@@ -586,19 +590,19 @@ public class BattleSystem : MonoBehaviour
     //Decides Targeting Based on having everyone alive
     void AttackZeroDead()
     {
-        if (partyOneUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+        if (partyOneUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
         {
             StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
         }
-        else if (partyTwoUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+        else if (partyTwoUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
         {
             StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
         }
-        else if (partyThreeUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+        else if (partyThreeUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
         {
             StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
         }
-        else if (partyFourUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+        else if (partyFourUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
         {
             StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
         }
@@ -609,15 +613,15 @@ public class BattleSystem : MonoBehaviour
         if (partyOneUnit.dead)
         {
             Debug.Log("Party One is dead");
-            if (partyTwoUnit.currentHP == Mathf.Min(partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            if (partyTwoUnit.unitCurrentHP == Mathf.Min(partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
             }
-            else if (partyThreeUnit.currentHP == Mathf.Min(partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            else if (partyThreeUnit.unitCurrentHP == Mathf.Min(partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
             }
-            else if (partyFourUnit.currentHP == Mathf.Min(partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            else if (partyFourUnit.unitCurrentHP == Mathf.Min(partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
             }
@@ -625,15 +629,15 @@ public class BattleSystem : MonoBehaviour
         else if (partyTwoUnit.dead)
         {
             Debug.Log("Party Two is dead");
-            if (partyOneUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            if (partyOneUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
             }
-            else if (partyThreeUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            else if (partyThreeUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
             }
-            else if (partyFourUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            else if (partyFourUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
             }
@@ -641,16 +645,16 @@ public class BattleSystem : MonoBehaviour
         else if (partyThreeUnit.dead)
         {
             Debug.Log("Party Three is dead");
-            if (partyOneUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyFourUnit.currentHP))
+            if (partyOneUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
             }
-            else if (partyTwoUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyFourUnit.currentHP))
+            else if (partyTwoUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
             }
             
-            else if (partyFourUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyFourUnit.currentHP))
+            else if (partyFourUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
             }
@@ -658,15 +662,15 @@ public class BattleSystem : MonoBehaviour
         else if (partyFourUnit.dead)
         {
             Debug.Log("Party Four is dead");
-            if (partyOneUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP))
+            if (partyOneUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
             }
-            else if (partyTwoUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP))
+            else if (partyTwoUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
             }
-            else if (partyThreeUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP))
+            else if (partyThreeUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
             }
@@ -678,11 +682,11 @@ public class BattleSystem : MonoBehaviour
         if (partyThreeUnit.dead && partyFourUnit.dead)
         {
             Debug.Log("Party Three and Four are dead");
-            if (partyOneUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP))
+            if (partyOneUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
             }
-            else if (partyTwoUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyTwoUnit.currentHP))
+            else if (partyTwoUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
             }
@@ -690,11 +694,11 @@ public class BattleSystem : MonoBehaviour
         else if (partyTwoUnit.dead && partyFourUnit.dead)
         {
             Debug.Log("Party Two and Four are dead");
-            if (partyOneUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyThreeUnit.currentHP))
+            if (partyOneUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
             }
-            else if (partyThreeUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyThreeUnit.currentHP))
+            else if (partyThreeUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
             }
@@ -702,11 +706,11 @@ public class BattleSystem : MonoBehaviour
         else if (partyTwoUnit.dead && partyThreeUnit.dead)
         {
             Debug.Log("Party Two and Three are dead");
-            if (partyOneUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyFourUnit.currentHP))
+            if (partyOneUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
             }
-            else if (partyFourUnit.currentHP == Mathf.Min(partyOneUnit.currentHP, partyFourUnit.currentHP))
+            else if (partyFourUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
             }
@@ -714,11 +718,11 @@ public class BattleSystem : MonoBehaviour
         else if (partyOneUnit.dead && partyFourUnit.dead)
         {
             Debug.Log("Party One and Four are dead");
-            if (partyTwoUnit.currentHP == Mathf.Min(partyTwoUnit.currentHP, partyThreeUnit.currentHP))
+            if (partyTwoUnit.unitCurrentHP == Mathf.Min(partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
             }
-            else if (partyThreeUnit.currentHP == Mathf.Min(partyTwoUnit.currentHP, partyThreeUnit.currentHP))
+            else if (partyThreeUnit.unitCurrentHP == Mathf.Min(partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
             }
@@ -726,11 +730,11 @@ public class BattleSystem : MonoBehaviour
         else if (partyOneUnit.dead && partyThreeUnit.dead)
         {
             Debug.Log("Party One and Three are dead");
-            if (partyTwoUnit.currentHP == Mathf.Min(partyTwoUnit.currentHP, partyFourUnit.currentHP))
+            if (partyTwoUnit.unitCurrentHP == Mathf.Min(partyTwoUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
             }
-            else if (partyFourUnit.currentHP == Mathf.Min(partyTwoUnit.currentHP, partyFourUnit.currentHP))
+            else if (partyFourUnit.unitCurrentHP == Mathf.Min(partyTwoUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
             }
@@ -738,11 +742,11 @@ public class BattleSystem : MonoBehaviour
         else if (partyOneUnit.dead && partyTwoUnit.dead)
         {
             Debug.Log("Party One and Two are dead");
-            if (partyThreeUnit.currentHP == Mathf.Min(partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            if (partyThreeUnit.unitCurrentHP == Mathf.Min(partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
             }
-            else if (partyFourUnit.currentHP == Mathf.Min(partyThreeUnit.currentHP, partyFourUnit.currentHP))
+            else if (partyFourUnit.unitCurrentHP == Mathf.Min(partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
             }
@@ -776,7 +780,7 @@ public class BattleSystem : MonoBehaviour
     //Targeting for special attack usage
     void AttackTargetingSpecial()
     {
-        if (partyOneUnit.currentHP == Mathf.Max(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+        if (partyOneUnit.unitCurrentHP == Mathf.Max(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
         {
             if (!partyOneUnit.dead)
             {
@@ -784,7 +788,7 @@ public class BattleSystem : MonoBehaviour
                 StartCoroutine(EnemySpecial(partyOneUnit, pOneHUD));
             }
         }
-        else if (partyTwoUnit.currentHP == Mathf.Max(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+        else if (partyTwoUnit.unitCurrentHP == Mathf.Max(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
         {
             if (!partyTwoUnit.dead)
             {
@@ -792,7 +796,7 @@ public class BattleSystem : MonoBehaviour
                 StartCoroutine(EnemySpecial(partyTwoUnit, pTwoHUD));
             }
         }
-        else if (partyThreeUnit.currentHP == Mathf.Max(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+        else if (partyThreeUnit.unitCurrentHP == Mathf.Max(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
         {
             if (!partyThreeUnit.dead)
             {
@@ -800,7 +804,7 @@ public class BattleSystem : MonoBehaviour
                 StartCoroutine(EnemySpecial(partyThreeUnit, pThreeHUD));
             }
         }
-        else if (partyFourUnit.currentHP == Mathf.Max(partyOneUnit.currentHP, partyTwoUnit.currentHP, partyThreeUnit.currentHP, partyFourUnit.currentHP))
+        else if (partyFourUnit.unitCurrentHP == Mathf.Max(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
         {
             if (!partyFourUnit.dead)
             {
