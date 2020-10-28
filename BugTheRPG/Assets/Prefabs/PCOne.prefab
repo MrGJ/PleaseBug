@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4443190132144828529}
-  - component: {fileID: 4443190132144828526}
+  - component: {fileID: 3447831069348017466}
   m_Layer: 0
   m_Name: PCOne
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4443190132144828526
+--- !u!114 &3447831069348017466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,15 +41,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 4443190132144828527}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c501bc36fdd323949b2faa65cc64095e, type: 3}
+  m_Script: {fileID: 11500000, guid: af3ab2b6873052f40a06778a58cb678c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Bob
-  unitLevel: 20
-  regDamage: 3
-  specDamage: 5
-  maxHP: 40
-  currentHP: 40
+  unitImg: {fileID: 0}
+  unitClass: 0
+  unitIsMagic: 0
+  dead: 0
+  unitLevel: 1
+  unitExp: 0
+  unitReqExp: 100
+  unitAttack: 10
+  unitRes: 2
+  unitDef: 7
+  unitMaxHP: 100
+  unitCurrentHP: 100
 --- !u!1 &4443190132591726501
 GameObject:
   m_ObjectHideFlags: 0

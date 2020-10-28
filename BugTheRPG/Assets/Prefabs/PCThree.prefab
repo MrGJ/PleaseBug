@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5746889438442796391}
-  - component: {fileID: 5746889438442796390}
+  - component: {fileID: 3192486157259931996}
   m_Layer: 0
   m_Name: PCThree
   m_TagString: Untagged
@@ -125,7 +125,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5746889438442796390
+--- !u!114 &3192486157259931996
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,12 +134,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 5746889438442796409}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c501bc36fdd323949b2faa65cc64095e, type: 3}
+  m_Script: {fileID: 11500000, guid: af3ab2b6873052f40a06778a58cb678c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Bazza
-  unitLevel: 20
-  regDamage: 5
-  specDamage: 7
-  maxHP: 20
-  currentHP: 20
+  unitImg: {fileID: 0}
+  unitClass: 1
+  unitIsMagic: 0
+  dead: 0
+  unitLevel: 1
+  unitExp: 0
+  unitReqExp: 100
+  unitAttack: 20
+  unitRes: 3
+  unitDef: 4
+  unitMaxHP: 100
+  unitCurrentHP: 100

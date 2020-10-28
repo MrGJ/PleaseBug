@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 502517874588389266}
-  - component: {fileID: 502517874588389267}
+  - component: {fileID: 8442273882093159626}
   m_Layer: 0
   m_Name: PCTwo
   m_TagString: Untagged
@@ -125,7 +125,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &502517874588389267
+--- !u!114 &8442273882093159626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,12 +134,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 502517874588389264}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c501bc36fdd323949b2faa65cc64095e, type: 3}
+  m_Script: {fileID: 11500000, guid: af3ab2b6873052f40a06778a58cb678c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Jane
-  unitLevel: 20
-  regDamage: 5
-  specDamage: 7
-  maxHP: 20
-  currentHP: 20
+  unitImg: {fileID: 0}
+  unitClass: 3
+  unitIsMagic: 1
+  dead: 0
+  unitLevel: 1
+  unitExp: 0
+  unitReqExp: 100
+  unitAttack: 13
+  unitRes: 7
+  unitDef: 2
+  unitMaxHP: 100
+  unitCurrentHP: 100

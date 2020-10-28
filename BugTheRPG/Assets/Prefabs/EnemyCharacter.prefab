@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1041945400098534376}
-  - component: {fileID: 3935517568243761299}
+  - component: {fileID: 5904502674970062691}
   m_Layer: 0
   m_Name: EnemyCharacter
   m_TagString: Untagged
@@ -125,7 +125,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3935517568243761299
+--- !u!114 &5904502674970062691
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,12 +134,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6429152656974855477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c501bc36fdd323949b2faa65cc64095e, type: 3}
+  m_Script: {fileID: 11500000, guid: af3ab2b6873052f40a06778a58cb678c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Satan
-  unitLevel: 5000
-  regDamage: 10
-  specDamage: 30
-  maxHP: 100
-  currentHP: 100
+  unitName: Morningstar
+  unitImg: {fileID: 0}
+  unitClass: 5
+  unitIsMagic: 0
+  dead: 0
+  unitLevel: 1
+  unitExp: 0
+  unitReqExp: 100
+  unitAttack: 20
+  unitRes: 2
+  unitDef: 3
+  unitMaxHP: 100
+  unitCurrentHP: 100
