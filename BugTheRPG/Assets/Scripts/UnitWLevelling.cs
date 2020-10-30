@@ -8,9 +8,10 @@ public class UnitWLevelling : MonoBehaviour
 {
     //Basic Unit attributes
     public string unitName;
-    
     public Sprite unitImg;
     public ClassSelect unitClass;
+    public bool unitIsMagic;
+    public bool dead;
     //Unit Stats
     public int unitLevel = 1;
     public int unitExp;
@@ -20,13 +21,16 @@ public class UnitWLevelling : MonoBehaviour
     public int unitDef;
     public int unitMaxHP = 100;
     public int unitCurrentHP;
-    public bool dead;
 
+    
+    //Is called to level the unit.
     public void UnitLevelling()
     {
         if(unitExp >= unitReqExp)
         {
             unitLevel += 1;
+            
+            unitReqExp += (unitReqExp / 4) + unitReqExp;
         }
 
     }
@@ -35,53 +39,55 @@ public class UnitWLevelling : MonoBehaviour
     {
         if(unitClass == ClassSelect.TANK)
         {
-            //unitReqExp = ;
-            //unitAttack = ;
-            //unitRes = ;
-            //unitDef = ;
-            //unitMaxHP = ;
+
+            unitAttack += (unitAttack / 10);
+            unitRes = Mathf.RoundToInt(unitRes * 1.18f);
+            unitDef = Mathf.RoundToInt(unitDef * 1.2f);
+            unitMaxHP += ((unitMaxHP / 10) + 5);
         }
         else if (unitClass == ClassSelect.DPSMELEE)
         {
-            //unitReqExp = ;
-            //unitAttack = ;
-            //unitRes = ;
-            //unitDef = ;
-            //unitMaxHP = ;
+
+            unitAttack += (unitAttack / 7);
+            unitRes = Mathf.RoundToInt(unitRes * 1.18f);
+            unitDef = Mathf.RoundToInt(unitDef * 1.2f);
+            unitMaxHP += ((unitMaxHP / 15) + 5);
         }
         else if (unitClass == ClassSelect.DPSRANGED)
         {
-            //unitReqExp = ;
-            //unitAttack = ;
-            //unitRes = ;
-            //unitDef = ;
-            //unitMaxHP = ;
+            unitAttack += (unitAttack / 7);
+            unitRes = Mathf.RoundToInt(unitRes * 1.2f);
+            unitDef = Mathf.RoundToInt(unitDef * 1.18f);
+            unitMaxHP += ((unitMaxHP / 15) + 5);
         }
         else if (unitClass == ClassSelect.DPSMAGIC)
         {
-            //unitReqExp = ;
-            //unitAttack = ;
-            //unitRes = ;
-            //unitDef = ;
-            //unitMaxHP = ;
+            unitAttack += (unitAttack / 7);
+            unitRes = Mathf.RoundToInt(unitRes * 1.2f);
+            unitDef = Mathf.RoundToInt(unitDef * 1.18f);
+            unitMaxHP += ((unitMaxHP / 15) + 5);
         }
         else if (unitClass == ClassSelect.HEALER)
         {
-            //unitReqExp = ;
-            //unitAttack = ;
-            //unitRes = ;
-            //unitDef = ;
-            //unitMaxHP = ;
-        }
-        
 
-        
+            unitAttack += (unitAttack / 8);
+            unitRes = Mathf.RoundToInt(unitRes * 1.18f);
+            unitDef = Mathf.RoundToInt(unitDef * 1.2f);
+            unitMaxHP += ((unitMaxHP / 17) + 3);
+        }
     }
 
-    //MagDamage take functionality and checks if dead
-    public bool TakeRegDamage(int dmg)
+    //RegDamage take functionality and checks if dead
+    public bool TakeRegDamage(UnitWLevelling attacker, bool isSpec)
     {
-        unitCurrentHP -= dmg;
+        if (isSpec)
+        {
+            unitCurrentHP -= (Mathf.RoundToInt(attacker.unitAttack * 1.3f) - unitDef);
+        }
+        else
+        {
+            unitCurrentHP -= (attacker.unitAttack - unitDef);
+        }
 
         if (unitCurrentHP <= 0)
         {
@@ -95,10 +101,17 @@ public class UnitWLevelling : MonoBehaviour
         }
             
     }
-    //RegDamage take functionality and checks if dead
-    public bool TakeMagDamage(int dmg)
+    //MagDamage take functionality and checks if dead
+    public bool TakeMagDamage(UnitWLevelling attacker, bool isSpec)
     {
-        unitCurrentHP -= dmg;
+        if (isSpec)
+        {
+            unitCurrentHP -= (Mathf.RoundToInt(attacker.unitAttack * 1.3f) - unitRes);
+        }
+        else
+        {
+            unitCurrentHP -= (attacker.unitAttack - unitRes);
+        }
 
         if (unitCurrentHP <= 0)
         {
@@ -110,6 +123,12 @@ public class UnitWLevelling : MonoBehaviour
             dead = false;
             return false;
         }
+
+    }
+
+    //Does Special Action
+    public void SpecialAction()
+    {
 
     }
 
