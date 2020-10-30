@@ -10,9 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3648068078397064874}
   - component: {fileID: 1386758983023364347}
+  - component: {fileID: 5472615129595863437}
+  - component: {fileID: 2612997576226689218}
+  - component: {fileID: -3705765609123187681}
   m_Layer: 0
-  m_Name: PCFour
-  m_TagString: Untagged
+  m_Name: PCFourBattle
+  m_TagString: FourBattle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,7 +51,7 @@ MonoBehaviour:
   unitImg: {fileID: 0}
   unitClass: 4
   unitIsMagic: 1
-  dead: 0
+  unitIsDead: 0
   unitLevel: 1
   unitExp: 0
   unitReqExp: 100
@@ -57,6 +60,59 @@ MonoBehaviour:
   unitDef: 2
   unitMaxHP: 100
   unitCurrentHP: 100
+  unitExpGainedOnDeath: 0
+--- !u!195 &5472615129595863437
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3648068078397064868}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &2612997576226689218
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3648068078397064868}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &-3705765609123187681
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3648068078397064868}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &3648068079117294074
 GameObject:
   m_ObjectHideFlags: 0

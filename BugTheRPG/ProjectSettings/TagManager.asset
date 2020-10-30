@@ -6,6 +6,15 @@ TagManager:
   tags:
   - Bloop
   - BattleCamera
+  - OneBattle
+  - TwoBattle
+  - ThreeBattle
+  - FourBattle
+  - OneOver
+  - TwoOver
+  - ThreeOver
+  - FourOver
+  - EnemyBattle
   layers:
   - Default
   - TransparentFX
