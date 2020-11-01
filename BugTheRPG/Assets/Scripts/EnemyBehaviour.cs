@@ -13,7 +13,8 @@ public class EnemyBehaviour : MonoBehaviour
     public NavMeshAgent selfNav;
 
     public GameObject overworldController;
-    public GameObject gameSystems; 
+    public GameObject gameSystems;
+    public GameObject playerMain;
 
     public float lookRad;
     public float stoppingDistance;
@@ -24,8 +25,9 @@ public class EnemyBehaviour : MonoBehaviour
     {
         gameSystems = GameObject.Find("GameSystems");
         overworldController = GameObject.Find("OverworldSystems");
+        playerMain = GameObject.FindGameObjectWithTag("OneOver");
         overworldSystem = overworldController.GetComponent<OverworldSystem>();
-        encounter = overworldController.GetComponent<EncounterTwisting>();
+        encounter = gameSystems.GetComponent<EncounterTwisting>();
         movementControl = overworldController.GetComponent<PartyMovementControllerMerged>();
     }
 
@@ -47,7 +49,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        overworldSystem.enemyUnit = GetComponent<UnitWLevelling>();
-        encounter.EncounterStart();
+        if (collision.collider == playerMain.GetComponent<Collider>())
+        {
+            overworldSystem.enemyUnit = GetComponent<UnitWLevelling>();
+            encounter.EncounterStart();
+            Debug.Log("EncounterStarts");
+        }
+        
     }
 }

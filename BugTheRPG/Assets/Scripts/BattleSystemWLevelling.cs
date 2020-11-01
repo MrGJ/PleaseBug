@@ -36,6 +36,7 @@ public class BattleSystemWLevelling : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         dialogueText = dialogueObj.GetComponent<TextMeshProUGUI>();
         encounter = encounterObj.GetComponent<EncounterTwisting>();
         state = BattleStateWL.START;

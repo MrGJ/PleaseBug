@@ -7,16 +7,20 @@ public class EncounterTwisting : MonoBehaviour
 
     public GameObject battleCamera;
     public GameObject overworldCamera;
-    public GameObject battleObject;
-    public GameObject overworldObject;
+    public GameObject battleSysObject;
+    public GameObject overworldSysObject;
+    public GameObject overworldObj;
+    public GameObject battleObj;
 
     public OverworldSystem overworldSystem;
     public BattleSystemWLevelling battleSystem;
 
     void Start()
     {
-        overworldSystem = overworldObject.GetComponent<OverworldSystem>();
-        battleSystem = battleObject.GetComponent<BattleSystemWLevelling>();
+        overworldObj.SetActive(true);
+        battleObj.SetActive(false);
+        overworldSystem = overworldSysObject.GetComponent<OverworldSystem>();
+        battleSystem = battleSysObject.GetComponent<BattleSystemWLevelling>();
     }
 
     public void EncounterStart()
@@ -28,6 +32,8 @@ public class EncounterTwisting : MonoBehaviour
         SetStatOverToBattle(battleSystem.enemyUnit, overworldSystem.enemyUnit);
         overworldCamera.SetActive(false);
         battleCamera.SetActive(true);
+        battleObj.SetActive(true);
+        overworldObj.SetActive(false);
     }
 
     public void EncounterEnd()
@@ -38,6 +44,8 @@ public class EncounterTwisting : MonoBehaviour
         SetStatOverToBattle(battleSystem.partyFourUnit, overworldSystem.partyFourUnit);
         overworldCamera.SetActive(true);
         battleCamera.SetActive(false);
+        battleObj.SetActive(false);
+        overworldObj.SetActive(true);
     }
 
     public void SetStatOverToBattle(UnitWLevelling unitBattle, UnitWLevelling unitOverworld)

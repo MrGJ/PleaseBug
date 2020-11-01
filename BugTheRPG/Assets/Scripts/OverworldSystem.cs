@@ -9,7 +9,7 @@ public class OverworldSystem : MonoBehaviour
     public GameObject partyMemTwo;
     public GameObject partyMemThree;
     public GameObject partyMemFour;
-    public GameObject[] enemyObj;
+    public GameObject enemyObj;
 
     public UnitWLevelling partyOneUnit;
     public UnitWLevelling partyTwoUnit;
@@ -29,7 +29,8 @@ public class OverworldSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyObj = GameObject.FindGameObjectsWithTag("EnemyOver");
+        
+        
     }
 
     // Update is called once per frame
