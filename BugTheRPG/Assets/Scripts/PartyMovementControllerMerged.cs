@@ -22,6 +22,14 @@ public class PartyMovementControllerMerged : MonoBehaviour
     float tweenOneTwo;
     float tweenTwoThree;
     float tweenThreeFour;
+
+    public OverworldSystem overworldSystem;
+
+    void Start()
+    {
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -71,11 +79,12 @@ public class PartyMovementControllerMerged : MonoBehaviour
             }
         }
 
-        void FaceTarget(Transform target, Transform self)
-        {
-            Vector3 direction = (target.position - self.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            self.rotation = Quaternion.Slerp(self.rotation, lookRotation, Time.deltaTime * 5f);
-        }
+    }
+
+    public void FaceTarget(Transform target, Transform self)
+    {
+        Vector3 direction = (target.position - self.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        self.rotation = Quaternion.Slerp(self.rotation, lookRotation, Time.deltaTime * 5f);
     }
 }

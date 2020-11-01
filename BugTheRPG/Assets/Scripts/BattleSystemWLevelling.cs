@@ -10,42 +10,26 @@ public enum PartySelectWL { PARTYONE, PARTYTWO, PARTYTHREE, PARTYFOUR}
 
 public class BattleSystemWLevelling : MonoBehaviour
 {
-    public GameObject partyMemOne;
-    public GameObject partyMemTwo;
-    public GameObject partyMemThree;
-    public GameObject partyMemFour;
-    public GameObject enemyObj;
-    public GameObject actionPanel;
-    public GameObject attackPanel;
+    public GameObject partyMemOne, partyMemTwo, partyMemThree, partyMemFour, enemyObj;
 
-    public Transform partyOnePlatform;
-    public Transform partyTwoPlatform;
-    public Transform partyThreePlatform;
-    public Transform partyFourPlatform;
-    public Transform enemyPlatform;
+    public GameObject actionPanel, attackPanel;
 
-    public UnitWLevelling partyOneUnit;
-    public UnitWLevelling partyTwoUnit;
-    public UnitWLevelling partyThreeUnit;
-    public UnitWLevelling partyFourUnit;
-    public UnitWLevelling enemyUnit;
+    public Transform partyOnePlatform, partyTwoPlatform, partyThreePlatform, partyFourPlatform, enemyPlatform;
+
+    public UnitWLevelling partyOneUnit, partyTwoUnit, partyThreeUnit, partyFourUnit, enemyUnit;
 
     public GameObject dialogueObj;
     public TextMeshProUGUI dialogueText;
 
-    public BattleHUDWLevelling pOneHUD;
-    public BattleHUDWLevelling pTwoHUD;
-    public BattleHUDWLevelling pThreeHUD;
-    public BattleHUDWLevelling pFourHUD;
-    public BattleHUDWLevelling enemyHUD;
+    public BattleHUDWLevelling pOneHUD, pTwoHUD, pThreeHUD, pFourHUD, enemyHUD;
+
+    public GameObject encounterObj;
+    public EncounterTwisting encounter;
 
     private int turnTick;
 
     public BattleStateWL state;
-    public ActionChoiceWL choiceOne;
-    public ActionChoiceWL choiceTwo;
-    public ActionChoiceWL choiceThree;
-    public ActionChoiceWL choiceFour;
+    public ActionChoiceWL choiceOne, choiceTwo, choiceThree, choiceFour;
 
     public int deadCheck = 0;
 
@@ -53,6 +37,7 @@ public class BattleSystemWLevelling : MonoBehaviour
     void Start()
     {
         dialogueText = dialogueObj.GetComponent<TextMeshProUGUI>();
+        encounter = encounterObj.GetComponent<EncounterTwisting>();
         state = BattleStateWL.START;
         StartCoroutine(BattleInit());
     }
@@ -237,14 +222,21 @@ public class BattleSystemWLevelling : MonoBehaviour
         if (state == BattleStateWL.WON)
         {
             dialogueText.text = "You did a succeed.";
+            partyOneUnit.UnitLevelling();
+            partyTwoUnit.UnitLevelling();
+            partyThreeUnit.UnitLevelling();
+            partyFourUnit.UnitLevelling();
+            encounter.EncounterEnd();
         }
         else if (state == BattleStateWL.LOST)
         {
             dialogueText.text = "You did a succeedn't";
+            encounter.EncounterEnd();
         }
         else if (state == BattleStateWL.ESCAPE)
         {
             dialogueText.text = "You did a scoot-the-boots";
+            encounter.EncounterEnd();
         }
     }
 
