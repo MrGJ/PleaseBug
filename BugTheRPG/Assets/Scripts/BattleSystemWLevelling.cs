@@ -88,12 +88,12 @@ public class BattleSystemWLevelling : MonoBehaviour
     IEnumerator PartyBasicAtk(UnitWLevelling unit)
     {
         bool isDead = false;
-        if (unit.unitIsMagic)
+        if (!unit.unitIsMagic)
         {
             isDead = enemyUnit.TakeRegDamage(unit, false);
 
         }
-        else if (!unit.unitIsMagic)
+        else if (unit.unitIsMagic)
         {
             isDead = enemyUnit.TakeMagDamage(unit, false);
         }
@@ -106,7 +106,7 @@ public class BattleSystemWLevelling : MonoBehaviour
         if(isDead)
         {
             state = BattleStateWL.WON;
-            BattleEnd();
+            StartCoroutine(BattleEnd());
         }
         Debug.Log(unit.unitName + " B-ATK COMP");
     }
@@ -132,7 +132,7 @@ public class BattleSystemWLevelling : MonoBehaviour
         if (isDead)
         {
             state = BattleStateWL.WON;
-            BattleEnd();
+            StartCoroutine(BattleEnd());
         }
         Debug.Log(unit.unitName + " S-ATK COMP");
     }
@@ -206,39 +206,54 @@ public class BattleSystemWLevelling : MonoBehaviour
         if (deadCheck == 4)
         {
             state = BattleStateWL.LOST;
-            BattleEnd();
+            StartCoroutine(BattleEnd());
         }
         else
         {
-            state = BattleStateWL.PARTYONESEL;
-            turnTick += 1;
-            PartyPhaseBegin();
+            if (state != BattleStateWL.LOST || state != BattleStateWL.WON || state != BattleStateWL.ESCAPE)
+            {
+                state = BattleStateWL.PARTYONESEL;
+                turnTick += 1;
+                PartyPhaseBegin();
+            }
+            
         }
 
     }
 
     //Runs when an attack ends, to check if either side won or lost
-    void BattleEnd()
+    IEnumerator BattleEnd()
     {
         if (state == BattleStateWL.WON)
         {
+            
             dialogueText.text = "You did a succeed.";
+            
+            partyOneUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
+            partyTwoUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
+            partyThreeUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
+            partyFourUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
+            yield return new WaitForSeconds(1f);
             partyOneUnit.UnitLevelling();
             partyTwoUnit.UnitLevelling();
             partyThreeUnit.UnitLevelling();
             partyFourUnit.UnitLevelling();
+            yield return new WaitForSeconds(1f);
             encounter.EncounterEnd();
         }
         else if (state == BattleStateWL.LOST)
         {
             dialogueText.text = "You did a succeedn't";
+            yield return new WaitForSeconds(1f);
             encounter.EncounterEnd();
         }
         else if (state == BattleStateWL.ESCAPE)
         {
             dialogueText.text = "You did a scoot-the-boots";
+            yield return new WaitForSeconds(1f);
             encounter.EncounterEnd();
         }
+        turnTick = 0;
     }
 
     //Shows the attack menu to choose an attack for the current party member
@@ -273,7 +288,7 @@ public class BattleSystemWLevelling : MonoBehaviour
     public void ButtonRunOption()
     {
         state = BattleStateWL.ESCAPE;
-        BattleEnd();
+        StartCoroutine(BattleEnd());
     }
 
     //Dictates what happens on 'Basic Attack' Click

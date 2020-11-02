@@ -152,7 +152,7 @@ MonoBehaviour:
   unitDef: 3
   unitMaxHP: 100
   unitCurrentHP: 100
-  unitExpGainedOnDeath: 0
+  unitExpGainedOnDeath: 100
 --- !u!54 &4187198988273131739
 Rigidbody:
   m_ObjectHideFlags: 0

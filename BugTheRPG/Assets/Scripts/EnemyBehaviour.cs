@@ -11,6 +11,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public Transform self;
     public NavMeshAgent selfNav;
+    public GameObject selfObj;
 
     public GameObject overworldController;
     public GameObject gameSystems;
@@ -29,6 +30,7 @@ public class EnemyBehaviour : MonoBehaviour
         overworldSystem = overworldController.GetComponent<OverworldSystem>();
         encounter = gameSystems.GetComponent<EncounterTwisting>();
         movementControl = overworldController.GetComponent<PartyMovementControllerMerged>();
+        GetComponent<UnitWLevelling>().EnemyInit(GetComponent<UnitWLevelling>());
     }
 
     // Update is called once per frame
@@ -47,11 +49,12 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider == playerMain.GetComponent<Collider>())
+        if (collision.gameObject == playerMain)
         {
-            overworldSystem.enemyUnit = GetComponent<UnitWLevelling>();
+            Debug.Log("Collision Is Player");
+            overworldSystem.enemyUnit = selfObj.GetComponent<UnitWLevelling>();
             encounter.EncounterStart();
             Debug.Log("EncounterStarts");
         }

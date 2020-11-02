@@ -17,41 +17,39 @@ public class EncounterTwisting : MonoBehaviour
 
     void Start()
     {
-        overworldObj.SetActive(true);
-        battleObj.SetActive(false);
+        
         overworldSystem = overworldSysObject.GetComponent<OverworldSystem>();
         battleSystem = battleSysObject.GetComponent<BattleSystemWLevelling>();
     }
 
     public void EncounterStart()
     {
+        battleCamera.SetActive(true);
+        overworldCamera.SetActive(false);
         SetStatOverToBattle(battleSystem.partyOneUnit, overworldSystem.partyOneUnit);
         SetStatOverToBattle(battleSystem.partyTwoUnit, overworldSystem.partyTwoUnit);
         SetStatOverToBattle(battleSystem.partyThreeUnit, overworldSystem.partyThreeUnit);
         SetStatOverToBattle(battleSystem.partyFourUnit, overworldSystem.partyFourUnit);
         SetStatOverToBattle(battleSystem.enemyUnit, overworldSystem.enemyUnit);
-        overworldCamera.SetActive(false);
-        battleCamera.SetActive(true);
-        battleObj.SetActive(true);
-        overworldObj.SetActive(false);
     }
 
     public void EncounterEnd()
     {
+        overworldCamera.SetActive(true);
+        battleCamera.SetActive(false);
         SetStatOverToBattle(battleSystem.partyOneUnit, overworldSystem.partyOneUnit);
         SetStatOverToBattle(battleSystem.partyTwoUnit, overworldSystem.partyTwoUnit);
         SetStatOverToBattle(battleSystem.partyThreeUnit, overworldSystem.partyThreeUnit);
         SetStatOverToBattle(battleSystem.partyFourUnit, overworldSystem.partyFourUnit);
-        overworldCamera.SetActive(true);
-        battleCamera.SetActive(false);
-        battleObj.SetActive(false);
-        overworldObj.SetActive(true);
     }
 
     public void SetStatOverToBattle(UnitWLevelling unitBattle, UnitWLevelling unitOverworld)
     {
         unitBattle.unitName = unitOverworld.unitName;
-        unitBattle.unitImg = unitOverworld.unitImg;
+        if (unitOverworld.unitImg != null)
+        { 
+            unitBattle.unitImg = unitOverworld.unitImg; 
+        }
         unitBattle.unitClass = unitOverworld.unitClass;
         unitBattle.unitIsMagic = unitOverworld.unitIsMagic;
         unitBattle.unitIsDead = unitOverworld.unitIsDead;
@@ -63,6 +61,7 @@ public class EncounterTwisting : MonoBehaviour
         unitBattle.unitDef = unitOverworld.unitDef;
         unitBattle.unitMaxHP = unitOverworld.unitMaxHP;
         unitBattle.unitCurrentHP = unitOverworld.unitCurrentHP;
+        unitBattle.unitExpGainedOnDeath = unitOverworld.unitExpGainedOnDeath;
     }
 
     public void SetStatBattleToOver(UnitWLevelling unitBattle, UnitWLevelling unitOverworld)
