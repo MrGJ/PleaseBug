@@ -11,7 +11,7 @@ public class Menu : MonoBehaviour
     void Start()
     {
         canvas.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
+        
     }
 
     void Update()
@@ -23,12 +23,12 @@ public class Menu : MonoBehaviour
 
         if (toggle == true)
         {
-            Cursor.lockState = CursorLockMode.Confined;
+            
             canvas.SetActive(true);
         }
         else if (toggle == false)
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            
             canvas.SetActive(false);
         }
     }

@@ -25,7 +25,7 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         gameSystems = GameObject.Find("GameSystems");
-        overworldController = GameObject.Find("OverworldSystems");
+        overworldController = GameObject.Find("OverworldSystem");
         playerMain = GameObject.FindGameObjectWithTag("OneOver");
         overworldSystem = overworldController.GetComponent<OverworldSystem>();
         encounter = gameSystems.GetComponent<EncounterTwisting>();

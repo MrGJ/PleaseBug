@@ -9,15 +9,14 @@ public class EncounterTwisting : MonoBehaviour
     public GameObject overworldCamera;
     public GameObject battleSysObject;
     public GameObject overworldSysObject;
-    public GameObject overworldObj;
-    public GameObject battleObj;
 
     public OverworldSystem overworldSystem;
     public BattleSystemWLevelling battleSystem;
 
     void Start()
     {
-        
+        overworldCamera.SetActive(true);
+        battleCamera.SetActive(false);
         overworldSystem = overworldSysObject.GetComponent<OverworldSystem>();
         battleSystem = battleSysObject.GetComponent<BattleSystemWLevelling>();
     }
