@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class OverworldSystem : MonoBehaviour
 {
@@ -14,23 +15,22 @@ public class OverworldSystem : MonoBehaviour
     public UnitWLevelling partyTwoUnit;
     public UnitWLevelling partyThreeUnit;
     public UnitWLevelling partyFourUnit;
+    public UnitWLevelling enemyUnit;
 
-    public Transform partyOnePlatform;
-    public Transform partyTwoPlatform;
-    public Transform partyThreePlatform;
-    public Transform partyFourPlatform;
+    //public Transform partyOnePlatform;
+    //public Transform partyTwoPlatform;
+    //public Transform partyThreePlatform;
+    //public Transform partyFourPlatform;
+
+    public PartyMovementControllerMerged partyMovement;
+
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        GameObject partyOneGO = Instantiate(partyMemOne, partyOnePlatform);
-        partyOneUnit = partyOneGO.GetComponent<UnitWLevelling>();
-        GameObject partyTwoGO = Instantiate(partyMemTwo, partyTwoPlatform);
-        partyTwoUnit = partyTwoGO.GetComponent<UnitWLevelling>();
-        GameObject partyThreeGO = Instantiate(partyMemThree, partyThreePlatform);
-        partyThreeUnit = partyThreeGO.GetComponent<UnitWLevelling>();
-        GameObject partyFourGO = Instantiate(partyMemFour, partyFourPlatform);
-        partyFourUnit = partyFourGO.GetComponent<UnitWLevelling>();
+        
+        
     }
 
     // Update is called once per frame
@@ -38,4 +38,6 @@ public class OverworldSystem : MonoBehaviour
     {
         
     }
+
+    
 }

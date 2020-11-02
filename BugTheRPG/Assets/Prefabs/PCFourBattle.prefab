@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3648068078397064874}
   - component: {fileID: 1386758983023364347}
-  - component: {fileID: 5472615129595863437}
   - component: {fileID: 2612997576226689218}
   - component: {fileID: -3705765609123187681}
   m_Layer: 0
@@ -61,28 +60,6 @@ MonoBehaviour:
   unitMaxHP: 100
   unitCurrentHP: 100
   unitExpGainedOnDeath: 0
---- !u!195 &5472615129595863437
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3648068078397064868}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!54 &2612997576226689218
 Rigidbody:
   m_ObjectHideFlags: 0

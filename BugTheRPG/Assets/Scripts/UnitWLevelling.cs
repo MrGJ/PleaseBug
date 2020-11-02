@@ -32,6 +32,7 @@ public class UnitWLevelling : MonoBehaviour
             unitLevel += 1;
             
             unitReqExp += (unitReqExp / 4) + unitReqExp;
+            StatDistribution();
         }
 
     }
