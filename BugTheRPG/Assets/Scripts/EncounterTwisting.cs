@@ -30,6 +30,7 @@ public class EncounterTwisting : MonoBehaviour
         SetStatOverToBattle(battleSystem.partyThreeUnit, overworldSystem.partyThreeUnit);
         SetStatOverToBattle(battleSystem.partyFourUnit, overworldSystem.partyFourUnit);
         SetStatOverToBattle(battleSystem.enemyUnit, overworldSystem.enemyUnit);
+        Destroy(overworldSystem.enemyObj);
     }
 
     public void EncounterEnd()
@@ -40,7 +41,8 @@ public class EncounterTwisting : MonoBehaviour
         SetStatOverToBattle(battleSystem.partyTwoUnit, overworldSystem.partyTwoUnit);
         SetStatOverToBattle(battleSystem.partyThreeUnit, overworldSystem.partyThreeUnit);
         SetStatOverToBattle(battleSystem.partyFourUnit, overworldSystem.partyFourUnit);
-        Destroy(overworldSystem.enemyObj);
+        Debug.Log("Please");
+
     }
 
     public void SetStatOverToBattle(UnitWLevelling unitBattle, UnitWLevelling unitOverworld)

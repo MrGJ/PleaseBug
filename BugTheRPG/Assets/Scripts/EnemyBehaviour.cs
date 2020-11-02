@@ -49,24 +49,13 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject == playerMain)
-        {
-            Debug.Log("Collision Is Player");
-            overworldSystem.enemyUnit = selfObj.GetComponent<UnitWLevelling>();
-            encounter.EncounterStart();
-            Debug.Log("EncounterStarts");
-        }
-        
-    }
-
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == playerMain)
         {
             Debug.Log("Collision Is Player");
             overworldSystem.enemyUnit = selfObj.GetComponent<UnitWLevelling>();
+            overworldSystem.enemyObj = selfObj;
             encounter.EncounterStart();
             Debug.Log("EncounterStarts");
         }

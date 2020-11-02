@@ -24,7 +24,7 @@ public class OverworldSystem : MonoBehaviour
 
     public PartyMovementControllerMerged partyMovement;
 
-    
+
 
     // Start is called before the first frame update
     void Start()

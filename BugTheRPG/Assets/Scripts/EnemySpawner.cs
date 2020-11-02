@@ -51,11 +51,11 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemyPrefab, spawnVecFour, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecFive, spawnQuaOne);
 
-            spawnVecOne = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecTwo = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecThree = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFour = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFive = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
+            spawnVecOne = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecTwo = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecThree = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFour = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFive = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
 
             Instantiate(enemyPrefab, spawnVecOne, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecTwo, spawnQuaOne);
@@ -72,11 +72,11 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemyPrefab, spawnVecFour, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecFive, spawnQuaOne);
 
-            spawnVecOne = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecTwo = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecThree = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFour = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFive = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
+            spawnVecOne = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecTwo = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecThree = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFour = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFive = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
 
             Instantiate(enemyPrefab, spawnVecOne, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecTwo, spawnQuaOne);
@@ -84,11 +84,11 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemyPrefab, spawnVecFour, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecFive, spawnQuaOne);
 
-            spawnVecOne = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecTwo = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecThree = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFour = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFive = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
+            spawnVecOne = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecTwo = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecThree = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFour = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFive = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
 
             Instantiate(enemyPrefab, spawnVecOne, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecTwo, spawnQuaOne);
@@ -105,11 +105,11 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemyPrefab, spawnVecFour, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecFive, spawnQuaOne);
 
-            spawnVecOne = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecTwo = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecThree = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFour = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFive = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
+            spawnVecOne = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecTwo = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecThree = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFour = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFive = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
 
             Instantiate(enemyPrefab, spawnVecOne, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecTwo, spawnQuaOne);
@@ -117,11 +117,11 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemyPrefab, spawnVecFour, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecFive, spawnQuaOne);
 
-            spawnVecOne = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecTwo = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecThree = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFour = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFive = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
+            spawnVecOne = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecTwo = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecThree = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFour = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFive = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
 
             Instantiate(enemyPrefab, spawnVecOne, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecTwo, spawnQuaOne);
@@ -129,11 +129,11 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemyPrefab, spawnVecFour, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecFive, spawnQuaOne);
 
-            spawnVecOne = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecTwo = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecThree = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFour = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFive = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
+            spawnVecOne = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecTwo = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecThree = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFour = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFive = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
 
             Instantiate(enemyPrefab, spawnVecOne, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecTwo, spawnQuaOne);
@@ -150,11 +150,11 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemyPrefab, spawnVecFour, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecFive, spawnQuaOne);
 
-            spawnVecOne = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecTwo = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecThree = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFour = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFive = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
+            spawnVecOne = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecTwo = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecThree = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFour = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFive = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
 
             Instantiate(enemyPrefab, spawnVecOne, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecTwo, spawnQuaOne);
@@ -162,11 +162,11 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemyPrefab, spawnVecFour, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecFive, spawnQuaOne);
 
-            spawnVecOne = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecTwo = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecThree = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFour = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFive = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
+            spawnVecOne = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecTwo = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecThree = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFour = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFive = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
 
             Instantiate(enemyPrefab, spawnVecOne, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecTwo, spawnQuaOne);
@@ -174,11 +174,11 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemyPrefab, spawnVecFour, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecFive, spawnQuaOne);
 
-            spawnVecOne = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecTwo = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecThree = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFour = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFive = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
+            spawnVecOne = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecTwo = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecThree = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFour = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFive = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
 
             Instantiate(enemyPrefab, spawnVecOne, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecTwo, spawnQuaOne);
@@ -186,11 +186,11 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemyPrefab, spawnVecFour, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecFive, spawnQuaOne);
 
-            spawnVecOne = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecTwo = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecThree = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFour = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
-            spawnVecFive = new Vector3(Random.Range(206, 622), 121, Random.Range(206, 1027));
+            spawnVecOne = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecTwo = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecThree = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFour = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
+            spawnVecFive = new Vector3(Random.Range(206, 622), 101, Random.Range(206, 1027));
 
             Instantiate(enemyPrefab, spawnVecOne, spawnQuaOne);
             Instantiate(enemyPrefab, spawnVecTwo, spawnQuaOne);
