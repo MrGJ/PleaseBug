@@ -60,4 +60,15 @@ public class EnemyBehaviour : MonoBehaviour
         }
         
     }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == playerMain)
+        {
+            Debug.Log("Collision Is Player");
+            overworldSystem.enemyUnit = selfObj.GetComponent<UnitWLevelling>();
+            encounter.EncounterStart();
+            Debug.Log("EncounterStarts");
+        }
+    }
 }
