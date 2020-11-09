@@ -23,6 +23,8 @@ public class EncounterTwisting : MonoBehaviour
 
     public void EncounterStart()
     {
+        battleSystem.state = BattleStateWL.START;
+        StartCoroutine(battleSystem.BattleInit());
         battleCamera.SetActive(true);
         overworldCamera.SetActive(false);
         SetStatOverToBattle(battleSystem.partyOneUnit, overworldSystem.partyOneUnit);

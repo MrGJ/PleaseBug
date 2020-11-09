@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class PartyMovementControllerMerged : MonoBehaviour
 {
     public Camera cam;
+    public GameObject partyOneFellow;
     public NavMeshAgent partyOneAgent;
     public NavMeshAgent partyTwoAgent;
     public NavMeshAgent partyThreeAgent;
@@ -23,7 +24,10 @@ public class PartyMovementControllerMerged : MonoBehaviour
     float tweenTwoThree;
     float tweenThreeFour;
 
+
     public OverworldSystem overworldSystem;
+    public GameObject camHolder;
+    public int rotateSpeed;
 
     void Start()
     {
@@ -33,6 +37,15 @@ public class PartyMovementControllerMerged : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Camera Movement
+        if (Input.GetMouseButton(1))
+        {
+            if (Input.GetAxis("Mouse X") < 0)
+                camHolder.transform.Rotate((Vector3.up) * rotateSpeed);
+            if (Input.GetAxis("Mouse X") > 0)
+                camHolder.transform.Rotate((Vector3.up) * -rotateSpeed);
+        }
+
         //PartyOne Movement
         if (Input.GetMouseButtonDown(0))
         {
@@ -42,7 +55,6 @@ public class PartyMovementControllerMerged : MonoBehaviour
             {
                 //Moves Agent
                 partyOneAgent.SetDestination(hit.point);
-
             }
         }
 

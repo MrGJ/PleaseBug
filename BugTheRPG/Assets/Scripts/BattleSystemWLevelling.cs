@@ -32,19 +32,22 @@ public class BattleSystemWLevelling : MonoBehaviour
     public ActionChoiceWL choiceOne, choiceTwo, choiceThree, choiceFour;
 
     public int deadCheck = 0;
+    public bool inBattle;
+
 
     // Start is called before the first frame update
     void Start()
     {
-
+        inBattle = false;
         dialogueText = dialogueObj.GetComponent<TextMeshProUGUI>();
         encounter = encounterObj.GetComponent<EncounterTwisting>();
-        state = BattleStateWL.START;
-        StartCoroutine(BattleInit());
+
+        //state = BattleStateWL.START;
+        //StartCoroutine(BattleInit());
     }
 
     //Initialises Battle
-    IEnumerator BattleInit()
+    public IEnumerator BattleInit()
     {
         turnTick = 0;
         GameObject partyOneGO = Instantiate(partyMemOne, partyOnePlatform);
