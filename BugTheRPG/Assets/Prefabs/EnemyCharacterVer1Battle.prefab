@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4187198988273131739}
   - component: {fileID: 9222261247401654343}
   m_Layer: 0
-  m_Name: EnemyCharacterBattle
+  m_Name: EnemyCharacterVer1Battle
   m_TagString: EnemyBattle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

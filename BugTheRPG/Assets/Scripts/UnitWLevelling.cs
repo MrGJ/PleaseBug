@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ClassSelect { TANK, DPSMELEE, DPSRANGED, DPSMAGIC, HEALER, ENEMY}
+public enum ClassSelect { TANK, DPSMELEE, DPSRANGED, DPSMAGIC, HEALER, ENEMYBASE, ENEMYTANK, ENEMYMELEE, ENEMYRANGED, ENEMYMAGIC, ENEMYHEALER, BOSS}
 
 public class UnitWLevelling : MonoBehaviour
 {
