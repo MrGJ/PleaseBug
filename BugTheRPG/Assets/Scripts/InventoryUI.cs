@@ -4,30 +4,20 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
-    public Transform playerDaddy;
-    public Transform rMarketDaddy;
-    public Transform bMarketDaddy;
+    public Transform itemsDaddy;
     public GameObject inventoryToggle;
-    public GameObject shopRToggle;
-    public GameObject shopBToggle;
 
-    InventoryRetry inventory;
+    Inventory inventory;
 
-    InventorySlot[] playerSlots;
-    InventorySlot[] rMarketSlots;
-    InventorySlot[] bMarketSlots;
+    InventorySlot[] slots;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        inventory.onItemChangedRingADing += UpdatePlayerUI;
-        inventory.onItemChangedRingADing += UpdateRShopUI;
-        inventory.onItemChangedRingADing += UpdateBShopUI;
+        inventory = Inventory.instance;
+        inventory.onItemChangedRingADing += UpdateUI;
 
-        playerSlots = playerDaddy.GetComponentsInChildren<InventorySlot>();
-        rMarketSlots = rMarketDaddy.GetComponentsInChildren<InventorySlot>();
-        bMarketSlots = bMarketDaddy.GetComponentsInChildren<InventorySlot>();
+        slots = itemsDaddy.GetComponentsInChildren<InventorySlot>();
     }
 
     // Update is called once per frame
@@ -40,55 +30,21 @@ public class InventoryUI : MonoBehaviour
     }
 
     //Updates Inventory UI to represent Items the player has
-    void UpdatePlayerUI()
+    void UpdateUI()
     {
         Debug.Log("INVFIDDLING");
-        for (int i = 0; i < playerSlots.Length; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
-            if (i < inventory.playerInv.Count)
+            if (i < inventory.items.Count)
             {
-                playerSlots[i].AddItem(inventory.playerInv[i]);
+                slots[i].AddItem(inventory.items[i]);
             }
             else 
             {
-                playerSlots[i].RemoveItem();
+                slots[i].RemoveItem();
             }
         }
     }
 
-    //Updates Inventory UI to represent Items the player has
-    void UpdateRShopUI()
-    {
-        Debug.Log("INVFIDDLING");
-        for (int i = 0; i < rMarketSlots.Length; i++)
-        {
-            if (i < inventory.rMarketInv.Count)
-            {
-                rMarketSlots[i].AddItem(inventory.rMarketInv[i]);
-            }
-            else
-            {
-                rMarketSlots[i].RemoveItem();
-            }
-        }
-    }
-
-    //Updates Inventory UI to represent Items the player has
-    void UpdateBShopUI()
-    {
-        Debug.Log("INVFIDDLING");
-        for (int i = 0; i < bMarketSlots.Length; i++)
-        {
-            if (i < inventory.bMarketInv.Count)
-            {
-                bMarketSlots[i].AddItem(inventory.bMarketInv[i]);
-            }
-            else
-            {
-                bMarketSlots[i].RemoveItem();
-            }
-        }
-    }
-
-
+    
 }
