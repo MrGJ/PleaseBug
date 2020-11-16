@@ -7,7 +7,6 @@ public class Menu : MonoBehaviour
 {
     bool toggle = false;
     public GameObject canvas;
-    public MainMenu menu;
 
     void Start()
     {
@@ -17,23 +16,20 @@ public class Menu : MonoBehaviour
 
     void Update()
     {
-        if (menu.enter == true)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                toggle = !toggle;
-            }
+            toggle = !toggle;
+        }
 
-            if (toggle == true)
-            {
-
-                canvas.SetActive(true);
-            }
-            else if (toggle == false)
-            {
-
-                canvas.SetActive(false);
-            }
+        if (toggle == true)
+        {
+            
+            canvas.SetActive(true);
+        }
+        else if (toggle == false)
+        {
+            
+            canvas.SetActive(false);
         }
     }
 
