@@ -6,8 +6,10 @@ public class Enter : MonoBehaviour
 {
     public MainMenu script;
 
+
     public void StartAnim()
     {
         script.enter = true;
+        script.CamSwitch();
     }
 }

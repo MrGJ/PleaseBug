@@ -9,5 +9,6 @@ public class Exit : MonoBehaviour
     public void ExitAnim()
     {
         script.exit = true;
+        script.Quitting();
     }
 }

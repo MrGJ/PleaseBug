@@ -4,20 +4,30 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
-    public Transform itemsDaddy;
-    public GameObject inventoryToggle;
+    public Transform itemsPDaddy;
+    public Transform itemsRDaddy;
+    public Transform itemsBDaddy;
+    public GameObject inventoryPToggle;
+    public GameObject inventoryRToggle;
+    public GameObject inventoryBToggle;
 
-    Inventory inventory;
+    public InventoryRetry inventory;
 
-    InventorySlot[] slots;
+    InventorySlot[] playerSlots;
+    InventorySlot[] rMarketSlots;
+    InventorySlot[] bMarketSlots;
 
     // Start is called before the first frame update
     void Start()
     {
-        inventory = Inventory.instance;
-        inventory.onItemChangedRingADing += UpdateUI;
+        
+        inventory.onItemChangedRingADing += UpdatePUI;
+        inventory.onItemChangedRingADing += UpdateRUI;
+        inventory.onItemChangedRingADing += UpdateBUI;
 
-        slots = itemsDaddy.GetComponentsInChildren<InventorySlot>();
+        playerSlots = itemsPDaddy.GetComponentsInChildren<InventorySlot>();
+        rMarketSlots = itemsRDaddy.GetComponentsInChildren<InventorySlot>();
+        bMarketSlots = itemsBDaddy.GetComponentsInChildren<InventorySlot>();
     }
 
     // Update is called once per frame
@@ -25,26 +35,57 @@ public class InventoryUI : MonoBehaviour
     {
         if (Input.GetButtonDown("Inv"))
         {
-            inventoryToggle.SetActive(!inventoryToggle.activeSelf);
+            inventoryPToggle.SetActive(!inventoryPToggle.activeSelf);
         }
     }
 
     //Updates Inventory UI to represent Items the player has
-    void UpdateUI()
+    void UpdatePUI()
     {
         Debug.Log("INVFIDDLING");
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < playerSlots.Length; i++)
         {
-            if (i < inventory.items.Count)
+            if (i < inventory.playerInv.Count)
             {
-                slots[i].AddItem(inventory.items[i]);
+                playerSlots[i].AddItem(inventory.playerInv[i]);
             }
             else 
             {
-                slots[i].RemoveItem();
+                playerSlots[i].RemoveItem();
             }
         }
     }
 
-    
+    void UpdateRUI()
+    {
+        Debug.Log("RINVFIDDLING");
+        for (int i = 0; i < rMarketSlots.Length; i++)
+        {
+            if (i < inventory.rMarketInv.Count)
+            {
+                rMarketSlots[i].AddItem(inventory.rMarketInv[i]);
+            }
+            else
+            {
+                rMarketSlots[i].RemoveItem();
+            }
+        }
+    }
+
+    void UpdateBUI()
+    {
+        Debug.Log("BINVFIDDLING");
+        for (int i = 0; i < bMarketSlots.Length; i++)
+        {
+            if (i < inventory.bMarketInv.Count)
+            {
+                bMarketSlots[i].AddItem(inventory.bMarketInv[i]);
+            }
+            else
+            {
+                bMarketSlots[i].RemoveItem();
+            }
+        }
+    }
+
 }

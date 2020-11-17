@@ -25,18 +25,7 @@ public class MainMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
     }
 
-    void Update()
-    {
-        if (enter == true)
-        {
-            overworldCamera.SetActive(true);
-            mainCamera.SetActive(false);
-        }
-        else if (exit == true)
-        {
-            Application.Quit();
-        }
-    }
+    
 
     public void StartButtonStart()
     {
@@ -49,4 +38,16 @@ public class MainMenu : MonoBehaviour
         canvas.SetActive(false);
         exitAnim.enabled = true;
     }
+
+    public void CamSwitch ()
+    {
+        overworldCamera.SetActive(true);
+        mainCamera.SetActive(false);
+    }
+
+    public void Quitting()
+    {
+        Application.Quit();
+    }
+
 }
