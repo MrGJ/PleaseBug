@@ -27,6 +27,7 @@ public class PartyMovementControllerMerged : MonoBehaviour
 
     public OverworldSystem overworldSystem;
     public GameObject camHolder;
+    public MainMenu gameStart;
     public int rotateSpeed;
 
     void Start()
@@ -47,14 +48,17 @@ public class PartyMovementControllerMerged : MonoBehaviour
         }
 
         //PartyOne Movement
-        if (Input.GetMouseButtonDown(0))
+        if (gameStart.enter == true)
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Input.GetMouseButtonDown(0))
             {
-                //Moves Agent
-                partyOneAgent.SetDestination(hit.point);
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    //Moves Agent
+                    partyOneAgent.SetDestination(hit.point);
+                }
             }
         }
 
