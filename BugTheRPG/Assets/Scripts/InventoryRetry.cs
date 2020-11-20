@@ -13,6 +13,14 @@ public class InventoryRetry : MonoBehaviour
     public List<Items> rMarketInv = new List<Items>();
     public List<Items> bMarketInv = new List<Items>();
 
+    public bool isPOpen;
+    public bool isROpen;
+    public bool isBOpen;
+
+    public int pCash;
+    public int rCash;
+    public int bCash;
+
 
     //Adds item to item list(needs id functionality)
     public bool PAdd(Items item)
@@ -81,5 +89,43 @@ public class InventoryRetry : MonoBehaviour
     {
         bMarketInv.Remove(item);
         onItemChangedRingADing.Invoke();
+    }
+
+    public void BuyFrom(Items item)
+    {
+        if (isBOpen)
+        {
+            bMarketInv.Remove(item);
+            playerInv.Add(item);
+            bCash += item.itemBuyVal;
+            pCash -= item.itemBuyVal;
+        }
+
+        if (isROpen)
+        {
+            rMarketInv.Remove(item);
+            playerInv.Add(item);
+            rCash += item.itemBuyVal;
+            pCash -= item.itemBuyVal;
+        }
+    }
+
+    public void SellTo(Items item)
+    {
+        if (isBOpen)
+        {
+            bMarketInv.Add(item);
+            playerInv.Remove(item);
+            pCash += item.itemSellVal;
+            bCash -= item.itemSellVal;
+        }
+
+        if (isROpen)
+        {
+            rMarketInv.Add(item);
+            playerInv.Remove(item);
+            pCash += item.itemSellVal;
+            rCash -= item.itemSellVal;
+        }
     }
 }
