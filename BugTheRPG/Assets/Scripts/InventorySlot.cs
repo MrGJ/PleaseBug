@@ -7,6 +7,13 @@ public class InventorySlot : MonoBehaviour
     public Image icon;
     public Button tossButton;
     Items item;
+    InventoryRetry retry;
+    public GameObject inventoryHolder;
+
+    private void Start()
+    {
+        retry = inventoryHolder.GetComponent<InventoryRetry>();
+    }
 
     //Takes information from picked up items to represent the item in inventory
     public void AddItem(Items newItem)
@@ -30,7 +37,38 @@ public class InventorySlot : MonoBehaviour
     //Calls Inventory Delete Method
     public void Spitooey()
     {
-        Inventory.instance.Delete(item);
+        retry.PDelete(item);
+    }
+
+    //Decides What happens on slot click based on context
+    public void SlotClick()
+    {
+        if (retry.isROpen)
+        {
+            if (gameObject.CompareTag("rSlot"))
+            {
+                retry.BuyFrom(item);
+            }
+            else if (gameObject.CompareTag("pSlot"))
+            {
+                retry.SellTo(item);
+            }
+        }
+        else if (retry.isBOpen)
+        {
+            if (gameObject.CompareTag("rSlot"))
+            {
+                retry.BuyFrom(item);
+            }
+            else if (gameObject.CompareTag("pSlot"))
+            {
+                retry.SellTo(item);
+            }
+        }
+        else
+        {
+            UseItem();
+        }
     }
 
     //Uses Item based on what type of item it is
