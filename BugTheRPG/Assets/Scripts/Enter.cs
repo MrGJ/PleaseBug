@@ -5,11 +5,11 @@ using UnityEngine;
 public class Enter : MonoBehaviour
 {
     public MainMenu script;
-
+    public Tutscript tutStart;
 
     public void StartAnim()
     {
-        script.enter = true;
+        tutStart.TutStart();
         script.CamSwitch();
     }
 }

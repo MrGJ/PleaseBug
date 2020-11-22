@@ -25,8 +25,6 @@ public class MainMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
     }
 
-    
-
     public void StartButtonStart()
     {
         canvas.SetActive(false);
@@ -39,7 +37,7 @@ public class MainMenu : MonoBehaviour
         exitAnim.enabled = true;
     }
 
-    public void CamSwitch ()
+    public void CamSwitch()
     {
         overworldCamera.SetActive(true);
         mainCamera.SetActive(false);

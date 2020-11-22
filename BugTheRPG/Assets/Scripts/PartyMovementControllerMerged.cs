@@ -26,8 +26,8 @@ public class PartyMovementControllerMerged : MonoBehaviour
 
 
     public OverworldSystem overworldSystem;
+    public Tutscript tutScript;
     public GameObject camHolder;
-    public MainMenu gameStart;
     public int rotateSpeed;
 
     void Start()
@@ -48,7 +48,7 @@ public class PartyMovementControllerMerged : MonoBehaviour
         }
 
         //PartyOne Movement
-        if (gameStart.enter == true)
+        if (tutScript.tutEnd == true)
         {
             if (Input.GetMouseButtonDown(0))
             {
