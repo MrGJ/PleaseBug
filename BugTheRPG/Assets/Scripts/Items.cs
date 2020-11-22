@@ -6,46 +6,14 @@ public enum ItemType { WEAPON, ARMOUR, QUEST, GENITEM, POTIONONE, POTIONTWO, CUR
 public class Items : ScriptableObject
 {
 
-    new public string name = "ItemName";
-    public Sprite invIcon = null;
+    [Tooltip("Assign display name")] new public string name = "ItemName";
+    [Tooltip("Assign object's Mesh")] public Mesh itemMesh;
+    [Tooltip("Assign object's Material")] public Material itemMaterial;
+    [Tooltip("Assign object's UI sprite")] public Sprite invIcon = null;
     public bool isDefault = false;
     public ItemType type;
-    public int itemBuyVal;
-    public int itemSellVal;
-    public GameObject self;
-
-    void Start()
-    {
-        
-        if (type == ItemType.WEAPON)
-        {
-            self.AddComponent(System.Type.GetType("ItemTypeWeapon"));
-        }
-        else if (type == ItemType.ARMOUR)
-        {
-            self.AddComponent(System.Type.GetType("ItemTypeArmour"));
-        }
-        else if (type == ItemType.QUEST)
-        {
-            self.AddComponent(System.Type.GetType("ItemTypeQuest"));
-        }
-        else if (type == ItemType.GENITEM)
-        {
-            self.AddComponent(System.Type.GetType("ItemTypeGenItem"));
-        }
-        else if (type == ItemType.POTIONONE)
-        {
-            self.AddComponent(System.Type.GetType("ItemTypePotionOne"));
-        }
-        else if (type == ItemType.POTIONTWO)
-        {
-            self.AddComponent(System.Type.GetType("ItemTypePotionTwo"));
-        }
-        else if (type == ItemType.CURRENCY)
-        {
-            self.AddComponent(System.Type.GetType("ItemTypeCurrency"));
-        }
-    }
+    [Tooltip("Use common sense to decide this")] public int itemBuyVal;
+    [Tooltip("This too")] public int itemSellVal;
 
     //Uses item
     public virtual void Use()

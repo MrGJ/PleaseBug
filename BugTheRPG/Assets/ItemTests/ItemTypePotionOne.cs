@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemTypeArmour : Items
+public class ItemTypePotionOne : Items
 {
-    public int defAddition;
+    Unit unit;
 
+    public int potionPotency;
 
     public override void Use()
     {
-        Debug.Log("Eventual Equipping of Some Sort");
+        unit.currentHP += potionPotency;
     }
 }

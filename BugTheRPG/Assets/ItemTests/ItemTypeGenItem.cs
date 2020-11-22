@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemTypeArmour : Items
+public class ItemTypeGenItem : Items
 {
-    public int defAddition;
-
-
     public override void Use()
     {
-        Debug.Log("Eventual Equipping of Some Sort");
+        Debug.Log("Who knows what this does?");
     }
 }
