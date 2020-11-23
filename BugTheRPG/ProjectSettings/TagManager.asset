@@ -16,6 +16,7 @@ TagManager:
   - FourOver
   - EnemyBattle
   - EnemyOver
+  - Item
   layers:
   - Default
   - TransparentFX

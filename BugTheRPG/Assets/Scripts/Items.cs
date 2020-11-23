@@ -14,6 +14,7 @@ public class Items : ScriptableObject
     public ItemType type;
     [Tooltip("Use common sense to decide this")] public int itemBuyVal;
     [Tooltip("This too")] public int itemSellVal;
+    [HideInInspector] public Unit unit;
 
     //Uses item
     public virtual void Use()

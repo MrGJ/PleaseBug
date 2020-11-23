@@ -9,6 +9,8 @@ public class InventorySlot : MonoBehaviour
     Items item;
     InventoryRetry retry;
     public GameObject inventoryHolder;
+    public GameObject itemMenu;
+
 
     private void Start()
     {
@@ -67,15 +69,26 @@ public class InventorySlot : MonoBehaviour
         }
         else
         {
-            UseItem();
+            OpenMenu();
         }
     }
 
+    public void OpenMenu()
+    {
+        itemMenu.SetActive(true);
+    }
+
+    public void ItemSet(Unit unit)
+    {
+        item.unit = unit;
+    }
+
     //Uses Item based on what type of item it is
-    public void UseItem()
+    public void UseItem(Unit unitSet)
     {
         if (item != null)
         {
+            ItemSet(unitSet);
             item.Use();
         }
     }

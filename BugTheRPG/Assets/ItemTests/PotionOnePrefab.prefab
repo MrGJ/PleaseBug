@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 8443730510861368871}
   - component: {fileID: 8443730510861368864}
   - component: {fileID: 8443730510861368865}
+  - component: {fileID: -3315054292503980149}
   m_Layer: 0
-  m_Name: Potion
-  m_TagString: Untagged
+  m_Name: PotionOnePrefab
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8443730510861368867}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300004, guid: ef6178546f77bc546af127fb4c56da0c, type: 3}
 --- !u!23 &8443730510861368869
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -128,3 +129,16 @@ MonoBehaviour:
   itemFilter: {fileID: 0}
   itemCollider: {fileID: 0}
   itemRenderer: {fileID: 0}
+--- !u!114 &-3315054292503980149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8443730510861368867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8418fe1dc7c63f48a65197c3820687e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 211f07c7ffd37b64b942b8d0edcc7733, type: 2}
