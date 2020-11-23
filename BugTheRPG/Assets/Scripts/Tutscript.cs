@@ -9,6 +9,7 @@ public class Tutscript : MonoBehaviour
     public GameObject pan3;
     public GameObject pan4;
     public GameObject pan5;
+    public GameObject pan6;
 
     public bool tutEnd;
 
@@ -21,6 +22,7 @@ public class Tutscript : MonoBehaviour
         pan3.SetActive(false);
         pan4.SetActive(false);
         pan5.SetActive(false);
+        pan6.SetActive(false);
     }
     public void TutStart()
     {
@@ -49,6 +51,9 @@ public class Tutscript : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));
         pan5.SetActive(false);
+        pan6.SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        pan6.SetActive(false);
         tutEnd = true;
     }
 
