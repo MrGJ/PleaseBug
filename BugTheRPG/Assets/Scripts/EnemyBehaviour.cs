@@ -8,10 +8,13 @@ public class EnemyBehaviour : MonoBehaviour
     public OverworldSystem overworldSystem;
     public EncounterTwisting encounter;
     public PartyMovementControllerMerged movementControl;
+    public Tutscript tutorialScript;
+    public BattleSystemWLevelling battleSystem;
 
     public Transform self;
     public NavMeshAgent selfNav;
     public GameObject selfObj;
+    public GameObject selfBattleObj;
 
     public GameObject overworldController;
     public GameObject gameSystems;
@@ -30,6 +33,7 @@ public class EnemyBehaviour : MonoBehaviour
         overworldSystem = overworldController.GetComponent<OverworldSystem>();
         encounter = gameSystems.GetComponent<EncounterTwisting>();
         movementControl = overworldController.GetComponent<PartyMovementControllerMerged>();
+        battleSystem = GameObject.Find("BattleSystem").GetComponent<BattleSystemWLevelling>();
         GetComponent<UnitWLevelling>().EnemyInit(GetComponent<UnitWLevelling>());
     }
 
@@ -51,13 +55,19 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == playerMain)
+        if (other.gameObject == playerMain && tutorialScript.battleTutEnd == true)
         {
-            Debug.Log("Collision Is Player");
             overworldSystem.enemyUnit = selfObj.GetComponent<UnitWLevelling>();
             overworldSystem.enemyObj = selfObj;
+            battleSystem.enemyObj = selfBattleObj;
             encounter.EncounterStart();
-            Debug.Log("EncounterStarts");
+        }
+        else if (other.gameObject == playerMain && tutorialScript.battleTutEnd == false)
+        {
+            overworldSystem.enemyUnit = selfObj.GetComponent<UnitWLevelling>();
+            overworldSystem.enemyObj = selfObj;
+            battleSystem.enemyObj = selfBattleObj;
+            encounter.TutorialEncounterStart();
         }
     }
 }

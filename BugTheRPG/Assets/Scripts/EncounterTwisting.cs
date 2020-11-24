@@ -6,9 +6,13 @@ public class EncounterTwisting : MonoBehaviour
 {
 
     public GameObject battleCamera;
+    public GameObject poolBattleCamera;
+    public GameObject tutorialBattleCamera;
     public GameObject overworldCamera;
     public GameObject battleSysObject;
     public GameObject overworldSysObject;
+    
+    public Collider teacherNpcCollider;
 
     public OverworldSystem overworldSystem;
     public BattleSystemWLevelling battleSystem;
@@ -16,6 +20,8 @@ public class EncounterTwisting : MonoBehaviour
     void Start()
     {
         battleCamera.SetActive(false);
+        tutorialBattleCamera.SetActive(false);
+        poolBattleCamera.SetActive(false);
         overworldSystem = overworldSysObject.GetComponent<OverworldSystem>();
         battleSystem = battleSysObject.GetComponent<BattleSystemWLevelling>();
     }
@@ -34,16 +40,30 @@ public class EncounterTwisting : MonoBehaviour
         Destroy(overworldSystem.enemyObj);
     }
 
-    public void EncounterEnd()
+    public void TutorialEncounterStart()
     {
-        overworldCamera.SetActive(true);
-        battleCamera.SetActive(false);
+        battleSystem.state = BattleStateWL.START;
+        StartCoroutine(battleSystem.BattleInit());
+        tutorialBattleCamera.SetActive(true);
+        overworldCamera.SetActive(false);
         SetStatOverToBattle(battleSystem.partyOneUnit, overworldSystem.partyOneUnit);
         SetStatOverToBattle(battleSystem.partyTwoUnit, overworldSystem.partyTwoUnit);
         SetStatOverToBattle(battleSystem.partyThreeUnit, overworldSystem.partyThreeUnit);
         SetStatOverToBattle(battleSystem.partyFourUnit, overworldSystem.partyFourUnit);
-        Debug.Log("Please");
+        SetStatOverToBattle(battleSystem.enemyUnit, overworldSystem.enemyUnit);
+        Destroy(overworldSystem.enemyObj);
+    }
 
+    public void EncounterEnd()
+    {
+        overworldCamera.SetActive(true);
+        battleCamera.SetActive(false);
+        tutorialBattleCamera.SetActive(false);
+        poolBattleCamera.SetActive(false);
+        SetStatOverToBattle(battleSystem.partyOneUnit, overworldSystem.partyOneUnit);
+        SetStatOverToBattle(battleSystem.partyTwoUnit, overworldSystem.partyTwoUnit);
+        SetStatOverToBattle(battleSystem.partyThreeUnit, overworldSystem.partyThreeUnit);
+        SetStatOverToBattle(battleSystem.partyFourUnit, overworldSystem.partyFourUnit);
     }
 
     public void SetStatOverToBattle(UnitWLevelling unitBattle, UnitWLevelling unitOverworld)

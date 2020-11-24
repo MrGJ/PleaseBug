@@ -21,8 +21,6 @@ public class MainMenu : MonoBehaviour
 
         startAnim.enabled = false;
         exitAnim.enabled = false;
-
-        Cursor.lockState = CursorLockMode.Confined;
     }
 
     public void StartButtonStart()

@@ -48,7 +48,7 @@ public class PartyMovementControllerMerged : MonoBehaviour
         }
 
         //PartyOne Movement
-        if (tutScript.tutEnd == true)
+        if (tutScript.movementTutEnd == true)
         {
             if (Input.GetMouseButtonDown(0))
             {

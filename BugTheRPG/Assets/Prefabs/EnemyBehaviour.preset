@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: EnemyBehaviour
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: a699eae676d9fcd41892089346150996,
+      type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: overworldSystem
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: encounter
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: movementControl
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: tutorialScript
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: self
+    value: 
+    objectReference: {fileID: 1041945400098534376, guid: 68dfa187dede35f43a6770fb95b56f5b,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: selfNav
+    value: 
+    objectReference: {fileID: -7905906790433879389, guid: 68dfa187dede35f43a6770fb95b56f5b,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: selfObj
+    value: 
+    objectReference: {fileID: 6429152656974855477, guid: 68dfa187dede35f43a6770fb95b56f5b,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: overworldController
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: gameSystems
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: playerMain
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: lookRad
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: stoppingDistance
+    value: 0
+    objectReference: {fileID: 0}

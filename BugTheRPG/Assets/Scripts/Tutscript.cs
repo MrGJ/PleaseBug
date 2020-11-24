@@ -4,25 +4,32 @@ using UnityEngine;
 
 public class Tutscript : MonoBehaviour
 {
-    public GameObject pan1;
-    public GameObject pan2;
-    public GameObject pan3;
-    public GameObject pan4;
-    public GameObject pan5;
-    public GameObject pan6;
+    public GameObject[] movementPans;
+    public GameObject[] battlePans;
 
-    public bool tutEnd;
+    public bool movementTutEnd;
+    public bool battleTutEnd;
+    public bool battleSelection;
+
+    public bool battlePrompt1;
+    public bool battlePrompt2;
+    public bool battlePrompt3;
+    public bool battlePrompt4;
 
     public MainMenu menuScript;
+    public BattleSystemWLevelling battleScript;
 
     void Start()
     {
-        pan1.SetActive(false);
-        pan2.SetActive(false);
-        pan3.SetActive(false);
-        pan4.SetActive(false);
-        pan5.SetActive(false);
-        pan6.SetActive(false);
+        for (int i = 0; i < 5; i++)
+        {
+            movementPans[i].SetActive(false);
+        }
+
+        for (int i = 0; i < 5; i++)
+        {
+            battlePans[i].SetActive(false);
+        }
     }
     public void TutStart()
     {
@@ -32,34 +39,61 @@ public class Tutscript : MonoBehaviour
     IEnumerator TutNonsense()
     {
         yield return new WaitForSeconds(1f);
-        pan1.SetActive(true);
+        movementPans[0].SetActive(true);
         yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));
-        pan1.SetActive(false);
-        pan2.SetActive(true);
+        movementPans[0].SetActive(false);
+        movementPans[1].SetActive(true);
         yield return new WaitForSeconds(2.5f);
         yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));
-        pan2.SetActive(false);
-        pan3.SetActive(true);
+        movementPans[1].SetActive(false);
+        movementPans[2].SetActive(true);
         yield return new WaitForSeconds(2.5f);
         yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));
-        pan3.SetActive(false);
-        pan4.SetActive(true);
+        movementPans[2].SetActive(false);
+        movementPans[3].SetActive(true);
         yield return new WaitForSeconds(2.5f);
         yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));
-        pan4.SetActive(false);
-        pan5.SetActive(true);
+        movementPans[3].SetActive(false);
+        movementPans[4].SetActive(true);
         yield return new WaitForSeconds(2.5f);
         yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));
-        pan5.SetActive(false);
-        pan6.SetActive(true);
+        movementPans[4].SetActive(false);
+        movementTutEnd = true;
+    }
+
+    public IEnumerator TutBattle()
+    {
+        yield return new WaitForSeconds(1f);
+        battlePans[0].SetActive(true);
         yield return new WaitForSeconds(2.5f);
-        pan6.SetActive(false);
-        tutEnd = true;
+        yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));
+        battlePans[0].SetActive(false);
+        battlePans[1].SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));
+        battlePans[1].SetActive(false);
+        battlePans[2].SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));
+        battlePans[2].SetActive(false);
+        battlePans[3].SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));
+        battlePans[3].SetActive(false);
+        battlePans[4].SetActive(true);
+        battlePrompt1 = true;
+        yield return StartCoroutine(WaitForBattleInput(battleSelection));
     }
 
     IEnumerator WaitForKeyDown(KeyCode keyCode)
     {
         while (!Input.GetKeyDown(keyCode))
+            yield return null;
+    }
+
+    IEnumerator WaitForBattleInput(bool select)
+    {
+        while (select == false)
             yield return null;
     }
 }

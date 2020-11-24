@@ -13,6 +13,8 @@ public class BattleSystemWLevelling : MonoBehaviour
     public GameObject partyMemOne, partyMemTwo, partyMemThree, partyMemFour, enemyObj;
 
     public GameObject actionPanel, attackPanel;
+    public GameObject basicActionPan, specialActionPan, backActionPan;
+    public GameObject attackPanelAction, itemPanel, runPanel;
 
     public Transform partyOnePlatform, partyTwoPlatform, partyThreePlatform, partyFourPlatform, enemyPlatform;
 
@@ -26,12 +28,15 @@ public class BattleSystemWLevelling : MonoBehaviour
     public GameObject encounterObj;
     public EncounterTwisting encounter;
 
+    public Tutscript tutorialScript;
+
     private int turnTick;
 
     public BattleStateWL state;
     public ActionChoiceWL choiceOne, choiceTwo, choiceThree, choiceFour;
 
     public int deadCheck = 0;
+    public int buttonCheck = 0;
     public bool inBattle;
 
 
@@ -73,18 +78,49 @@ public class BattleSystemWLevelling : MonoBehaviour
         pFourHUD.HUDFiddling(partyFourUnit);
         enemyHUD.HUDFiddling(enemyUnit);
 
-        yield return new WaitForSeconds(2f);
-
-        state = BattleStateWL.PARTYONESEL;
-        PartyPhaseBegin();
-        Debug.Log("PartyPhaseBegun");
+        if (tutorialScript.battleTutEnd == false)
+        {
+            yield return new WaitForSeconds(2f);
+            state = BattleStateWL.PARTYONESEL;
+            PartyPhaseBegin();
+            StartCoroutine(tutorialScript.TutBattle());
+            
+        }
+        else if (tutorialScript.battleTutEnd == true)
+        {
+            yield return new WaitForSeconds(2f);
+            state = BattleStateWL.PARTYONESEL;
+            PartyPhaseBegin();
+            Debug.Log("PartyPhaseBegun");
+        }
     }
 
     //Starts Action Choices
-    void PartyPhaseBegin()
+    public void PartyPhaseBegin()
     {
-        actionPanel.SetActive(true);
+        if (tutorialScript.battleTutEnd == false)
+        {
+            StartCoroutine(TutorialBattle());
+        }
+        else
+        {
+            actionPanel.SetActive(true);
+        }
         dialogueText.text = partyOneUnit.unitName + "'s Action";
+    }
+
+    IEnumerator TutorialBattle()
+    {
+        yield return StartCoroutine(BattlePrompt(tutorialScript.battlePrompt1));
+        actionPanel.SetActive(true);
+        itemPanel.SetActive(false);
+        runPanel.SetActive(false);
+    }
+
+    IEnumerator BattlePrompt(bool prompt)
+    {
+        while (prompt == false)
+            yield return null;
     }
 
     //Runs during attack phase if passed unit selected basic attack
@@ -262,8 +298,16 @@ public class BattleSystemWLevelling : MonoBehaviour
     //Shows the attack menu to choose an attack for the current party member
     public void ButtonAttackOption()
     {
-        actionPanel.SetActive(false);
-        attackPanel.SetActive(true);
+        if (tutorialScript.battleTutEnd == false)
+        {
+            attackPanel.SetActive(true);
+            specialActionPan.SetActive(false);
+        }
+        else
+        {
+            actionPanel.SetActive(false);
+            attackPanel.SetActive(true);
+        }
     }
 
     //Lets the player select an item for the party member to use
@@ -309,8 +353,20 @@ public class BattleSystemWLevelling : MonoBehaviour
     //Dictates what happens on 'Attack Back' Click
     public void ButtonAttackBack()
     {
-        actionPanel.SetActive(true);
-        attackPanel.SetActive(false);
+        if (tutorialScript.battleTutEnd == false)
+        {
+            if (tutorialScript.battlePrompt1 == true)
+            {
+                actionPanel.SetActive(true);
+                itemPanel.SetActive(false);
+                runPanel.SetActive(false);
+            }
+        }
+        else
+        {
+            actionPanel.SetActive(true);
+            attackPanel.SetActive(false);
+        }
     }
 
     //Progresses through player's selected actions
