@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1468666635727369663}
   - component: {fileID: 1468666635727369662}
   - component: {fileID: 1468666635727369657}
-  - component: {fileID: 1468666635727369656}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -27,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468666635727369659}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2.0251083, z: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 1468666637318691601}
   m_RootOrder: 0
@@ -80,19 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1468666635727369656
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468666635727369659}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1468666637318691631
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +92,7 @@ GameObject:
   - component: {fileID: 1468666637318691603}
   - component: {fileID: 1468666637318691602}
   - component: {fileID: 1468666637318691629}
-  - component: {fileID: 1468666637318691628}
+  - component: {fileID: 5699429384757268048}
   m_Layer: 0
   m_Name: NPCTeacherOverworld
   m_TagString: EnemyOver
@@ -122,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468666637318691631}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 824.66943, y: 100.04199, z: 490.70068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1468666635727369663}
@@ -145,9 +131,11 @@ MonoBehaviour:
   encounter: {fileID: 0}
   movementControl: {fileID: 0}
   tutorialScript: {fileID: 0}
+  battleSystem: {fileID: 0}
   self: {fileID: 1468666635727369663}
   selfNav: {fileID: 0}
   selfObj: {fileID: 1468666635727369659}
+  selfBattleObj: {fileID: 0}
   overworldController: {fileID: 0}
   gameSystems: {fileID: 0}
   playerMain: {fileID: 0}
@@ -217,7 +205,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &1468666637318691628
+--- !u!136 &5699429384757268048
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
