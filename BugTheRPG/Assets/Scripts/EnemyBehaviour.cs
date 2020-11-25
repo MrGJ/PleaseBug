@@ -55,19 +55,19 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == playerMain && tutorialScript.battleTutEnd == true)
+        if (other.gameObject == playerMain)
         {
             overworldSystem.enemyUnit = selfObj.GetComponent<UnitWLevelling>();
             overworldSystem.enemyObj = selfObj;
             battleSystem.enemyObj = selfBattleObj;
             encounter.EncounterStart();
         }
-        else if (other.gameObject == playerMain && tutorialScript.battleTutEnd == false)
-        {
-            overworldSystem.enemyUnit = selfObj.GetComponent<UnitWLevelling>();
-            overworldSystem.enemyObj = selfObj;
-            battleSystem.enemyObj = selfBattleObj;
-            encounter.TutorialEncounterStart();
-        }
+        //else if (other.gameObject == playerMain && tutorialScript.battleTutEnd == false)
+        //{
+        //    overworldSystem.enemyUnit = selfObj.GetComponent<UnitWLevelling>();
+        //    overworldSystem.enemyObj = selfObj;
+        //    battleSystem.enemyObj = selfBattleObj;
+        //    encounter.TutorialEncounterStart();
+        //}
     }
 }

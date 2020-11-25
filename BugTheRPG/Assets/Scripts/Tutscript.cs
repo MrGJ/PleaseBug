@@ -15,6 +15,7 @@ public class Tutscript : MonoBehaviour
     public bool battlePrompt2;
     public bool battlePrompt3;
     public bool battlePrompt4;
+    
 
     public MainMenu menuScript;
     public BattleSystemWLevelling battleScript;
