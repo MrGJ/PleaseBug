@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,6 @@ public class Tutscript : MonoBehaviour
 
     public bool movementTutEnd;
     public bool battleTutEnd;
-    public bool battleSelection;
 
     public bool battlePrompt1;
     public bool battlePrompt2;
@@ -35,7 +35,6 @@ public class Tutscript : MonoBehaviour
     {
         StartCoroutine(TutNonsense());
     }
-
     IEnumerator TutNonsense()
     {
         yield return new WaitForSeconds(1f);
@@ -55,14 +54,16 @@ public class Tutscript : MonoBehaviour
         yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));
         movementPans[3].SetActive(false);
         movementPans[4].SetActive(true);
+        Debug.Log("Movement Tutorial Ended");
         yield return new WaitForSeconds(2.5f);
         yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));
         movementPans[4].SetActive(false);
         movementTutEnd = true;
+        StopCoroutine(TutNonsense());
     }
-
-    public IEnumerator TutBattle()
+    public IEnumerator TutBattle1()
     {
+        movementTutEnd = false;
         yield return new WaitForSeconds(1f);
         battlePans[0].SetActive(true);
         yield return new WaitForSeconds(2.5f);
@@ -80,20 +81,18 @@ public class Tutscript : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));
         battlePans[3].SetActive(false);
-        battlePans[4].SetActive(true);
+        battleScript.PartyPhaseBegin();
         battlePrompt1 = true;
-        yield return StartCoroutine(WaitForBattleInput(battleSelection));
+    }
+    public IEnumerator TutBattle2()
+    {
+        yield return new WaitForSeconds(1f);
+        battlePans[4].SetActive(true);
     }
 
     IEnumerator WaitForKeyDown(KeyCode keyCode)
     {
         while (!Input.GetKeyDown(keyCode))
-            yield return null;
-    }
-
-    IEnumerator WaitForBattleInput(bool select)
-    {
-        while (select == false)
             yield return null;
     }
 }

@@ -12,7 +12,7 @@ public class BattleSystemWLevelling : MonoBehaviour
 {
     public GameObject partyMemOne, partyMemTwo, partyMemThree, partyMemFour, enemyObj;
 
-    public GameObject actionPanel, attackPanel;
+    public GameObject battleCanvas, actionPanel, attackPanel;
     public GameObject basicActionPan, specialActionPan, backActionPan;
     public GameObject attackPanelAction, itemPanel, runPanel;
 
@@ -66,6 +66,7 @@ public class BattleSystemWLevelling : MonoBehaviour
         GameObject enemyGO = Instantiate(enemyObj, enemyPlatform);
         enemyUnit = enemyGO.GetComponent<UnitWLevelling>();
 
+        battleCanvas.SetActive(true);
         actionPanel.SetActive(false);
         attackPanel.SetActive(false);
 
@@ -80,10 +81,9 @@ public class BattleSystemWLevelling : MonoBehaviour
 
         if (tutorialScript.battleTutEnd == false)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             state = BattleStateWL.PARTYONESEL;
-            PartyPhaseBegin();
-            StartCoroutine(tutorialScript.TutBattle());
+            StartCoroutine(tutorialScript.TutBattle1());
             
         }
         else if (tutorialScript.battleTutEnd == true)
@@ -98,9 +98,13 @@ public class BattleSystemWLevelling : MonoBehaviour
     //Starts Action Choices
     public void PartyPhaseBegin()
     {
-        if (tutorialScript.battleTutEnd == false)
+        if (tutorialScript.battlePrompt1 == false)
         {
-            StartCoroutine(TutorialBattle());
+            StartCoroutine(TutorialBattle1());
+        }
+        else if (tutorialScript.battlePrompt1 == true && tutorialScript.battlePrompt2 == false)
+        {
+            StartCoroutine(tutorialScript.TutBattle2());
         }
         else
         {
@@ -109,18 +113,13 @@ public class BattleSystemWLevelling : MonoBehaviour
         dialogueText.text = partyOneUnit.unitName + "'s Action";
     }
 
-    IEnumerator TutorialBattle()
+    IEnumerator TutorialBattle1()
     {
-        yield return StartCoroutine(BattlePrompt(tutorialScript.battlePrompt1));
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log("Battle Prompt 1 Started");
         actionPanel.SetActive(true);
         itemPanel.SetActive(false);
         runPanel.SetActive(false);
-    }
-
-    IEnumerator BattlePrompt(bool prompt)
-    {
-        while (prompt == false)
-            yield return null;
     }
 
     //Runs during attack phase if passed unit selected basic attack
@@ -300,6 +299,7 @@ public class BattleSystemWLevelling : MonoBehaviour
     {
         if (tutorialScript.battleTutEnd == false)
         {
+            actionPanel.SetActive(false);
             attackPanel.SetActive(true);
             specialActionPan.SetActive(false);
         }
@@ -357,9 +357,27 @@ public class BattleSystemWLevelling : MonoBehaviour
         {
             if (tutorialScript.battlePrompt1 == true)
             {
+                attackPanel.SetActive(false);
                 actionPanel.SetActive(true);
                 itemPanel.SetActive(false);
                 runPanel.SetActive(false);
+            }
+            else if (tutorialScript.battlePrompt2 == true)
+            {
+                attackPanel.SetActive(false);
+                actionPanel.SetActive(true);
+                itemPanel.SetActive(false);
+                runPanel.SetActive(false);
+            }
+            else if (tutorialScript.battlePrompt3 == true)
+            {
+                attackPanelAction.SetActive(false);
+                runPanel.SetActive(false);
+            }
+            else if (tutorialScript.battlePrompt4 == true)
+            {
+                attackPanelAction.SetActive(false);
+                itemPanel.SetActive(false);
             }
         }
         else
@@ -375,7 +393,6 @@ public class BattleSystemWLevelling : MonoBehaviour
         //partyMemOne Action
         if (choiceOne == ActionChoiceWL.ATTACKONE)
         {
-            
             StartCoroutine(PartyBasicAtk(partyOneUnit));
         }
         else if (choiceOne == ActionChoiceWL.ATTACKTWO)
@@ -421,7 +438,6 @@ public class BattleSystemWLevelling : MonoBehaviour
         }
         else if (choiceThree == ActionChoiceWL.ITEM)
         {
-            
             StartCoroutine(PartyUseItem(partyThreeUnit));
         }
         yield return new WaitForSeconds(2f);
@@ -479,14 +495,28 @@ public class BattleSystemWLevelling : MonoBehaviour
         }
         else if (state == BattleStateWL.PARTYFOURSEL)
         {
-            choiceFour = ActionChoiceWL.ATTACKONE;
-            state = BattleStateWL.ATTACKTURN;
-            yield return new WaitForSeconds(1f);
-            actionPanel.SetActive(false);
-            attackPanel.SetActive(false);
-            dialogueText.text = " ... ";
-            Debug.Log("Party Four Option Comp");
-            StartCoroutine(PlayerCombatTurn());
+            if (tutorialScript.battleTutEnd == false)
+            {
+                choiceFour = ActionChoiceWL.ATTACKONE;
+                state = BattleStateWL.ATTACKTURN;
+                yield return new WaitForSeconds(1f);
+                actionPanel.SetActive(false);
+                attackPanel.SetActive(false);
+                dialogueText.text = " ... ";
+                Debug.Log("Party Four Option Comp");
+                StartCoroutine(PlayerCombatTurn());
+            }
+            else
+            {
+                choiceFour = ActionChoiceWL.ATTACKONE;
+                state = BattleStateWL.ATTACKTURN;
+                yield return new WaitForSeconds(1f);
+                actionPanel.SetActive(false);
+                attackPanel.SetActive(false);
+                dialogueText.text = " ... ";
+                Debug.Log("Party Four Option Comp");
+                StartCoroutine(PlayerCombatTurn());
+            }
         }
     }
 

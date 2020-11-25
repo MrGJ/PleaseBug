@@ -135,7 +135,8 @@ MonoBehaviour:
   self: {fileID: 1468666635727369663}
   selfNav: {fileID: 0}
   selfObj: {fileID: 1468666635727369659}
-  selfBattleObj: {fileID: 0}
+  selfBattleObj: {fileID: 3680903775599014837, guid: 3c092f42cb2e76940be1fb91b209a5ac,
+    type: 3}
   overworldController: {fileID: 0}
   gameSystems: {fileID: 0}
   playerMain: {fileID: 0}

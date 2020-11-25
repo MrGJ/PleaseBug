@@ -17,6 +17,11 @@ TagManager:
   - EnemyBattle
   - EnemyOver
   - Item
+  - Pool
+  - Sand
+  - Tree
+  - Pond
+  - Line
   layers:
   - Default
   - TransparentFX
