@@ -28,6 +28,7 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         gameSystems = GameObject.Find("GameSystems");
+        tutorialScript = GameObject.Find("Tutorial Canvas").GetComponent<Tutscript>();
         overworldController = GameObject.Find("OverworldSystem");
         playerMain = GameObject.FindGameObjectWithTag("OneOver");
         overworldSystem = overworldController.GetComponent<OverworldSystem>();

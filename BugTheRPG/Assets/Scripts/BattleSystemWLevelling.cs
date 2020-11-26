@@ -86,7 +86,7 @@ public class BattleSystemWLevelling : MonoBehaviour
             StartCoroutine(tutorialScript.TutBattle1());
             
         }
-        else if (tutorialScript.battleTutEnd == true)
+        else
         {
             yield return new WaitForSeconds(2f);
             state = BattleStateWL.PARTYONESEL;
@@ -98,28 +98,73 @@ public class BattleSystemWLevelling : MonoBehaviour
     //Starts Action Choices
     public void PartyPhaseBegin()
     {
-        if (tutorialScript.battlePrompt1 == false)
+        if (tutorialScript.battleTutEnd == false)
         {
-            StartCoroutine(TutorialBattle1());
-        }
-        else if (tutorialScript.battlePrompt1 == true && tutorialScript.battlePrompt2 == false)
-        {
-            StartCoroutine(tutorialScript.TutBattle2());
+            if (tutorialScript.battlePrompt1 == false)
+            {
+                StartCoroutine(TutorialBattle1());
+            }
+            else if (tutorialScript.battlePrompt1 == true && tutorialScript.battlePrompt2 == false)
+            {
+                StartCoroutine(tutorialScript.TutBattle2());
+            }
+            else if (tutorialScript.battlePrompt2 == true && tutorialScript.battlePrompt3 == false)
+            {
+                StartCoroutine(tutorialScript.TutBattle3());
+            }
+            else if (tutorialScript.battlePrompt3 == true && tutorialScript.battlePrompt4 == false)
+            {
+                StartCoroutine(tutorialScript.TutBattle4());
+            }
         }
         else
         {
             actionPanel.SetActive(true);
+            attackPanelAction.SetActive(true);
+            itemPanel.SetActive(true);
+            runPanel.SetActive(true);
+
         }
         dialogueText.text = partyOneUnit.unitName + "'s Action";
     }
 
-    IEnumerator TutorialBattle1()
+    public IEnumerator TutorialBattle1()
     {
         yield return new WaitForSeconds(0.1f);
+        tutorialScript.battlePrompt1 = true;
         Debug.Log("Battle Prompt 1 Started");
         actionPanel.SetActive(true);
         itemPanel.SetActive(false);
         runPanel.SetActive(false);
+    }
+    public IEnumerator TutorialBattle2()
+    {
+        yield return new WaitForSeconds(0.1f);
+        tutorialScript.battlePrompt2 = true;
+        Debug.Log("Battle Prompt 2 Started");
+        actionPanel.SetActive(true);
+        itemPanel.SetActive(false);
+        runPanel.SetActive(false);
+    }
+    public IEnumerator TutorialBattle3()
+    {
+        yield return new WaitForSeconds(0.1f);
+        tutorialScript.battlePrompt3 = true;
+        Debug.Log("Battle Prompt 3 Started");
+        actionPanel.SetActive(true);
+        attackPanelAction.SetActive(false);
+        itemPanel.SetActive(true);
+        runPanel.SetActive(false);
+    }
+    public IEnumerator TutorialBattle4()
+    {
+        yield return new WaitForSeconds(0.1f);
+        tutorialScript.battlePrompt4 = true;
+        Debug.Log("Battle Prompt 4 Started");
+        actionPanel.SetActive(true);
+        attackPanelAction.SetActive(false);
+        itemPanel.SetActive(false);
+        runPanel.SetActive(true);
     }
 
     //Runs during attack phase if passed unit selected basic attack
@@ -290,6 +335,14 @@ public class BattleSystemWLevelling : MonoBehaviour
             dialogueText.text = "You did a scoot-the-boots";
             yield return new WaitForSeconds(1f);
             encounter.EncounterEnd();
+            yield return new WaitForSeconds(1f);
+            if (tutorialScript.battleTutEnd == false)
+            {
+                tutorialScript.happyTeach.SetActive(true);
+                tutorialScript.battleScene.SetActive(false);
+                tutorialScript.TutEnd();
+                tutorialScript.battleTutEnd = true;
+            }
         }
         turnTick = 0;
     }
@@ -297,11 +350,18 @@ public class BattleSystemWLevelling : MonoBehaviour
     //Shows the attack menu to choose an attack for the current party member
     public void ButtonAttackOption()
     {
-        if (tutorialScript.battleTutEnd == false)
+        if (tutorialScript.battleTutEnd == false && tutorialScript.battlePrompt1 == true && tutorialScript.battlePrompt2 == false)
         {
             actionPanel.SetActive(false);
             attackPanel.SetActive(true);
             specialActionPan.SetActive(false);
+        }
+        if (tutorialScript.battleTutEnd == false &&tutorialScript.battlePrompt1 == true && tutorialScript.battlePrompt2 == true)
+        {
+            actionPanel.SetActive(false);
+            attackPanel.SetActive(true);
+            basicActionPan.SetActive(false);
+            specialActionPan.SetActive(true);
         }
         else
         {
@@ -316,18 +376,33 @@ public class BattleSystemWLevelling : MonoBehaviour
         if (state == BattleStateWL.PARTYONESEL)
         {
             choiceOne = ActionChoiceWL.ITEM;
+            state = BattleStateWL.PARTYTWOSEL;
+            dialogueText.text = partyTwoUnit.unitName + "'s Action";
+            ButtonAttackBack();
         }
         else if (state == BattleStateWL.PARTYTWOSEL)
         {
             choiceTwo = ActionChoiceWL.ITEM;
+            state = BattleStateWL.PARTYTHREESEL;
+            dialogueText.text = partyThreeUnit.unitName + "'s Action";
+            ButtonAttackBack();
         }
         else if (state == BattleStateWL.PARTYTHREESEL)
         {
             choiceThree = ActionChoiceWL.ITEM;
+            state = BattleStateWL.PARTYFOURSEL;
+            dialogueText.text = partyFourUnit.unitName + "'s Action";
+            ButtonAttackBack();
         }
         else if (state == BattleStateWL.PARTYFOURSEL)
         {
             choiceFour = ActionChoiceWL.ITEM;
+            Debug.Log("Party Four Option Comp");
+            actionPanel.SetActive(false);
+            attackPanel.SetActive(false);
+            dialogueText.text = " ... ";
+            Debug.Log("Party Four Option Comp");
+            StartCoroutine(PlayerCombatTurn());
         }
     }
 
@@ -355,29 +430,34 @@ public class BattleSystemWLevelling : MonoBehaviour
     {
         if (tutorialScript.battleTutEnd == false)
         {
-            if (tutorialScript.battlePrompt1 == true)
+            if (tutorialScript.battlePrompt1 == true && tutorialScript.battlePrompt2 == false)
             {
                 attackPanel.SetActive(false);
                 actionPanel.SetActive(true);
                 itemPanel.SetActive(false);
                 runPanel.SetActive(false);
+                Debug.Log("Tut1Repeat");
             }
-            else if (tutorialScript.battlePrompt2 == true)
+            if (tutorialScript.battlePrompt2 == true && tutorialScript.battlePrompt3 == false)
             {
                 attackPanel.SetActive(false);
                 actionPanel.SetActive(true);
                 itemPanel.SetActive(false);
                 runPanel.SetActive(false);
+                Debug.Log("Tut2Repeat");
             }
-            else if (tutorialScript.battlePrompt3 == true)
+            if (tutorialScript.battlePrompt3 == true && tutorialScript.battlePrompt4 == false)
             {
+                actionPanel.SetActive(true);
                 attackPanelAction.SetActive(false);
                 runPanel.SetActive(false);
+                Debug.Log("Tut3Repeat");
             }
-            else if (tutorialScript.battlePrompt4 == true)
+            if (tutorialScript.battlePrompt4 == true)
             {
                 attackPanelAction.SetActive(false);
                 itemPanel.SetActive(false);
+                Debug.Log("Tut4Repeat");
             }
         }
         else
@@ -495,8 +575,6 @@ public class BattleSystemWLevelling : MonoBehaviour
         }
         else if (state == BattleStateWL.PARTYFOURSEL)
         {
-            if (tutorialScript.battleTutEnd == false)
-            {
                 choiceFour = ActionChoiceWL.ATTACKONE;
                 state = BattleStateWL.ATTACKTURN;
                 yield return new WaitForSeconds(1f);
@@ -505,18 +583,6 @@ public class BattleSystemWLevelling : MonoBehaviour
                 dialogueText.text = " ... ";
                 Debug.Log("Party Four Option Comp");
                 StartCoroutine(PlayerCombatTurn());
-            }
-            else
-            {
-                choiceFour = ActionChoiceWL.ATTACKONE;
-                state = BattleStateWL.ATTACKTURN;
-                yield return new WaitForSeconds(1f);
-                actionPanel.SetActive(false);
-                attackPanel.SetActive(false);
-                dialogueText.text = " ... ";
-                Debug.Log("Party Four Option Comp");
-                StartCoroutine(PlayerCombatTurn());
-            }
         }
     }
 

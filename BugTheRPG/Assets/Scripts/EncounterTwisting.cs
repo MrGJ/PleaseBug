@@ -53,6 +53,7 @@ public class EncounterTwisting : MonoBehaviour
     public void EncounterEnd()
     {
         overworldCamera.SetActive(true);
+        battleSystem.battleCanvas.SetActive(false);
         battleCamera.SetActive(false);
         SetStatOverToBattle(battleSystem.partyOneUnit, overworldSystem.partyOneUnit);
         SetStatOverToBattle(battleSystem.partyTwoUnit, overworldSystem.partyTwoUnit);

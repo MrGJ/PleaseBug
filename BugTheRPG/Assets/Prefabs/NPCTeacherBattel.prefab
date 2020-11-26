@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Teacher
   unitImg: {fileID: 0}
-  unitClass: 5
+  unitClass: 12
   unitIsMagic: 0
   unitIsDead: 0
   unitLevel: 1
