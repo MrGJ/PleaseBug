@@ -55,6 +55,8 @@ public class EncounterTwisting : MonoBehaviour
         overworldCamera.SetActive(true);
         battleSystem.battleCanvas.SetActive(false);
         battleCamera.SetActive(false);
+        battleSystem.overworldMusicEGO.SetActive(true);
+        battleSystem.battleMusicEGO.SetActive(false);
         SetStatOverToBattle(battleSystem.partyOneUnit, overworldSystem.partyOneUnit);
         SetStatOverToBattle(battleSystem.partyTwoUnit, overworldSystem.partyTwoUnit);
         SetStatOverToBattle(battleSystem.partyThreeUnit, overworldSystem.partyThreeUnit);

@@ -16,6 +16,8 @@ public class BattleSystemWLevelling : MonoBehaviour
     public GameObject basicActionPan, specialActionPan, backActionPan;
     public GameObject attackPanelAction, itemPanel, runPanel;
 
+    public GameObject overworldMusicEGO, battleMusicEGO;
+
     public Transform partyOnePlatform, partyTwoPlatform, partyThreePlatform, partyFourPlatform, enemyPlatform;
 
     public UnitWLevelling partyOneUnit, partyTwoUnit, partyThreeUnit, partyFourUnit, enemyUnit;
@@ -47,6 +49,8 @@ public class BattleSystemWLevelling : MonoBehaviour
         dialogueText = dialogueObj.GetComponent<TextMeshProUGUI>();
         encounter = encounterObj.GetComponent<EncounterTwisting>();
 
+        battleMusicEGO.SetActive(false);
+
         //state = BattleStateWL.START;
         //StartCoroutine(BattleInit());
     }
@@ -69,6 +73,9 @@ public class BattleSystemWLevelling : MonoBehaviour
         battleCanvas.SetActive(true);
         actionPanel.SetActive(false);
         attackPanel.SetActive(false);
+
+        overworldMusicEGO.SetActive(false);
+        battleMusicEGO.SetActive(true);
 
         dialogueText = dialogueObj.GetComponent<TextMeshProUGUI>();
         dialogueText.text = "A wild " + enemyUnit.unitName + " is committing Flibbity";
@@ -121,6 +128,7 @@ public class BattleSystemWLevelling : MonoBehaviour
         {
             actionPanel.SetActive(true);
             attackPanelAction.SetActive(true);
+            basicActionPan.SetActive(true);
             itemPanel.SetActive(true);
             runPanel.SetActive(true);
 
@@ -363,7 +371,7 @@ public class BattleSystemWLevelling : MonoBehaviour
             basicActionPan.SetActive(false);
             specialActionPan.SetActive(true);
         }
-        else
+        if (tutorialScript.battleTutEnd == true)
         {
             actionPanel.SetActive(false);
             attackPanel.SetActive(true);
@@ -575,14 +583,14 @@ public class BattleSystemWLevelling : MonoBehaviour
         }
         else if (state == BattleStateWL.PARTYFOURSEL)
         {
-                choiceFour = ActionChoiceWL.ATTACKONE;
-                state = BattleStateWL.ATTACKTURN;
-                yield return new WaitForSeconds(1f);
-                actionPanel.SetActive(false);
-                attackPanel.SetActive(false);
-                dialogueText.text = " ... ";
-                Debug.Log("Party Four Option Comp");
-                StartCoroutine(PlayerCombatTurn());
+            choiceFour = ActionChoiceWL.ATTACKONE;
+            state = BattleStateWL.ATTACKTURN;
+            yield return new WaitForSeconds(1f);
+            actionPanel.SetActive(false);
+            attackPanel.SetActive(false);
+            dialogueText.text = " ... ";
+            Debug.Log("Party Four Option Comp");
+            StartCoroutine(PlayerCombatTurn());
         }
     }
 

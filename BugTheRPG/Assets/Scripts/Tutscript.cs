@@ -166,6 +166,7 @@ public class Tutscript : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));
         postBattlePans[2].SetActive(false);
+        battleTutEnd = true;
         movementTutEnd = true;
     }
 

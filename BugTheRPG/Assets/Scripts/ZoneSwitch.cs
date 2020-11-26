@@ -11,9 +11,5 @@ public class ZoneSwitch : MonoBehaviour
         {
             zoneScript.area = other.tag;
         }
-        else if (other.tag == zoneScript.area)
-        {
-            Debug.Log("Tag Duplicated");
-        }
     }
 }
