@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ClassSelect { TANK, DPSMELEE, DPSRANGED, DPSMAGIC, HEALER, ENEMYBASE, ENEMYTANK, ENEMYMELEE, ENEMYRANGED, ENEMYMAGIC, ENEMYHEALER, BOSS}
+public enum ClassSelect { TANK, DPSMELEE, DPSRANGED, DPSMAGIC, HEALER, ENEMYBASE, ENEMYTANK, ENEMYMELEE, ENEMYRANGED, ENEMYMAGIC, ENEMYHEALER, BOSS, TEACHER}
 
 public class UnitWLevelling : MonoBehaviour
 {
@@ -137,7 +137,16 @@ public class UnitWLevelling : MonoBehaviour
     //Called to set enemy stats appropriately
     public void EnemyInit(UnitWLevelling unit)
     {
-        if (unit.unitLevel == 1)
+        if (unit.unitClass == ClassSelect.TEACHER)
+        {
+            unit.unitMaxHP = 1000;
+            unit.unitCurrentHP = unitMaxHP;
+            unit.unitExpGainedOnDeath = 0;
+            unit.unitAttack = 10;
+            unit.unitDef = 100;
+            unit.unitRes = 100;
+        }
+        else if (unit.unitLevel == 1)
         {
             unit.unitMaxHP = 100;
             unit.unitCurrentHP = unitMaxHP;

@@ -39,6 +39,8 @@ public class MainMenu : MonoBehaviour
     {
         overworldCamera.SetActive(true);
         mainCamera.SetActive(false);
+
+        enter = true;
     }
 
     public void Quitting()

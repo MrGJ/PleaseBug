@@ -127,17 +127,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Teacher
   unitImg: {fileID: 0}
-  unitClass: 5
+  unitClass: 12
   unitIsMagic: 0
   unitIsDead: 0
   unitLevel: 1
   unitExp: 0
   unitReqExp: 100
   unitAttack: 1
-  unitRes: 1
-  unitDef: 1
-  unitMaxHP: 100
-  unitCurrentHP: 100
+  unitRes: 1000
+  unitDef: 1000
+  unitMaxHP: 1000
+  unitCurrentHP: 1000
   unitExpGainedOnDeath: 0
 --- !u!54 &182308590258852094
 Rigidbody:

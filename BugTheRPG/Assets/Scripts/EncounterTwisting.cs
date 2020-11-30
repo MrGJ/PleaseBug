@@ -40,7 +40,7 @@ public class EncounterTwisting : MonoBehaviour
     {
         battleSystem.state = BattleStateWL.START;
         StartCoroutine(battleSystem.BattleInit());
-        //tutorialBattleCamera.SetActive(true);
+        battleCamera.SetActive(true);
         overworldCamera.SetActive(false);
         SetStatOverToBattle(battleSystem.partyOneUnit, overworldSystem.partyOneUnit);
         SetStatOverToBattle(battleSystem.partyTwoUnit, overworldSystem.partyTwoUnit);
@@ -53,9 +53,10 @@ public class EncounterTwisting : MonoBehaviour
     public void EncounterEnd()
     {
         overworldCamera.SetActive(true);
+        battleSystem.battleCanvas.SetActive(false);
         battleCamera.SetActive(false);
-        //tutorialBattleCamera.SetActive(false);
-        //poolBattleCamera.SetActive(false);
+        battleSystem.overworldMusicEGO.SetActive(true);
+        battleSystem.battleMusicEGO.SetActive(false);
         SetStatOverToBattle(battleSystem.partyOneUnit, overworldSystem.partyOneUnit);
         SetStatOverToBattle(battleSystem.partyTwoUnit, overworldSystem.partyTwoUnit);
         SetStatOverToBattle(battleSystem.partyThreeUnit, overworldSystem.partyThreeUnit);
