@@ -21,6 +21,8 @@ public class UnitWLevelling : MonoBehaviour
     public int unitDef;
     public int unitMaxHP = 100;
     public int unitCurrentHP;
+    public int unitMaxMP = 100;
+    public int unitCurrentMP;
     public int unitExpGainedOnDeath;
 
     
