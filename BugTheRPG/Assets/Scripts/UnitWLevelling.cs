@@ -21,6 +21,8 @@ public class UnitWLevelling : MonoBehaviour
     public int unitDef;
     public int unitMaxHP = 100;
     public int unitCurrentHP;
+    public int unitMaxMP = 100;
+    public int unitCurrentMP;
     public int unitExpGainedOnDeath;
 
     
@@ -71,7 +73,6 @@ public class UnitWLevelling : MonoBehaviour
         }
         else if (unitClass == ClassSelect.HEALER)
         {
-
             unitAttack += (unitAttack / 8);
             unitRes = Mathf.RoundToInt(unitRes * 1.18f);
             unitDef = Mathf.RoundToInt(unitDef * 1.2f);
@@ -84,7 +85,8 @@ public class UnitWLevelling : MonoBehaviour
     {
         if (isSpec)
         {
-            unitCurrentHP -= (Mathf.RoundToInt(attacker.unitAttack * 1.3f) - unitDef);
+            unitCurrentHP -= (Mathf.RoundToInt(attacker.unitAttack * 2f));
+            attacker.unitCurrentMP -= 33;
         }
         else
         {
@@ -108,7 +110,8 @@ public class UnitWLevelling : MonoBehaviour
     {
         if (isSpec)
         {
-            unitCurrentHP -= (Mathf.RoundToInt(attacker.unitAttack * 1.3f) - unitRes);
+            unitCurrentHP -= (Mathf.RoundToInt(attacker.unitAttack * 2f));
+            attacker.unitCurrentMP -= 33;
         }
         else
         {
@@ -129,7 +132,7 @@ public class UnitWLevelling : MonoBehaviour
     }
 
     //Does Special Action
-    public void SpecialAction()
+    public void SpecialAction(UnitWLevelling unit)
     {
 
     }

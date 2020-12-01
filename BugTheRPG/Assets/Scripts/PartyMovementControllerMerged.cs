@@ -7,6 +7,7 @@ public class PartyMovementControllerMerged : MonoBehaviour
 {
     public Camera cam;
     public GameObject partyOneFellow;
+    public GameObject lookPointObj;
     public NavMeshAgent partyOneAgent;
     public NavMeshAgent partyTwoAgent;
     public NavMeshAgent partyThreeAgent;
@@ -28,7 +29,16 @@ public class PartyMovementControllerMerged : MonoBehaviour
     public OverworldSystem overworldSystem;
     public Tutscript tutScript;
     public GameObject camHolder;
-    public int rotateSpeed;
+
+    public float minX = -360.0f;
+    public float maxX = 360.0f;
+    public float minY = -45.0f;
+    public float maxY = 45.0f;
+    public float sensX = 100.0f;
+    public float sensY = 100.0f;
+
+    float rotX = 0.0f;
+    float rotY = 0.0f;
 
     void Start()
     {
@@ -41,10 +51,10 @@ public class PartyMovementControllerMerged : MonoBehaviour
         //Camera Movement
         if (Input.GetMouseButton(1))
         {
-            if (Input.GetAxis("Mouse X") < 0)
-                camHolder.transform.Rotate((Vector3.up) * rotateSpeed);
-            if (Input.GetAxis("Mouse X") > 0)
-                camHolder.transform.Rotate((Vector3.up) * -rotateSpeed);
+            rotX += Input.GetAxis("Mouse X") * sensX * Time.deltaTime;
+            rotY += Input.GetAxis("Mouse Y") * sensY * Time.deltaTime;
+            rotY = Mathf.Clamp(rotY, minY, maxY);
+            camHolder.transform.localEulerAngles = new Vector3(-rotY, rotX, 0);
         }
 
         //PartyOne Movement
@@ -57,6 +67,7 @@ public class PartyMovementControllerMerged : MonoBehaviour
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
                     //Moves Agent
+                    lookPointObj.transform.position = (hit.point + new Vector3 (0, 1, 0));
                     partyOneAgent.SetDestination(hit.point);
                 }
             }

@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af3ab2b6873052f40a06778a58cb678c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Bob
+  unitName: Johnathan
   unitImg: {fileID: 0}
   unitClass: 0
   unitIsMagic: 0
@@ -91,7 +91,9 @@ MonoBehaviour:
   unitDef: 7
   unitMaxHP: 100
   unitCurrentHP: 100
-  unitExpGainedOnDeath: 0
+  unitMaxMP: 100
+  unitCurrentMP: 100
+  unitExpGainedOnDeath: 100
 --- !u!195 &-4776660599071717129
 NavMeshAgent:
   m_ObjectHideFlags: 0

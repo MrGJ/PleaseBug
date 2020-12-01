@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af3ab2b6873052f40a06778a58cb678c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Jane
+  unitName: Charlotte
   unitImg: {fileID: 0}
   unitClass: 3
   unitIsMagic: 1
@@ -152,7 +152,9 @@ MonoBehaviour:
   unitDef: 2
   unitMaxHP: 100
   unitCurrentHP: 100
-  unitExpGainedOnDeath: 0
+  unitMaxMP: 100
+  unitCurrentMP: 100
+  unitExpGainedOnDeath: 100
 --- !u!54 &8832051082960209416
 Rigidbody:
   m_ObjectHideFlags: 0

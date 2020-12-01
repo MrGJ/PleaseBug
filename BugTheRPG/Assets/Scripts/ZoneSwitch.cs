@@ -10,6 +10,7 @@ public class ZoneSwitch : MonoBehaviour
         if (other.tag == "Pool" || other.tag == "Sand" || other.tag == "Tree" || other.tag == "Pond" || other.tag == "Line")
         {
             zoneScript.area = other.tag;
+            zoneScript.FiddleZone();
         }
     }
 }
