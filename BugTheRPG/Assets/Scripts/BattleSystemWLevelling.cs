@@ -884,4 +884,10 @@ public class BattleSystemWLevelling : MonoBehaviour
             }
         }
     }
+
+    void ExpGrant()
+    {
+        partyOneUnit.unitExp += 50;
+
+    }
 }

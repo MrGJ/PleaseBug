@@ -139,7 +139,9 @@ MonoBehaviour:
   unitDef: 4
   unitMaxHP: 100
   unitCurrentHP: 100
-  unitExpGainedOnDeath: 0
+  unitMaxMP: 100
+  unitCurrentMP: 100
+  unitExpGainedOnDeath: 100
 --- !u!195 &-1927455876276024963
 NavMeshAgent:
   m_ObjectHideFlags: 0

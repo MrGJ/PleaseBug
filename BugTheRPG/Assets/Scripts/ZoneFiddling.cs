@@ -18,32 +18,39 @@ public class ZoneFiddling : MonoBehaviour
     void Start()
     {
         area = "Tutorial";
+        FiddleZone();
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void FiddleZone()
     {
         if (area == "Sand")
         {
+            Debug.Log("Area Is Sand");
             SandpitBattleSettings();
         }
         else if (area == "Pool")
         {
+            Debug.Log("Area Is Pool");
             PoolBattleSettings();
         }
         else if (area == "Tutorial")
         {
+            Debug.Log("Area Is Tut");
             TutorialBattleSettings();
         }
         else if (area == "Line")
         {
+            Debug.Log("Area Is Line");
             ClotheslineBattleSettings();
         }
         else if (area == "Tree")
         {
+            Debug.Log("Area Is Tree");
             TreeBattleSettings();
         }
         else if (area == "Pond")
         {
+            Debug.Log("Area Is Pond");
             PondBattleSettings();
         }
     }
@@ -63,6 +70,8 @@ public class ZoneFiddling : MonoBehaviour
         battleBits.pThreeHUD = partyThreeHUD[0];
         battleBits.pFourHUD = partyFourHUD[0];
         battleBits.enemyHUD = enemyHUD[0];
+
+        Debug.Log("Area Set Sand");
     }
     void PoolBattleSettings()
     {
@@ -79,6 +88,8 @@ public class ZoneFiddling : MonoBehaviour
         battleBits.pThreeHUD = partyThreeHUD[1];
         battleBits.pFourHUD = partyFourHUD[1];
         battleBits.enemyHUD = enemyHUD[1];
+
+        Debug.Log("Area Set Pool");
     }
     void TutorialBattleSettings()
     {
@@ -95,6 +106,8 @@ public class ZoneFiddling : MonoBehaviour
         battleBits.pThreeHUD = partyThreeHUD[2];
         battleBits.pFourHUD = partyFourHUD[2];
         battleBits.enemyHUD = enemyHUD[2];
+
+        Debug.Log("Area Set Tut");
     }
     void ClotheslineBattleSettings()
     {
@@ -111,6 +124,8 @@ public class ZoneFiddling : MonoBehaviour
         battleBits.pThreeHUD = partyThreeHUD[3];
         battleBits.pFourHUD = partyFourHUD[3];
         battleBits.enemyHUD = enemyHUD[3];
+
+        Debug.Log("Area Set Line");
     }
     void TreeBattleSettings()
     {
@@ -127,6 +142,8 @@ public class ZoneFiddling : MonoBehaviour
         battleBits.pThreeHUD = partyThreeHUD[4];
         battleBits.pFourHUD = partyFourHUD[4];
         battleBits.enemyHUD = enemyHUD[4];
+
+        Debug.Log("Area Set Tree");
     }
     void PondBattleSettings()
     {
@@ -143,6 +160,8 @@ public class ZoneFiddling : MonoBehaviour
         battleBits.pThreeHUD = partyThreeHUD[5];
         battleBits.pFourHUD = partyFourHUD[5];
         battleBits.enemyHUD = enemyHUD[5];
+
+        Debug.Log("Area Set Pond");
     }
     void BossBattleSettings()
     {
@@ -159,5 +178,7 @@ public class ZoneFiddling : MonoBehaviour
         battleBits.pThreeHUD = partyThreeHUD[6];
         battleBits.pFourHUD = partyFourHUD[6];
         battleBits.enemyHUD = enemyHUD[6];
+
+        Debug.Log("Area Set Boos");
     }
 }
