@@ -48,6 +48,7 @@ public class BattleHUDWLevelling : MonoBehaviour
     //Updates MP slider when called
     public void MPFiddling(int mp)
     {
+        manaText.text = mp + "/" + tempMP;
         mpSlider.value = mp;
     }
 }

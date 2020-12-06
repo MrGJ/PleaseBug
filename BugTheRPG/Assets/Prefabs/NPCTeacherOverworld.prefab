@@ -164,9 +164,11 @@ MonoBehaviour:
   unitReqExp: 100
   unitAttack: 1
   unitRes: 1
-  unitDef: 100
-  unitMaxHP: 1000
-  unitCurrentHP: 1000
+  unitDef: 1
+  unitMaxHP: 10000
+  unitCurrentHP: 10000
+  unitMaxMP: 100
+  unitCurrentMP: 0
   unitExpGainedOnDeath: 0
 --- !u!195 &1468666637318691602
 NavMeshAgent:

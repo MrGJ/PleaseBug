@@ -13,22 +13,24 @@ public class UnitWLevelling : MonoBehaviour
     public bool unitIsMagic;
     public bool unitIsDead;
     //Unit Stats
-    public int unitLevel = 1;
+    [Range(0, 1000)] public int unitLevel = 1;
     public int unitExp;
     public int unitReqExp = 100;
-    public int unitAttack;
-    public int unitRes;
-    public int unitDef;
+    [Range(0, 10000)] public int unitAttack;
+    [Range(0, 10000)] public int unitRes;
+    [Range(0, 10000)] public int unitDef;
     public int unitMaxHP = 100;
-    public int unitCurrentHP;
+    [Range(0, 10000)] public int unitCurrentHP;
     public int unitMaxMP = 100;
-    public int unitCurrentMP;
+    [Range(0, 10000)] public int unitCurrentMP;
     public int unitExpGainedOnDeath;
 
     
     //Is called to level the unit.
-    public void UnitLevelling()
+    public void UnitLevelling(UnitWLevelling unit)
     {
+        unitExp += unit.unitExpGainedOnDeath;
+
         if(unitExp >= unitReqExp)
         {
             unitLevel += 1;
@@ -90,7 +92,14 @@ public class UnitWLevelling : MonoBehaviour
         }
         else
         {
-            unitCurrentHP -= (attacker.unitAttack - unitDef);
+            if ((attacker.unitAttack - unitDef) <= 0)
+            {
+                unitCurrentHP -= 0;
+            }
+            else
+            {
+                unitCurrentHP -= (attacker.unitAttack - unitDef);
+            }
         }
 
         if (unitCurrentHP <= 0)
@@ -115,8 +124,46 @@ public class UnitWLevelling : MonoBehaviour
         }
         else
         {
-            unitCurrentHP -= (attacker.unitAttack - unitRes);
+            if ((attacker.unitAttack - unitRes) <= 0)
+            {
+                unitCurrentHP -= 0;
+            }
+            else
+            {
+                unitCurrentHP -= (attacker.unitAttack - unitRes);
+            }
+            
         }
+
+        if (unitCurrentHP <= 0)
+        {
+            unitIsDead = true;
+            return true;
+        }
+        else
+        {
+            unitIsDead = false;
+            return false;
+        }
+
+    }
+
+    public bool HealDamage(UnitWLevelling p1, UnitWLevelling p2, UnitWLevelling p3)
+    {
+        unitCurrentHP += unitAttack;
+        if (unitCurrentHP > unitMaxHP)
+            unitCurrentHP = unitMaxHP;
+        p1.unitCurrentHP += unitAttack;
+        if (p1.unitCurrentHP > p1.unitMaxHP)
+            p1.unitCurrentHP = p1.unitMaxHP;
+        p2.unitCurrentHP += unitAttack;
+        if (p2.unitCurrentHP > p2.unitMaxHP)
+            p2.unitCurrentHP = p2.unitMaxHP;
+        p3.unitCurrentHP += unitAttack;
+        if (p3.unitCurrentHP > p3.unitMaxHP)
+            p3.unitCurrentHP = p3.unitMaxHP;
+
+        unitCurrentMP -= 33;
 
         if (unitCurrentHP <= 0)
         {
@@ -134,6 +181,10 @@ public class UnitWLevelling : MonoBehaviour
     //Does Special Action
     public void SpecialAction(UnitWLevelling unit)
     {
+        unit.unitCurrentHP += 25;
+        if (unit.unitCurrentHP > unit.unitMaxHP)
+            unit.unitCurrentHP = unit.unitMaxHP;
+        unit.unitCurrentMP -= 50;
 
     }
 

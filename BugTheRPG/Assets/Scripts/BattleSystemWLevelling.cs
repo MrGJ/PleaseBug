@@ -182,15 +182,16 @@ public class BattleSystemWLevelling : MonoBehaviour
         if (!unit.unitIsMagic)
         {
             isDead = enemyUnit.TakeRegDamage(unit, false);
+            dialogueText.text = unit.unitName + " does " + (unit.unitAttack - enemyUnit.unitDef) + " damage!";
 
         }
         else if (unit.unitIsMagic)
         {
             isDead = enemyUnit.TakeMagDamage(unit, false);
+            dialogueText.text = unit.unitName + " does " + (unit.unitAttack - enemyUnit.unitRes) + " damage!";
         }
         
         enemyHUD.HPFiddling(enemyUnit.unitCurrentHP);
-        dialogueText.text = unit.unitName + " attacks for " + unit.unitAttack + "!";
 
         yield return new WaitForSeconds(2f);
 
@@ -206,17 +207,35 @@ public class BattleSystemWLevelling : MonoBehaviour
     IEnumerator PartySpecialAtk(UnitWLevelling unit)
     {
         bool isDead = false;
-        if (!unit.unitIsMagic)
+        if (!unit.unitIsMagic && unit.unitClass != ClassSelect.HEALER)
         {
             isDead = enemyUnit.TakeRegDamage(unit, true);
+            dialogueText.text = unit.unitName + " does " + (unit.unitAttack * 2) + " damage!";
         }
-        else if (unit.unitIsMagic)
+        else if (unit.unitIsMagic && unit.unitClass != ClassSelect.HEALER)
         {
             isDead = enemyUnit.TakeMagDamage(unit, true);
+            dialogueText.text = unit.unitName + " does " + (unit.unitAttack * 2) + " damage!";
+        }
+        else if (unit.unitClass == ClassSelect.HEALER)
+        {
+            isDead = partyFourUnit.HealDamage(partyOneUnit, partyTwoUnit, partyThreeUnit);
+            pOneHUD.HPFiddling(partyOneUnit.unitCurrentHP);
+            pTwoHUD.HPFiddling(partyTwoUnit.unitCurrentHP);
+            pThreeHUD.HPFiddling(partyThreeUnit.unitCurrentHP);
+            pFourHUD.HPFiddling(partyFourUnit.unitCurrentHP);
+            pFourHUD.MPFiddling(partyFourUnit.unitCurrentMP);
+
+            dialogueText.text = unit.unitName + " does some light first aid!";
         }
 
         enemyHUD.HPFiddling(enemyUnit.unitCurrentHP);
-        dialogueText.text = unit.unitName + " attacks super hard for " + unit.unitAttack + "!";
+
+        pOneHUD.MPFiddling(partyOneUnit.unitCurrentMP);
+        pTwoHUD.MPFiddling(partyTwoUnit.unitCurrentMP);
+        pThreeHUD.MPFiddling(partyThreeUnit.unitCurrentMP);
+        pFourHUD.MPFiddling(partyFourUnit.unitCurrentMP);
+
 
         yield return new WaitForSeconds(2f);
 
@@ -228,11 +247,17 @@ public class BattleSystemWLevelling : MonoBehaviour
         Debug.Log(unit.unitName + " S-ATK COMP");
     }
     //Uses item if passed unit selected to use an item
-    IEnumerator PartyUseItem(UnitWLevelling unit)
+    IEnumerator PartyUseItem(UnitWLevelling unit, BattleHUDWLevelling hud)
     {
-        dialogueText.text = unit.unitName + " totally used an Item, I promise! It's not just a placeholder, I swear";
+        unit.unitCurrentHP += 25;
+        if (unit.unitCurrentHP > unit.unitMaxHP)
+            unit.unitCurrentHP = unit.unitMaxHP;
+        unit.unitCurrentMP -= 50;
+        hud.HPFiddling(unit.unitCurrentHP);
+        hud.MPFiddling(unit.unitCurrentMP);
+        dialogueText.text = unit.unitName + " healed self, at least, they had better have.";
         yield return new WaitForSeconds(2f);
-        Debug.Log(unit.unitName + " used an item");
+        Debug.Log(unit.unitName + " healed self");
     }
 
     //Enemy's Basic Attack Functionality
@@ -248,7 +273,8 @@ public class BattleSystemWLevelling : MonoBehaviour
             isDead = unit.TakeMagDamage(enemyUnit, false);
         }
         hud.HPFiddling(unit.unitCurrentHP);
-            dialogueText.text = enemyUnit.unitName + " attacks " + unit.unitName + " for " + enemyUnit.unitAttack + "!";
+        hud.MPFiddling(unit.unitCurrentMP);
+        dialogueText.text = enemyUnit.unitName + " attacks " + unit.unitName + " for " + enemyUnit.unitAttack + "!";
         yield return new WaitForSeconds(2f);
 
         if (isDead)
@@ -259,6 +285,7 @@ public class BattleSystemWLevelling : MonoBehaviour
     IEnumerator EnemySpecial(UnitWLevelling unit, BattleHUDWLevelling hud)
     {
         bool isDead = false;
+        enemyUnit.unitCurrentMP -= 33;
         if (!enemyUnit.unitIsMagic)
         {
             isDead = unit.TakeRegDamage(enemyUnit, true);
@@ -268,8 +295,11 @@ public class BattleSystemWLevelling : MonoBehaviour
             isDead = unit.TakeMagDamage(enemyUnit, true);
         }
         hud.HPFiddling(unit.unitCurrentHP);
+        hud.MPFiddling(unit.unitCurrentMP);
         dialogueText.text = enemyUnit.unitName + " attacks " + unit.unitName + " for " + enemyUnit.unitAttack + "!";
         yield return new WaitForSeconds(2f);
+
+        
 
         if (isDead)
             deadCheck += 1;
@@ -310,6 +340,19 @@ public class BattleSystemWLevelling : MonoBehaviour
             
         }
 
+        partyOneUnit.unitCurrentMP += 10;
+        if (partyOneUnit.unitCurrentMP == partyOneUnit.unitMaxMP)
+            partyOneUnit.unitCurrentMP = partyOneUnit.unitMaxMP;
+        partyTwoUnit.unitCurrentMP += 10;
+        if (partyTwoUnit.unitCurrentMP == partyTwoUnit.unitMaxMP)
+            partyTwoUnit.unitCurrentMP = partyTwoUnit.unitMaxMP;
+        partyThreeUnit.unitCurrentMP += 10;
+        if (partyThreeUnit.unitCurrentMP == partyThreeUnit.unitMaxMP)
+            partyThreeUnit.unitCurrentMP = partyThreeUnit.unitMaxMP;
+        partyFourUnit.unitCurrentMP += 10;
+        if (partyFourUnit.unitCurrentMP == partyFourUnit.unitMaxMP)
+            partyFourUnit.unitCurrentMP = partyFourUnit.unitMaxMP;
+
     }
 
     //Runs when an attack ends, to check if either side won or lost
@@ -325,10 +368,10 @@ public class BattleSystemWLevelling : MonoBehaviour
             partyThreeUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
             partyFourUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
             yield return new WaitForSeconds(1f);
-            partyOneUnit.UnitLevelling();
-            partyTwoUnit.UnitLevelling();
-            partyThreeUnit.UnitLevelling();
-            partyFourUnit.UnitLevelling();
+            partyOneUnit.UnitLevelling(enemyUnit);
+            partyTwoUnit.UnitLevelling(enemyUnit);
+            partyThreeUnit.UnitLevelling(enemyUnit);
+            partyFourUnit.UnitLevelling(enemyUnit);
             yield return new WaitForSeconds(1f);
             encounter.EncounterEnd();
         }
@@ -491,7 +534,7 @@ public class BattleSystemWLevelling : MonoBehaviour
         else if (choiceOne == ActionChoiceWL.ITEM)
         {
             dialogueText.text = partyOneUnit.unitName + " uses an item!";
-            StartCoroutine(PartyUseItem(partyOneUnit));
+            StartCoroutine(PartyUseItem(partyOneUnit, pOneHUD));
         }
         yield return new WaitForSeconds(2f);
         Debug.Log("Unit 1 COMP");
@@ -509,7 +552,7 @@ public class BattleSystemWLevelling : MonoBehaviour
         else if (choiceTwo == ActionChoiceWL.ITEM)
         {
             dialogueText.text = partyOneUnit.unitName + " uses an item!";
-            StartCoroutine(PartyUseItem(partyTwoUnit));
+            StartCoroutine(PartyUseItem(partyTwoUnit, pTwoHUD));
         }
         yield return new WaitForSeconds(2f);
         Debug.Log("Unit 2 COMP");
@@ -526,7 +569,7 @@ public class BattleSystemWLevelling : MonoBehaviour
         }
         else if (choiceThree == ActionChoiceWL.ITEM)
         {
-            StartCoroutine(PartyUseItem(partyThreeUnit));
+            StartCoroutine(PartyUseItem(partyThreeUnit, pThreeHUD));
         }
         yield return new WaitForSeconds(2f);
         Debug.Log("Unit 3 COMP");
@@ -542,7 +585,7 @@ public class BattleSystemWLevelling : MonoBehaviour
         }
         else if (choiceFour == ActionChoiceWL.ITEM)
         {
-            StartCoroutine(PartyUseItem(partyFourUnit));
+            StartCoroutine(PartyUseItem(partyFourUnit, pFourHUD));
         }
         yield return new WaitForSeconds(2f);
         Debug.Log("Unit 4 COMP");
@@ -851,38 +894,46 @@ public class BattleSystemWLevelling : MonoBehaviour
     //Targeting for special attack usage
     void AttackTargetingSpecial()
     {
-        if (partyOneUnit.unitCurrentHP == Mathf.Max(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
+        if (enemyUnit.unitCurrentMP < 33)
         {
-            if (!partyOneUnit.unitIsDead)
+            AttackTargetingBasic();
+        }
+        else
+        {
+            if (partyOneUnit.unitCurrentHP == Mathf.Max(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
-                Debug.Log("Enemy SPEC-One");
-                StartCoroutine(EnemySpecial(partyOneUnit, pOneHUD));
+                if (!partyOneUnit.unitIsDead)
+                {
+                    Debug.Log("Enemy SPEC-One");
+                    StartCoroutine(EnemySpecial(partyOneUnit, pOneHUD));
+                }
+            }
+            else if (partyTwoUnit.unitCurrentHP == Mathf.Max(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
+            {
+                if (!partyTwoUnit.unitIsDead)
+                {
+                    Debug.Log("Enemy SPEC-Two");
+                    StartCoroutine(EnemySpecial(partyTwoUnit, pTwoHUD));
+                }
+            }
+            else if (partyThreeUnit.unitCurrentHP == Mathf.Max(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
+            {
+                if (!partyThreeUnit.unitIsDead)
+                {
+                    Debug.Log("Enemy SPEC-Three");
+                    StartCoroutine(EnemySpecial(partyThreeUnit, pThreeHUD));
+                }
+            }
+            else if (partyFourUnit.unitCurrentHP == Mathf.Max(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
+            {
+                if (!partyFourUnit.unitIsDead)
+                {
+                    Debug.Log("Enemy SPEC-Four");
+                    StartCoroutine(EnemySpecial(partyFourUnit, pFourHUD));
+                }
             }
         }
-        else if (partyTwoUnit.unitCurrentHP == Mathf.Max(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
-        {
-            if (!partyTwoUnit.unitIsDead)
-            {
-                Debug.Log("Enemy SPEC-Two");
-                StartCoroutine(EnemySpecial(partyTwoUnit, pTwoHUD));
-            }
-        }
-        else if (partyThreeUnit.unitCurrentHP == Mathf.Max(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
-        {
-            if (!partyThreeUnit.unitIsDead)
-            {
-                Debug.Log("Enemy SPEC-Three");
-                StartCoroutine(EnemySpecial(partyThreeUnit, pThreeHUD));
-            }
-        }
-        else if (partyFourUnit.unitCurrentHP == Mathf.Max(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
-        {
-            if (!partyFourUnit.unitIsDead)
-            {
-                Debug.Log("Enemy SPEC-Four");
-                StartCoroutine(EnemySpecial(partyFourUnit, pFourHUD));
-            }
-        }
+        
     }
 
     void ExpGrant()
