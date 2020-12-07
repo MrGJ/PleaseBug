@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af3ab2b6873052f40a06778a58cb678c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Bazza
+  unitName: Antony
   unitImg: {fileID: 0}
   unitClass: 1
   unitIsMagic: 0

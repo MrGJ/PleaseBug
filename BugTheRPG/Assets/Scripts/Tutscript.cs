@@ -10,7 +10,15 @@ public class Tutscript : MonoBehaviour
     public GameObject[] postBattlePans;
 
     public GameObject happyTeach;
+    public GameObject angryTeach;
     public GameObject battleScene;
+
+    public GameObject overworldCamera;
+    public GameObject cutsceneCamera;
+
+    public GameObject evilCaterpillar;
+    public GameObject portal;
+    public Animator gates;
 
     public bool movementTutEnd;
     public bool battleTutEnd;
@@ -19,7 +27,10 @@ public class Tutscript : MonoBehaviour
     public bool battlePrompt2;
     public bool battlePrompt3;
     public bool battlePrompt4;
-    
+
+    public bool cutscene1;
+    public bool cutscene2;
+    public bool cutscene3;
 
     public MainMenu menuScript;
     public BattleSystemWLevelling battleScript;
@@ -42,6 +53,7 @@ public class Tutscript : MonoBehaviour
         }
 
         happyTeach.SetActive(false);
+        cutsceneCamera.SetActive(false);
     }
     public void TutStart()
     {
@@ -155,6 +167,22 @@ public class Tutscript : MonoBehaviour
     public IEnumerator TutPostBattle()
     {
         yield return new WaitForSeconds(1f);
+        cutsceneCamera.SetActive(true);
+        overworldCamera.SetActive(false);
+        yield return new WaitForSeconds(4f);
+        portal.SetActive(true);
+        Debug.Log("Step One of Cutscene");
+        yield return new WaitForSeconds(5f);
+        evilCaterpillar.SetActive(true);
+        Debug.Log("Step Two of Cutscene");
+        yield return new WaitForSeconds(7f);
+        gates.enabled = true;
+        Debug.Log("Step Three of Cutscene");
+        yield return new WaitForSeconds(3f);
+        cutsceneCamera.SetActive(false);
+        overworldCamera.SetActive(true);
+        Debug.Log("Step Four of Cutscene");
+        yield return new WaitForSeconds(2f);
         postBattlePans[0].SetActive(true);
         yield return new WaitForSeconds(2.5f);
         yield return StartCoroutine(WaitForKeyDown(KeyCode.Mouse0));

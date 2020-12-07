@@ -131,7 +131,6 @@ public class BattleSystemWLevelling : MonoBehaviour
             basicActionPan.SetActive(true);
             itemPanel.SetActive(true);
             runPanel.SetActive(true);
-
         }
         dialogueText.text = partyOneUnit.unitName + "'s Action";
     }
@@ -337,7 +336,6 @@ public class BattleSystemWLevelling : MonoBehaviour
                 turnTick += 1;
                 PartyPhaseBegin();
             }
-            
         }
 
         partyOneUnit.unitCurrentMP += 10;
@@ -360,13 +358,9 @@ public class BattleSystemWLevelling : MonoBehaviour
     {
         if (state == BattleStateWL.WON)
         {
-            
             dialogueText.text = "You did a succeed.";
-            
-            partyOneUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
-            partyTwoUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
-            partyThreeUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
-            partyFourUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
+
+            ExpGrant();
             yield return new WaitForSeconds(1f);
             partyOneUnit.UnitLevelling(enemyUnit);
             partyTwoUnit.UnitLevelling(enemyUnit);
@@ -938,7 +932,9 @@ public class BattleSystemWLevelling : MonoBehaviour
 
     void ExpGrant()
     {
-        partyOneUnit.unitExp += 50;
-
+        partyOneUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
+        partyTwoUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
+        partyThreeUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
+        partyFourUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
     }
 }

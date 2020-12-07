@@ -9,6 +9,8 @@ public class MainMenu : MonoBehaviour
     public GameObject mainCamera;
     public GameObject canvas;
 
+    public Tutscript tutorialScript;
+
     public Animator startAnim;
     public Animator exitAnim;
 
@@ -27,6 +29,22 @@ public class MainMenu : MonoBehaviour
     {
         canvas.SetActive(false);
         startAnim.enabled = true;
+    }
+
+    public void SkipButton()
+    {
+        canvas.SetActive(false);
+        CamSwitch();
+        enter = true;
+        tutorialScript.battlePrompt1 = true;
+        tutorialScript.battlePrompt2 = true;
+        tutorialScript.battlePrompt3 = true;
+        tutorialScript.battlePrompt4 = true;
+
+        tutorialScript.angryTeach.SetActive(false);
+        tutorialScript.battleScene.SetActive(false);
+
+        StartCoroutine(tutorialScript.TutPostBattle());
     }
 
     public void ExitButtonStart()

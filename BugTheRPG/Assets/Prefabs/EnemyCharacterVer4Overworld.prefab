@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Morningstar
   unitImg: {fileID: 0}
-  unitClass: 5
+  unitClass: 8
   unitIsMagic: 0
   unitIsDead: 0
   unitLevel: 1
@@ -140,6 +140,8 @@ MonoBehaviour:
   unitDef: 3
   unitMaxHP: 100
   unitCurrentHP: 100
+  unitMaxMP: 100
+  unitCurrentMP: 0
   unitExpGainedOnDeath: 100
 --- !u!195 &-7905906790433879389
 NavMeshAgent:

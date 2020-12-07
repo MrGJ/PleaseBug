@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ItemTypePotionOne : Items
 {
-    Unit unit1;
+    /*Unit unit1;
 
     public int potionPotency;
 
     public override void Use()
     {
         unit1.currentHP += potionPotency;
-    }
+    }*/
 }
