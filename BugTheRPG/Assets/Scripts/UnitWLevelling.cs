@@ -27,58 +27,58 @@ public class UnitWLevelling : MonoBehaviour
 
     
     //Is called to level the unit.
-    public void UnitLevelling(UnitWLevelling unit)
+    public void UnitLevelling(UnitWLevelling unitParty, UnitWLevelling unit)
     {
-        unitExp += unit.unitExpGainedOnDeath;
+        unitParty.unitExp += unit.unitExpGainedOnDeath;
 
-        if(unitExp >= unitReqExp)
+        if(unitParty.unitExp >= unitParty.unitReqExp)
         {
-            unitLevel += 1;
-            
-            unitReqExp += (unitReqExp / 4) + unitReqExp;
-            StatDistribution();
+            unitParty.unitLevel += 1;
+
+            unitParty.unitReqExp += (unitParty.unitReqExp / 4) + unitParty.unitReqExp;
+            StatDistribution(unitParty);
         }
 
     }
 
-    public void StatDistribution()
+    public void StatDistribution(UnitWLevelling unit)
     {
-        if(unitClass == ClassSelect.TANK)
+        if(unit.unitClass == ClassSelect.TANK)
         {
 
-            unitAttack += (unitAttack / 10);
-            unitRes = Mathf.RoundToInt(unitRes * 1.18f);
-            unitDef = Mathf.RoundToInt(unitDef * 1.2f);
-            unitMaxHP += ((unitMaxHP / 10) + 5);
+            unit.unitAttack += (unit.unitAttack / 10);
+            unit.unitRes = Mathf.RoundToInt(unit.unitRes * 1.18f);
+            unit.unitDef = Mathf.RoundToInt(unit.unitDef * 1.2f);
+            unit.unitMaxHP += ((unit.unitMaxHP / 10) + 5);
         }
-        else if (unitClass == ClassSelect.DPSMELEE)
+        else if (unit.unitClass == ClassSelect.DPSMELEE)
         {
 
-            unitAttack += (unitAttack / 7);
-            unitRes = Mathf.RoundToInt(unitRes * 1.18f);
-            unitDef = Mathf.RoundToInt(unitDef * 1.2f);
-            unitMaxHP += ((unitMaxHP / 15) + 5);
+            unit.unitAttack += (unit.unitAttack / 7);
+            unit.unitRes = Mathf.RoundToInt(unit.unitRes * 1.18f);
+            unit.unitDef = Mathf.RoundToInt(unit.unitDef * 1.2f);
+            unit.unitMaxHP += ((unit.unitMaxHP / 15) + 5);
         }
-        else if (unitClass == ClassSelect.DPSRANGED)
+        else if (unit.unitClass == ClassSelect.DPSRANGED)
         {
-            unitAttack += (unitAttack / 7);
-            unitRes = Mathf.RoundToInt(unitRes * 1.2f);
-            unitDef = Mathf.RoundToInt(unitDef * 1.18f);
-            unitMaxHP += ((unitMaxHP / 15) + 5);
+            unit.unitAttack += (unit.unitAttack / 7);
+            unit.unitRes = Mathf.RoundToInt(unit.unitRes * 1.2f);
+            unit.unitDef = Mathf.RoundToInt(unit.unitDef * 1.18f);
+            unit.unitMaxHP += ((unit.unitMaxHP / 15) + 5);
         }
         else if (unitClass == ClassSelect.DPSMAGIC)
         {
-            unitAttack += (unitAttack / 7);
-            unitRes = Mathf.RoundToInt(unitRes * 1.2f);
-            unitDef = Mathf.RoundToInt(unitDef * 1.18f);
-            unitMaxHP += ((unitMaxHP / 15) + 5);
+            unit.unitAttack += (unit.unitAttack / 7);
+            unit.unitRes = Mathf.RoundToInt(unit.unitRes * 1.2f);
+            unit.unitDef = Mathf.RoundToInt(unit.unitDef * 1.18f);
+            unit.unitMaxHP += ((unit.unitMaxHP / 15) + 5);
         }
-        else if (unitClass == ClassSelect.HEALER)
+        else if (unit.unitClass == ClassSelect.HEALER)
         {
-            unitAttack += (unitAttack / 8);
-            unitRes = Mathf.RoundToInt(unitRes * 1.18f);
-            unitDef = Mathf.RoundToInt(unitDef * 1.2f);
-            unitMaxHP += ((unitMaxHP / 17) + 3);
+            unit.unitAttack += (unit.unitAttack / 8);
+            unit.unitRes = Mathf.RoundToInt(unit.unitRes * 1.18f);
+            unit.unitDef = Mathf.RoundToInt(unit.unitDef * 1.2f);
+            unit.unitMaxHP += ((unit.unitMaxHP / 17) + 3);
         }
     }
 
