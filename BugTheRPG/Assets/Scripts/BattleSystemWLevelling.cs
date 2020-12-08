@@ -10,6 +10,7 @@ public enum PartySelectWL { PARTYONE, PARTYTWO, PARTYTHREE, PARTYFOUR}
 
 public class BattleSystemWLevelling : MonoBehaviour
 {
+    public UnitWLevelling overOne, overTwo, overThree, overFour, overEnemy;
     public GameObject partyMemOne, partyMemTwo, partyMemThree, partyMemFour, enemyObj;
 
     public GameObject battleCanvas, actionPanel, attackPanel;
@@ -58,6 +59,7 @@ public class BattleSystemWLevelling : MonoBehaviour
     //Initialises Battle
     public IEnumerator BattleInit()
     {
+        
         turnTick = 0;
         GameObject partyOneGO = Instantiate(partyMemOne, partyOnePlatform);
         partyOneUnit = partyOneGO.GetComponent<UnitWLevelling>();
@@ -69,6 +71,11 @@ public class BattleSystemWLevelling : MonoBehaviour
         partyFourUnit = partyFourGO.GetComponent<UnitWLevelling>();
         GameObject enemyGO = Instantiate(enemyObj, enemyPlatform);
         enemyUnit = enemyGO.GetComponent<UnitWLevelling>();
+        UnitInit(overOne, partyOneUnit);
+        UnitInit(overTwo, partyTwoUnit);
+        UnitInit(overThree, partyThreeUnit);
+        UnitInit(overFour, partyFourUnit);
+        UnitInit(overEnemy, enemyUnit);
 
         battleCanvas.SetActive(true);
         actionPanel.SetActive(false);
@@ -206,30 +213,44 @@ public class BattleSystemWLevelling : MonoBehaviour
     IEnumerator PartySpecialAtk(UnitWLevelling unit)
     {
         bool isDead = false;
-        if (!unit.unitIsMagic && unit.unitClass != ClassSelect.HEALER)
+        if (unit.unitCurrentMP >= 33)
         {
-            isDead = enemyUnit.TakeRegDamage(unit, true);
-            dialogueText.text = unit.unitName + " does " + (unit.unitAttack * 2) + " damage!";
-        }
-        else if (unit.unitIsMagic && unit.unitClass != ClassSelect.HEALER)
-        {
-            isDead = enemyUnit.TakeMagDamage(unit, true);
-            dialogueText.text = unit.unitName + " does " + (unit.unitAttack * 2) + " damage!";
-        }
-        else if (unit.unitClass == ClassSelect.HEALER)
-        {
-            isDead = partyFourUnit.HealDamage(partyOneUnit, partyTwoUnit, partyThreeUnit);
-            pOneHUD.HPFiddling(partyOneUnit.unitCurrentHP);
-            pTwoHUD.HPFiddling(partyTwoUnit.unitCurrentHP);
-            pThreeHUD.HPFiddling(partyThreeUnit.unitCurrentHP);
-            pFourHUD.HPFiddling(partyFourUnit.unitCurrentHP);
-            pFourHUD.MPFiddling(partyFourUnit.unitCurrentMP);
+            if (!unit.unitIsMagic && unit.unitClass != ClassSelect.HEALER)
+            {
+                isDead = enemyUnit.TakeRegDamage(unit, true);
+                dialogueText.text = unit.unitName + " does " + (unit.unitAttack * 2) + " damage!";
+            }
+            else if (unit.unitIsMagic && unit.unitClass != ClassSelect.HEALER)
+            {
+                isDead = enemyUnit.TakeMagDamage(unit, true);
+                dialogueText.text = unit.unitName + " does " + (unit.unitAttack * 2) + " damage!";
+            }
+            else if (unit.unitClass == ClassSelect.HEALER)
+            {
+                isDead = partyFourUnit.HealDamage(partyOneUnit, partyTwoUnit, partyThreeUnit);
+                pOneHUD.HPFiddling(partyOneUnit.unitCurrentHP);
+                pTwoHUD.HPFiddling(partyTwoUnit.unitCurrentHP);
+                pThreeHUD.HPFiddling(partyThreeUnit.unitCurrentHP);
+                pFourHUD.HPFiddling(partyFourUnit.unitCurrentHP);
+                pFourHUD.MPFiddling(partyFourUnit.unitCurrentMP);
 
-            dialogueText.text = unit.unitName + " does some light first aid!";
+                dialogueText.text = unit.unitName + " does some light first aid!";
+            }
+        }
+        else
+        {
+            dialogueText.text = unit.unitName + " doesn't have enough mana!";
+        }
+        if (unit.unitCurrentMP <= 0)
+        {
+            unit.unitCurrentMP = 0;
         }
 
         enemyHUD.HPFiddling(enemyUnit.unitCurrentHP);
-
+        pOneHUD.HPFiddling(partyOneUnit.unitCurrentHP);
+        pTwoHUD.HPFiddling(partyTwoUnit.unitCurrentHP);
+        pThreeHUD.HPFiddling(partyThreeUnit.unitCurrentHP);
+        pFourHUD.HPFiddling(partyFourUnit.unitCurrentHP);
         pOneHUD.MPFiddling(partyOneUnit.unitCurrentMP);
         pTwoHUD.MPFiddling(partyTwoUnit.unitCurrentMP);
         pThreeHUD.MPFiddling(partyThreeUnit.unitCurrentMP);
@@ -248,13 +269,21 @@ public class BattleSystemWLevelling : MonoBehaviour
     //Uses item if passed unit selected to use an item
     IEnumerator PartyUseItem(UnitWLevelling unit, BattleHUDWLevelling hud)
     {
-        unit.unitCurrentHP += 25;
-        if (unit.unitCurrentHP > unit.unitMaxHP)
-            unit.unitCurrentHP = unit.unitMaxHP;
-        unit.unitCurrentMP -= 50;
+        if (unit.unitCurrentMP >= 50)
+        {
+            unit.unitCurrentHP += 25;
+            if (unit.unitCurrentHP > unit.unitMaxHP)
+                unit.unitCurrentHP = unit.unitMaxHP;
+            unit.unitCurrentMP -= 50;
+            dialogueText.text = unit.unitName + " healed self, at least, they had better have.";
+        }
+        else
+        {
+            dialogueText.text = unit.unitName + "'s attempt to heal failed.";
+        }
+        
         hud.HPFiddling(unit.unitCurrentHP);
         hud.MPFiddling(unit.unitCurrentMP);
-        dialogueText.text = unit.unitName + " healed self, at least, they had better have.";
         yield return new WaitForSeconds(2f);
         Debug.Log(unit.unitName + " healed self");
     }
@@ -334,6 +363,12 @@ public class BattleSystemWLevelling : MonoBehaviour
             {
                 state = BattleStateWL.PARTYONESEL;
                 turnTick += 1;
+                MpRegen(partyOneUnit, pOneHUD);
+                MpRegen(partyTwoUnit, pTwoHUD);
+                MpRegen(partyThreeUnit, pThreeHUD);
+                MpRegen(partyFourUnit, pFourHUD);
+                MpRegen(enemyUnit, enemyHUD);
+
                 PartyPhaseBegin();
             }
         }
@@ -362,10 +397,10 @@ public class BattleSystemWLevelling : MonoBehaviour
 
             ExpGrant();
             yield return new WaitForSeconds(1f);
-            partyOneUnit.UnitLevelling(enemyUnit);
-            partyTwoUnit.UnitLevelling(enemyUnit);
-            partyThreeUnit.UnitLevelling(enemyUnit);
-            partyFourUnit.UnitLevelling(enemyUnit);
+            partyOneUnit.UnitLevelling(partyOneUnit, enemyUnit);
+            partyTwoUnit.UnitLevelling(partyTwoUnit, enemyUnit);
+            partyThreeUnit.UnitLevelling(partyThreeUnit, enemyUnit);
+            partyFourUnit.UnitLevelling(partyFourUnit, enemyUnit);
             yield return new WaitForSeconds(1f);
             encounter.EncounterEnd();
         }
@@ -389,6 +424,12 @@ public class BattleSystemWLevelling : MonoBehaviour
                 tutorialScript.battleTutEnd = true;
             }
         }
+
+        InitUnit(overOne, partyOneUnit);
+        InitUnit(overTwo, partyTwoUnit);
+        InitUnit(overThree, partyThreeUnit);
+        InitUnit(overFour, partyFourUnit);
+
         turnTick = 0;
     }
 
@@ -930,11 +971,61 @@ public class BattleSystemWLevelling : MonoBehaviour
         
     }
 
+    void UnitInit(UnitWLevelling overUnit, UnitWLevelling battleUnit)
+    {
+        battleUnit.unitName = overUnit.unitName;
+        battleUnit.unitImg = overUnit.unitImg;
+        battleUnit.unitClass = overUnit.unitClass;
+        battleUnit.unitIsMagic = overUnit.unitIsMagic;
+        battleUnit.unitIsDead = overUnit.unitIsDead;
+        battleUnit.unitLevel = overUnit.unitLevel;
+        battleUnit.unitExp = overUnit.unitExp;
+        battleUnit.unitReqExp = overUnit.unitReqExp;
+        battleUnit.unitAttack = overUnit.unitAttack;
+        battleUnit.unitRes = overUnit.unitRes;
+        battleUnit.unitDef = overUnit.unitDef;
+        battleUnit.unitMaxHP = overUnit.unitMaxHP;
+        battleUnit.unitCurrentHP = overUnit.unitCurrentHP;
+        battleUnit.unitMaxMP = overUnit.unitMaxMP;
+        battleUnit.unitCurrentMP = overUnit.unitCurrentMP;
+        battleUnit.unitExpGainedOnDeath = overUnit.unitExpGainedOnDeath;
+    }
+
+    void InitUnit(UnitWLevelling overUnit, UnitWLevelling battleUnit)
+    {
+        overUnit.unitName = battleUnit.unitName;
+        overUnit.unitImg = battleUnit.unitImg;
+        overUnit.unitClass = battleUnit.unitClass;
+        overUnit.unitIsMagic = battleUnit.unitIsMagic;
+        overUnit.unitIsDead = battleUnit.unitIsDead;
+        overUnit.unitLevel = battleUnit.unitLevel;
+        overUnit.unitExp = battleUnit.unitExp;
+        overUnit.unitReqExp = battleUnit.unitReqExp;
+        overUnit.unitAttack = battleUnit.unitAttack;
+        overUnit.unitRes = battleUnit.unitRes;
+        overUnit.unitDef = battleUnit.unitDef;
+        overUnit.unitMaxHP = battleUnit.unitMaxHP;
+        overUnit.unitCurrentHP = battleUnit.unitCurrentHP;
+        overUnit.unitMaxMP = battleUnit.unitMaxMP;
+        overUnit.unitCurrentMP = battleUnit.unitCurrentMP;
+        overUnit.unitExpGainedOnDeath = battleUnit.unitExpGainedOnDeath;
+    }
+
     void ExpGrant()
     {
         partyOneUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
         partyTwoUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
         partyThreeUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
         partyFourUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
+    }
+
+    void MpRegen(UnitWLevelling unit, BattleHUDWLevelling hud)
+    {
+        unit.unitCurrentMP += 10;
+        if (unit.unitCurrentMP > unit.unitMaxMP)
+        {
+            unit.unitCurrentMP = unit.unitMaxMP;
+        }
+        hud.MPFiddling(unit.unitCurrentMP);
     }
 }
