@@ -59,10 +59,11 @@ public class EncounterTwisting : MonoBehaviour
         battleCamera.SetActive(false);
         battleSystem.overworldMusicEGO.SetActive(true);
         battleSystem.battleMusicEGO.SetActive(false);
-        SetStatOverToBattle(battleSystem.partyOneUnit, overworldSystem.partyOneUnit);
-        SetStatOverToBattle(battleSystem.partyTwoUnit, overworldSystem.partyTwoUnit);
-        SetStatOverToBattle(battleSystem.partyThreeUnit, overworldSystem.partyThreeUnit);
-        SetStatOverToBattle(battleSystem.partyFourUnit, overworldSystem.partyFourUnit);
+        SetStatBattleToOver(battleSystem.partyOneUnit, overworldSystem.partyOneUnit);
+        SetStatBattleToOver(battleSystem.partyTwoUnit, overworldSystem.partyTwoUnit);
+        SetStatBattleToOver(battleSystem.partyThreeUnit, overworldSystem.partyThreeUnit);
+        SetStatBattleToOver(battleSystem.partyFourUnit, overworldSystem.partyFourUnit);
+        
     }
 
     public void SetStatOverToBattle(UnitWLevelling unitBattle, UnitWLevelling unitOverworld)

@@ -32,10 +32,10 @@ public class PartyMovementControllerMerged : MonoBehaviour
 
     public float minX = -360.0f;
     public float maxX = 360.0f;
-    public float minY = -45.0f;
-    public float maxY = 45.0f;
-    public float sensX = 100.0f;
-    public float sensY = 100.0f;
+    public float minY = -180.0f;
+    public float maxY = 180.0f;
+    public float sensX = 200.0f;
+    public float sensY = 200.0f;
 
     float rotX = 0.0f;
     float rotY = 0.0f;

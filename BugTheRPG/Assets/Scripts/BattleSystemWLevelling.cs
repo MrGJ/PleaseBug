@@ -213,30 +213,44 @@ public class BattleSystemWLevelling : MonoBehaviour
     IEnumerator PartySpecialAtk(UnitWLevelling unit)
     {
         bool isDead = false;
-        if (!unit.unitIsMagic && unit.unitClass != ClassSelect.HEALER)
+        if (unit.unitCurrentMP >= 33)
         {
-            isDead = enemyUnit.TakeRegDamage(unit, true);
-            dialogueText.text = unit.unitName + " does " + (unit.unitAttack * 2) + " damage!";
-        }
-        else if (unit.unitIsMagic && unit.unitClass != ClassSelect.HEALER)
-        {
-            isDead = enemyUnit.TakeMagDamage(unit, true);
-            dialogueText.text = unit.unitName + " does " + (unit.unitAttack * 2) + " damage!";
-        }
-        else if (unit.unitClass == ClassSelect.HEALER)
-        {
-            isDead = partyFourUnit.HealDamage(partyOneUnit, partyTwoUnit, partyThreeUnit);
-            pOneHUD.HPFiddling(partyOneUnit.unitCurrentHP);
-            pTwoHUD.HPFiddling(partyTwoUnit.unitCurrentHP);
-            pThreeHUD.HPFiddling(partyThreeUnit.unitCurrentHP);
-            pFourHUD.HPFiddling(partyFourUnit.unitCurrentHP);
-            pFourHUD.MPFiddling(partyFourUnit.unitCurrentMP);
+            if (!unit.unitIsMagic && unit.unitClass != ClassSelect.HEALER)
+            {
+                isDead = enemyUnit.TakeRegDamage(unit, true);
+                dialogueText.text = unit.unitName + " does " + (unit.unitAttack * 2) + " damage!";
+            }
+            else if (unit.unitIsMagic && unit.unitClass != ClassSelect.HEALER)
+            {
+                isDead = enemyUnit.TakeMagDamage(unit, true);
+                dialogueText.text = unit.unitName + " does " + (unit.unitAttack * 2) + " damage!";
+            }
+            else if (unit.unitClass == ClassSelect.HEALER)
+            {
+                isDead = partyFourUnit.HealDamage(partyOneUnit, partyTwoUnit, partyThreeUnit);
+                pOneHUD.HPFiddling(partyOneUnit.unitCurrentHP);
+                pTwoHUD.HPFiddling(partyTwoUnit.unitCurrentHP);
+                pThreeHUD.HPFiddling(partyThreeUnit.unitCurrentHP);
+                pFourHUD.HPFiddling(partyFourUnit.unitCurrentHP);
+                pFourHUD.MPFiddling(partyFourUnit.unitCurrentMP);
 
-            dialogueText.text = unit.unitName + " does some light first aid!";
+                dialogueText.text = unit.unitName + " does some light first aid!";
+            }
+        }
+        else
+        {
+            dialogueText.text = unit.unitName + " doesn't have enough mana!";
+        }
+        if (unit.unitCurrentMP <= 0)
+        {
+            unit.unitCurrentMP = 0;
         }
 
         enemyHUD.HPFiddling(enemyUnit.unitCurrentHP);
-
+        pOneHUD.HPFiddling(partyOneUnit.unitCurrentHP);
+        pTwoHUD.HPFiddling(partyTwoUnit.unitCurrentHP);
+        pThreeHUD.HPFiddling(partyThreeUnit.unitCurrentHP);
+        pFourHUD.HPFiddling(partyFourUnit.unitCurrentHP);
         pOneHUD.MPFiddling(partyOneUnit.unitCurrentMP);
         pTwoHUD.MPFiddling(partyTwoUnit.unitCurrentMP);
         pThreeHUD.MPFiddling(partyThreeUnit.unitCurrentMP);
@@ -255,13 +269,21 @@ public class BattleSystemWLevelling : MonoBehaviour
     //Uses item if passed unit selected to use an item
     IEnumerator PartyUseItem(UnitWLevelling unit, BattleHUDWLevelling hud)
     {
-        unit.unitCurrentHP += 25;
-        if (unit.unitCurrentHP > unit.unitMaxHP)
-            unit.unitCurrentHP = unit.unitMaxHP;
-        unit.unitCurrentMP -= 50;
+        if (unit.unitCurrentMP >= 50)
+        {
+            unit.unitCurrentHP += 25;
+            if (unit.unitCurrentHP > unit.unitMaxHP)
+                unit.unitCurrentHP = unit.unitMaxHP;
+            unit.unitCurrentMP -= 50;
+            dialogueText.text = unit.unitName + " healed self, at least, they had better have.";
+        }
+        else
+        {
+            dialogueText.text = unit.unitName + "'s attempt to heal failed.";
+        }
+        
         hud.HPFiddling(unit.unitCurrentHP);
         hud.MPFiddling(unit.unitCurrentMP);
-        dialogueText.text = unit.unitName + " healed self, at least, they had better have.";
         yield return new WaitForSeconds(2f);
         Debug.Log(unit.unitName + " healed self");
     }
@@ -341,6 +363,12 @@ public class BattleSystemWLevelling : MonoBehaviour
             {
                 state = BattleStateWL.PARTYONESEL;
                 turnTick += 1;
+                MpRegen(partyOneUnit, pOneHUD);
+                MpRegen(partyTwoUnit, pTwoHUD);
+                MpRegen(partyThreeUnit, pThreeHUD);
+                MpRegen(partyFourUnit, pFourHUD);
+                MpRegen(enemyUnit, enemyHUD);
+
                 PartyPhaseBegin();
             }
         }
@@ -989,5 +1017,15 @@ public class BattleSystemWLevelling : MonoBehaviour
         partyTwoUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
         partyThreeUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
         partyFourUnit.unitExp += enemyUnit.unitExpGainedOnDeath;
+    }
+
+    void MpRegen(UnitWLevelling unit, BattleHUDWLevelling hud)
+    {
+        unit.unitCurrentMP += 10;
+        if (unit.unitCurrentMP > unit.unitMaxMP)
+        {
+            unit.unitCurrentMP = unit.unitMaxMP;
+        }
+        hud.MPFiddling(unit.unitCurrentMP);
     }
 }
