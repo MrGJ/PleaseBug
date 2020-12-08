@@ -169,7 +169,7 @@ public class Tutscript : MonoBehaviour
         yield return new WaitForSeconds(1f);
         cutsceneCamera.SetActive(true);
         overworldCamera.SetActive(false);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
         portal.SetActive(true);
         Debug.Log("Step One of Cutscene");
         yield return new WaitForSeconds(5f);

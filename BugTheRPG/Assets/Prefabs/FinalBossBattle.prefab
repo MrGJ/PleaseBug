@@ -65,14 +65,14 @@ MonoBehaviour:
   unitClass: 11
   unitIsMagic: 0
   unitIsDead: 0
-  unitLevel: 1
+  unitLevel: 10
   unitExp: 0
   unitReqExp: 100
-  unitAttack: 10
-  unitRes: 2
-  unitDef: 12
-  unitMaxHP: 1000
-  unitCurrentHP: 1000
+  unitAttack: 35
+  unitRes: 10
+  unitDef: 24
+  unitMaxHP: 2000
+  unitCurrentHP: 2000
   unitMaxMP: 400
   unitCurrentMP: 400
   unitExpGainedOnDeath: 5000

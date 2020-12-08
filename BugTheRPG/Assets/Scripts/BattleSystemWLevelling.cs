@@ -17,6 +17,8 @@ public class BattleSystemWLevelling : MonoBehaviour
     public GameObject basicActionPan, specialActionPan, backActionPan;
     public GameObject attackPanelAction, itemPanel, runPanel;
 
+    public GameObject gate1, gate2, gate3;
+
     public GameObject overworldMusicEGO, battleMusicEGO;
 
     public Transform partyOnePlatform, partyTwoPlatform, partyThreePlatform, partyFourPlatform, enemyPlatform;
@@ -402,6 +404,7 @@ public class BattleSystemWLevelling : MonoBehaviour
             partyThreeUnit.UnitLevelling(partyThreeUnit, enemyUnit);
             partyFourUnit.UnitLevelling(partyFourUnit, enemyUnit);
             yield return new WaitForSeconds(1f);
+            CheckForBoss();
             encounter.EncounterEnd();
         }
         else if (state == BattleStateWL.LOST)
@@ -431,6 +434,22 @@ public class BattleSystemWLevelling : MonoBehaviour
         InitUnit(overFour, partyFourUnit);
 
         turnTick = 0;
+    }
+
+    public void CheckForBoss()
+    {
+        if (enemyUnit.unitName == "Steve")
+        {
+            gate1.SetActive(false);
+        }
+        if (enemyUnit.unitName == "Bob")
+        {
+            gate2.SetActive(false);
+        }
+        if (enemyUnit.unitName == "Charlie")
+        {
+            gate3.SetActive(false);
+        }
     }
 
     //Shows the attack menu to choose an attack for the current party member

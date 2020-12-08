@@ -52,8 +52,8 @@ MonoBehaviour:
   unitImg: {fileID: 0}
   unitClass: 6
   unitIsMagic: 0
-  unitIsDead: 0
-  unitLevel: 1
+  unitIsDead: 1
+  unitLevel: 5
   unitExp: 0
   unitReqExp: 100
   unitAttack: 10
