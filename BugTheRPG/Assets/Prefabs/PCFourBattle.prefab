@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1386758983023364347}
   - component: {fileID: 2612997576226689218}
   - component: {fileID: -3705765609123187681}
+  - component: {fileID: -6125991313635615115}
+  - component: {fileID: 102701339320983078}
   m_Layer: 0
   m_Name: PCFourBattle
   m_TagString: FourBattle
@@ -28,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3648068078397064868}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4670817490010239312}
   m_Father: {fileID: 0}
@@ -92,6 +94,37 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!95 &-6125991313635615115
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3648068078397064868}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cd45bb8e66a24884ab80eb2858fbb7bd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &102701339320983078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3648068078397064868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2527d32a631a9e419a0ed7c12e192a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2821664288801191541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,22 +150,22 @@ PrefabInstance:
     - target: {fileID: 7492445490627970853, guid: f17d520eacc69b040ae21dea3b0a3ab4,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.49991274
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7492445490627970853, guid: f17d520eacc69b040ae21dea3b0a3ab4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.49991274
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7492445490627970853, guid: f17d520eacc69b040ae21dea3b0a3ab4,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.50008726
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7492445490627970853, guid: f17d520eacc69b040ae21dea3b0a3ab4,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.50008726
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7492445490627970853, guid: f17d520eacc69b040ae21dea3b0a3ab4,
         type: 3}
@@ -142,7 +175,7 @@ PrefabInstance:
     - target: {fileID: 7492445490627970853, guid: f17d520eacc69b040ae21dea3b0a3ab4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -89.98
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 7492445490627970853, guid: f17d520eacc69b040ae21dea3b0a3ab4,
         type: 3}
@@ -152,7 +185,7 @@ PrefabInstance:
     - target: {fileID: 7492445490627970853, guid: f17d520eacc69b040ae21dea3b0a3ab4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -90
+      value: -270
       objectReference: {fileID: 0}
     - target: {fileID: 7832133407800548767, guid: f17d520eacc69b040ae21dea3b0a3ab4,
         type: 3}

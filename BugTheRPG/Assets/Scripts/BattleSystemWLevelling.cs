@@ -10,8 +10,10 @@ public enum PartySelectWL { PARTYONE, PARTYTWO, PARTYTHREE, PARTYFOUR}
 
 public class BattleSystemWLevelling : MonoBehaviour
 {
+    [Header("Game Objects")]
     public UnitWLevelling overOne, overTwo, overThree, overFour, overEnemy;
     public GameObject partyMemOne, partyMemTwo, partyMemThree, partyMemFour, enemyObj;
+    public GameObject hitParticle;
 
     public GameObject battleCanvas, actionPanel, attackPanel;
     public GameObject basicActionPan, specialActionPan, backActionPan;
@@ -21,20 +23,25 @@ public class BattleSystemWLevelling : MonoBehaviour
 
     public GameObject overworldMusicEGO, battleMusicEGO;
 
+    [Header("Party Plats and Scripts")]
     public Transform partyOnePlatform, partyTwoPlatform, partyThreePlatform, partyFourPlatform, enemyPlatform;
 
     public UnitWLevelling partyOneUnit, partyTwoUnit, partyThreeUnit, partyFourUnit, enemyUnit;
 
+    [Header("Dialogue")]
     public GameObject dialogueObj;
     public TextMeshProUGUI dialogueText;
 
+    [Header("HUD")]
     public BattleHUDWLevelling pOneHUD, pTwoHUD, pThreeHUD, pFourHUD, enemyHUD;
 
+    [Header("Scripts")]
     public GameObject encounterObj;
     public EncounterTwisting encounter;
 
     public Tutscript tutorialScript;
 
+    [Header("Other")]
     private int turnTick;
 
     public BattleStateWL state;
@@ -199,6 +206,9 @@ public class BattleSystemWLevelling : MonoBehaviour
             dialogueText.text = unit.unitName + " does " + (unit.unitAttack - enemyUnit.unitRes) + " damage!";
         }
         
+        unit.gameObject.GetComponent<Animator>().SetBool("isHit", true);
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(HitParticleSystem(enemyPlatform));
         enemyHUD.HPFiddling(enemyUnit.unitCurrentHP);
 
         yield return new WaitForSeconds(2f);
@@ -220,11 +230,17 @@ public class BattleSystemWLevelling : MonoBehaviour
             if (!unit.unitIsMagic && unit.unitClass != ClassSelect.HEALER)
             {
                 isDead = enemyUnit.TakeRegDamage(unit, true);
+                unit.gameObject.GetComponent<Animator>().SetBool("isHit", true);
+                yield return new WaitForSeconds(1f);
+                StartCoroutine(HitParticleSystem(enemyPlatform));
                 dialogueText.text = unit.unitName + " does " + (unit.unitAttack * 2) + " damage!";
             }
             else if (unit.unitIsMagic && unit.unitClass != ClassSelect.HEALER)
             {
                 isDead = enemyUnit.TakeMagDamage(unit, true);
+                unit.gameObject.GetComponent<Animator>().SetBool("isHit", true);
+                yield return new WaitForSeconds(1f);
+                StartCoroutine(HitParticleSystem(enemyPlatform));
                 dialogueText.text = unit.unitName + " does " + (unit.unitAttack * 2) + " damage!";
             }
             else if (unit.unitClass == ClassSelect.HEALER)
@@ -335,6 +351,24 @@ public class BattleSystemWLevelling : MonoBehaviour
             deadCheck += 1;
 
 
+    }
+
+    IEnumerator HitParticleSystem(Transform target)
+    {
+        Instantiate(hitParticle, target);
+        yield return new WaitForSeconds(1f);
+        Destroy(GameObject.Find("Battle Hit (Clone)"));
+        StopCoroutine(HitParticleSystem(target));
+    }
+
+    IEnumerator HitParticleSystemEnemy(Transform target)
+    {
+        enemyObj.GetComponent<Animator>().SetBool("isHitEnemy", true);
+        yield return new WaitForSeconds(1f);
+        Instantiate(hitParticle, target);
+        yield return new WaitForSeconds(1f);
+        Destroy(GameObject.Find("Battle Hit (Clone)"));
+        StopCoroutine(HitParticleSystemEnemy(target));
     }
 
     //Runs through functions for the enemy's attack turn
@@ -761,18 +795,22 @@ public class BattleSystemWLevelling : MonoBehaviour
         if (partyOneUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
         {
             StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+            StartCoroutine(HitParticleSystemEnemy(partyOnePlatform));
         }
         else if (partyTwoUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
         {
             StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+            StartCoroutine(HitParticleSystemEnemy(partyTwoPlatform));
         }
         else if (partyThreeUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
         {
             StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+            StartCoroutine(HitParticleSystemEnemy(partyThreePlatform));
         }
         else if (partyFourUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
         {
             StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+            StartCoroutine(HitParticleSystemEnemy(partyFourPlatform));
         }
     }
     //Decides Targeting Based on one party mem being dead
@@ -784,14 +822,17 @@ public class BattleSystemWLevelling : MonoBehaviour
             if (partyTwoUnit.unitCurrentHP == Mathf.Min(partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyTwoPlatform));
             }
             else if (partyThreeUnit.unitCurrentHP == Mathf.Min(partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyThreePlatform));
             }
             else if (partyFourUnit.unitCurrentHP == Mathf.Min(partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyFourPlatform));
             }
         }
         else if (partyTwoUnit.unitIsDead)
@@ -800,14 +841,17 @@ public class BattleSystemWLevelling : MonoBehaviour
             if (partyOneUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyOnePlatform));
             }
             else if (partyThreeUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyThreePlatform));
             }
             else if (partyFourUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyFourPlatform));
             }
         }
         else if (partyThreeUnit.unitIsDead)
@@ -816,15 +860,18 @@ public class BattleSystemWLevelling : MonoBehaviour
             if (partyOneUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyOnePlatform));
             }
             else if (partyTwoUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyTwoPlatform));
             }
             
             else if (partyFourUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyFourPlatform));
             }
         }
         else if (partyFourUnit.unitIsDead)
@@ -833,14 +880,17 @@ public class BattleSystemWLevelling : MonoBehaviour
             if (partyOneUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyOnePlatform));
             }
             else if (partyTwoUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyTwoPlatform));
             }
             else if (partyThreeUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyThreePlatform));
             }
         }
     }
@@ -853,10 +903,12 @@ public class BattleSystemWLevelling : MonoBehaviour
             if (partyOneUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyOnePlatform));
             }
             else if (partyTwoUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyTwoUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyTwoPlatform));
             }
         }
         else if (partyTwoUnit.unitIsDead && partyFourUnit.unitIsDead)
@@ -865,10 +917,12 @@ public class BattleSystemWLevelling : MonoBehaviour
             if (partyOneUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyOnePlatform));
             }
             else if (partyThreeUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyThreePlatform));
             }
         }
         else if (partyTwoUnit.unitIsDead && partyThreeUnit.unitIsDead)
@@ -877,10 +931,12 @@ public class BattleSystemWLevelling : MonoBehaviour
             if (partyOneUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyOnePlatform));
             }
             else if (partyFourUnit.unitCurrentHP == Mathf.Min(partyOneUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyFourPlatform));
             }
         }
         else if (partyOneUnit.unitIsDead && partyFourUnit.unitIsDead)
@@ -889,10 +945,12 @@ public class BattleSystemWLevelling : MonoBehaviour
             if (partyTwoUnit.unitCurrentHP == Mathf.Min(partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyTwoPlatform));
             }
             else if (partyThreeUnit.unitCurrentHP == Mathf.Min(partyTwoUnit.unitCurrentHP, partyThreeUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyThreePlatform));
             }
         }
         else if (partyOneUnit.unitIsDead && partyThreeUnit.unitIsDead)
@@ -901,10 +959,12 @@ public class BattleSystemWLevelling : MonoBehaviour
             if (partyTwoUnit.unitCurrentHP == Mathf.Min(partyTwoUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyTwoPlatform));
             }
             else if (partyFourUnit.unitCurrentHP == Mathf.Min(partyTwoUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyFourPlatform));
             }
         }
         else if (partyOneUnit.unitIsDead && partyTwoUnit.unitIsDead)
@@ -913,10 +973,12 @@ public class BattleSystemWLevelling : MonoBehaviour
             if (partyThreeUnit.unitCurrentHP == Mathf.Min(partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyThreePlatform));
             }
             else if (partyFourUnit.unitCurrentHP == Mathf.Min(partyThreeUnit.unitCurrentHP, partyFourUnit.unitCurrentHP))
             {
                 StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+                StartCoroutine(HitParticleSystemEnemy(partyFourPlatform));
             }
         }
     }
@@ -927,21 +989,25 @@ public class BattleSystemWLevelling : MonoBehaviour
         {
             Debug.Log("All but Party One are dead");
             StartCoroutine(EnemyBasic(partyOneUnit, pOneHUD));
+            StartCoroutine(HitParticleSystemEnemy(partyOnePlatform));
         }
         else if (partyOneUnit.unitIsDead && partyFourUnit.unitIsDead && partyFourUnit.unitIsDead)
         {
             Debug.Log("All but Party Two are dead");
             StartCoroutine(EnemyBasic(partyTwoUnit, pTwoHUD));
+            StartCoroutine(HitParticleSystemEnemy(partyTwoPlatform));
         }
         else if (partyOneUnit.unitIsDead && partyTwoUnit.unitIsDead && partyFourUnit.unitIsDead)
         {
             Debug.Log("All but Party Three are dead");
             StartCoroutine(EnemyBasic(partyThreeUnit, pThreeHUD));
+            StartCoroutine(HitParticleSystemEnemy(partyThreePlatform));
         }
         else if (partyOneUnit.unitIsDead && partyTwoUnit.unitIsDead && partyThreeUnit.unitIsDead)
         {
             Debug.Log("All but Party Four are dead");
             StartCoroutine(EnemyBasic(partyFourUnit, pFourHUD));
+            StartCoroutine(HitParticleSystemEnemy(partyFourPlatform));
         }
     }
     

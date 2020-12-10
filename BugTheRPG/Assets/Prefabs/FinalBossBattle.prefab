@@ -26,6 +26,8 @@ GameObject:
   - component: {fileID: 6534292448854098350}
   - component: {fileID: 3550123972198485526}
   - component: {fileID: 8404688893783414410}
+  - component: {fileID: -7420465652493131547}
+  - component: {fileID: 6794057241078200752}
   m_Layer: 0
   m_Name: FinalBossBattle
   m_TagString: EnemyBattle
@@ -106,6 +108,37 @@ CapsuleCollider:
   m_Height: 2.6637635
   m_Direction: 1
   m_Center: {x: 0.59171295, y: 0.61040044, z: 0}
+--- !u!95 &-7420465652493131547
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5937866356403131384}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cd45bb8e66a24884ab80eb2858fbb7bd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6794057241078200752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5937866356403131384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c4cadc42c37ae4d91229b8271167b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5760754065664707483
 PrefabInstance:
   m_ObjectHideFlags: 0

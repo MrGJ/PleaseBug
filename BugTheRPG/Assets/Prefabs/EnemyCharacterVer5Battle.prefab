@@ -105,6 +105,8 @@ GameObject:
   - component: {fileID: 5904502674970062691}
   - component: {fileID: 4187198988273131739}
   - component: {fileID: 9222261247401654343}
+  - component: {fileID: 4426065714293133905}
+  - component: {fileID: -6771792097327113921}
   m_Layer: 0
   m_Name: EnemyCharacterVer5Battle
   m_TagString: EnemyBattle
@@ -185,3 +187,34 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!95 &4426065714293133905
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6429152656974855477}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cd45bb8e66a24884ab80eb2858fbb7bd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-6771792097327113921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6429152656974855477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c4cadc42c37ae4d91229b8271167b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

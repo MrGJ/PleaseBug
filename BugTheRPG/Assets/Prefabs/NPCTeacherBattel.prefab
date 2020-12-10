@@ -91,6 +91,8 @@ GameObject:
   - component: {fileID: 1475596325782594865}
   - component: {fileID: 182308590258852094}
   - component: {fileID: 2517294514165025066}
+  - component: {fileID: 1819091669367934139}
+  - component: {fileID: -5889879520555584620}
   m_Layer: 0
   m_Name: NPCTeacherBattel
   m_TagString: EnemyBattle
@@ -171,3 +173,34 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!95 &1819091669367934139
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3680903775599014837}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cd45bb8e66a24884ab80eb2858fbb7bd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-5889879520555584620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3680903775599014837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c4cadc42c37ae4d91229b8271167b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
