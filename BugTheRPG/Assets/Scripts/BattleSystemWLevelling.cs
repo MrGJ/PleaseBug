@@ -68,7 +68,6 @@ public class BattleSystemWLevelling : MonoBehaviour
     //Initialises Battle
     public IEnumerator BattleInit()
     {
-        
         turnTick = 0;
         GameObject partyOneGO = Instantiate(partyMemOne, partyOnePlatform);
         partyOneUnit = partyOneGO.GetComponent<UnitWLevelling>();

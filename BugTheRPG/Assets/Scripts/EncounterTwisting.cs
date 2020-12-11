@@ -63,7 +63,6 @@ public class EncounterTwisting : MonoBehaviour
         SetStatBattleToOver(battleSystem.partyTwoUnit, overworldSystem.partyTwoUnit);
         SetStatBattleToOver(battleSystem.partyThreeUnit, overworldSystem.partyThreeUnit);
         SetStatBattleToOver(battleSystem.partyFourUnit, overworldSystem.partyFourUnit);
-        
     }
 
     public void SetStatOverToBattle(UnitWLevelling unitBattle, UnitWLevelling unitOverworld)
